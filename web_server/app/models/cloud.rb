@@ -1,5 +1,11 @@
-# -*- coding: utf-8 -*-
 class Cloud
+  include Mongoid::Document
+  field :location, :type => Array
+  field :date, :type => Integer
+  field :score, :type => Integer
+
+  index({location: Mongo::GEO2D}, {min: 0, max: 200})
+  
   def self.find_by_geo(lat, lan)
     # 10 years dummy!
     ret = {
