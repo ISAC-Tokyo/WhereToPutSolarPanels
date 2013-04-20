@@ -14,6 +14,25 @@ Members
 - Takashi Nishibayashi (github:haginon3000)
 
 
+Softwares and Libraries
+=======================
+
+- HDF
+
+  - https://eosweb.larc.nasa.gov/HBDOCS/hdf.html
+
+- HDF Java
+
+  - http://www.hdfgroup.org/hdf-java-html/
+
+- HDF4 to HDF5
+
+  - http://www.hdfgroup.org/h4toh5/download.html
+
+- HDF5 to XML Format
+
+  - http://www.hdfgroup.org/HDF5/doc/RM/Tools.html#Tools-Dump
+
 Servers
 =======
 
