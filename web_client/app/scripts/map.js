@@ -8,8 +8,6 @@ var wpsp = wpsp || {};
 wpsp.map = wpsp.map || function() {
   this.root = {};
   this.panes = {};
-  this.overlays = [];
-  this.sprites = [];
 };
 
 wpsp.map.prototype.buildMap = function(options) {
