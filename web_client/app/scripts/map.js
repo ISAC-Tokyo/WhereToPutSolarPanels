@@ -19,8 +19,12 @@ wpsp.map.prototype.buildMap = function(options) {
 wpsp.map.prototype.init = function() {
   var mapOptions = {
     center: new google.maps.LatLng(37.0625, -95.677068),
-    zoom: 12,
-    mapTypeId: google.maps.MapTypeId.ROADMAP
+    zoom: 14,
+    mapTypeId: google.maps.MapTypeId.ROADMAP,
+    zoomControlOptions: {
+      style: google.maps.ZoomControlStyle.SMALL
+    },
+    streetViewControl: false
   };
   this.root = this.buildMap(mapOptions);
 };
