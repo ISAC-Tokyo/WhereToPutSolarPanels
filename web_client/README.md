@@ -1,5 +1,7 @@
 This directory has initialized
 
 ```
-yeoman init quickstart
+yo init webapp
 ```
+
+see http://yeoman.io/
