@@ -10,7 +10,7 @@ import math
 import pymongo
 
 file_name = 'MOD35_L2.A2004026.0110.004.2004026151504.h5'
-# > ruby -rdate -e 'p Date.CONFIDENT_CLEARnew(2004, 1, 1) + 26'
+# > ruby -rdate -e 'p Date.new(2004, 1, 1) + 26'
 # <Date: 2004-01-27 ((2453032j,0s,0n),+0s,2299161j)>
 f = h5py.File(file_name, 'r')
 
