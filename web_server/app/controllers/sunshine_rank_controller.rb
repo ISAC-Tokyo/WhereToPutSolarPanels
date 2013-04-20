@@ -1,0 +1,2 @@
+class SunshineRankController < ApplicationController
+end
