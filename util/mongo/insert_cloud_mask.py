@@ -8,6 +8,7 @@
 import h5py
 import math
 import pymongo
+import datetime
 
 file_name = 'MOD35_L2.A2004026.0110.004.2004026151504.h5'
 # > ruby -rdate -e 'p Date.new(2004, 1, 1) + 26'
@@ -49,7 +50,7 @@ for z in range(0, len(cloud_masks)):
 				quority = "CONFIDENT_CLEAR"
 			pass
 			mongo.insert({
-				'date': '2004-01-27',
+				'date': datetime.datetime(2004, 1, 27),
 				'latitude': float(lat),
 				'longitude': float(lon),
 				'quority': str(quority),
