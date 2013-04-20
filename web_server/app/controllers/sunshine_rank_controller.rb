@@ -1,9 +1,11 @@
 class SunshineRankController < ApplicationController
   def get_rank
-    lat = params[:lat]
-    lon = params[:lon]
+    lat = params[:lat].to_f
+    lon = params[:lon].to_f
+    range = 1
 
-    ret = Cloud.find_by_geo(lat, lon)
+    ret = Cloud.where(:latitude.gt => lat-range, :latitude.lt => lat+range, :longitude.gt => lon-range, :longitude.lt => lon+range)
+
     render :json => ret.to_json
   end
 

@@ -1,10 +1,11 @@
 class Cloud
   include Mongoid::Document
-  field :location, :type => Array
+  field :latitude, :type => Float
+  field :longitude, :type => Float
   field :date, :type => Integer
-  field :score, :type => Integer
+  field :quority, :type => String
 
-  index({location: Mongo::GEO2D}, {min: 0, max: 200})
+  index({latitude: 1, longitude:1})
   
   def self.find_by_geo(lat, lan)
     # 10 years dummy!
