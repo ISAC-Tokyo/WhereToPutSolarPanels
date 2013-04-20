@@ -1,18 +1,18 @@
 /**
  */
-var perpetuality = perpetuality || {};
+var wpsp = wpsp || {};
 
 /**
  * Map
  */
-perpetuality.map = perpetuality.map || function() {
+wpsp.map = wpsp.map || function() {
   this.root = {};
   this.panes = {};
   this.overlays = [];
   this.sprites = [];
 };
 
-perpetuality.map.prototype.init = function() {
+wpsp.map.prototype.init = function() {
   var mapOptions = {
     center: new google.maps.LatLng(42.34941, -71.056137),
     zoom: 12,
@@ -24,18 +24,18 @@ perpetuality.map.prototype.init = function() {
 /**
  * Pane management.
  */
-perpetuality.map.prototype.registerPane = function(name, position, pane) {
+wpsp.map.prototype.registerPane = function(name, position, pane) {
   if (this.panes[name] == undefined) {
     this.panes[name] = pane;
     this.root.controls[position].push(pane);
   }
 };
 
-perpetuality.map.prototype.deRegisterPane = function(name) {
+wpsp.map.prototype.deRegisterPane = function(name) {
   delete this.panes[name];
 };
 
-perpetuality.map.prototype.makeItemizedPane = function(name, contentList, extraClass) {
+wpsp.map.prototype.makeItemizedPane = function(name, contentList, extraClass) {
   var pane = document.createElement("div");
   pane.id = name + "-pane";
   $(pane).addClass("map-pane");
@@ -49,7 +49,7 @@ perpetuality.map.prototype.makeItemizedPane = function(name, contentList, extraC
     if (itemExtraClass) {
       $(contentDiv).addClass(itemExtraClass);
     }
-    var content = new perpetuality.map.ItemizedPaneItem();
+    var content = new wpsp.map.ItemizedPaneItem();
     content.title = contentList[i].title;
     content.action = contentList[i].action;
     var title = document.createElement("div");
@@ -70,7 +70,7 @@ perpetuality.map.prototype.makeItemizedPane = function(name, contentList, extraC
   return pane;
 };
 
-perpetuality.map.prototype.makeTextPane = function(name, contentList, extraClass) {
+wpsp.map.prototype.makeTextPane = function(name, contentList, extraClass) {
   var pane = document.createElement("div");
   pane.id = name + "-pane";
   $(pane).addClass("map-pane");
@@ -79,7 +79,7 @@ perpetuality.map.prototype.makeTextPane = function(name, contentList, extraClass
   }
   for (var i = 0; i < contentList.length; i++) {
     var contentDiv = document.createElement("div");
-    var section = new perpetuality.map.TextPaneItem();
+    var section = new wpsp.map.TextPaneItem();
     var title = contentList[i].title;
     if (title != undefined) {
       section.title = title;
@@ -101,13 +101,13 @@ perpetuality.map.prototype.makeTextPane = function(name, contentList, extraClass
 /**
  * Pane Contents.
  */
-perpetuality.map.ItemizedPaneItem = function() {
+wpsp.map.ItemizedPaneItem = function() {
   this.image = undefined;
   this.title = "Title";
   this.action = function() {};
 };
 
-perpetuality.map.TextPaneItem = function() {
+wpsp.map.TextPaneItem = function() {
   this.title = "Title";
   this.content = "Content";
 };
@@ -116,7 +116,7 @@ perpetuality.map.TextPaneItem = function() {
  * Application's map.
  */
 $(document).ready(function() {
-  var map = new perpetuality.map;
+  var map = new wpsp.map;
   map.init();
 
   /**
