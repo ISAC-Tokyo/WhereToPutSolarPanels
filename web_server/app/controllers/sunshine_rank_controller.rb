@@ -1,10 +1,28 @@
 class SunshineRankController < ApplicationController
+  SCORES = {
+    "CLOUDY" => 0,
+    "UNCERTAIN" => 1,
+    "PROBABLY_CLEAR" => 2,
+    "CONFIDENT_CLEAR" => 3
+  }
+  RANGE = 1
+
   def get_rank
     lat = params[:lat].to_f
     lon = params[:lon].to_f
-    range = 1
 
-    ret = Cloud.where(:latitude.gt => lat-range, :latitude.lt => lat+range, :longitude.gt => lon-range, :longitude.lt => lon+range)
+    raw = Cloud.where(:latitude.gt => lat-RANGE, :latitude.lt => lat+RANGE, :longitude.gt => lon-RANGE, :longitude.lt => lon+RANGE)
+
+    ret = {}
+    raw.each do |data|
+      date = data["date"]
+      score = SCORES[data["quority"]]
+      if ret[date]
+        ret[date] += score
+      else
+        ret[date] = score
+      end
+    end
 
     render :json => ret.to_json
   end
