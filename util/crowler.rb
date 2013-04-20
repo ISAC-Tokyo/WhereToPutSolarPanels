@@ -21,15 +21,69 @@ class HDF::NASA::Crowler
 		@agent = Mechanize.new
 	end
 
-	def search
+	def search(from, to)
 		response = @agent.get 'http://ladsweb.nascom.nasa.gov/data/search.html'
-		puts response.forms.first
+		form = response.forms.first
+		form['endTime']   = to  .strftime '%m/%d/%Y 23:59:59'
+		form['startTime'] = from.strftime '%m/%d/%Y 00:00:00'
+		form['si'] = 'Terra MODIS'
+		form['group'] = 'Terra Atmosphere Level 2 Products'
+		form['products'] = 'MOD35_L2'
+		form['coordinate_system'] = 'LAT_LON'
+		form['bboxType'] = 'NWES'
+		form['bb_top'] = 50
+		form['bb_left'] = 120
+		form['bb_right'] = 150
+		form['bb_bottom'] = 20
+		form['coverageOptions'] = 'D'
+		form['startClearPct250m'] = '0.0'
+		form['endClearPct250m'] = '100.0'
+		form['filterClearPct250m'] = 'No'
+		form['startCloudCoverPct250m'] = '0.0'
+		form['endCloudCoverPct250m'] = '100.0'
+		form['filterCloudCoverPct250m'] = 'No'
+		form['filterPGEVersion'] = 'No'
+		form['PGEVersion'] = ''
+		form['startQAPercentMissingData'] = '0.0'
+		form['endQAPercentMissingData'] = '100.0'
+		form['filterQAPercentMissingData'] = 'No'
+		form['startSuccessfulRetrievalPct'] = '0.0'
+		form['endSuccessfulRetrievalPct'] = '100.0'
+		form['filterSuccessfulRetrievalPct'] = 'No'
+
+		form['metaRequired'] = '1'
+		button = form.buttons.last
+		response = @agent.submit form, button
+		form = response.forms.first
+		form.buttons.each do |b|
+			response = @agent.submit form, b if b.value == 'View All'
+		end
+		URI.extract response.body, 'ftp'
 	end
 end
 
 if __FILE__ == $0 then
 	client = HDF::NASA::Crowler.new
-	client.search
+	files = []
+	2000.upto 2012 do |year|
+		begin
+			$stderr.puts year
+			$stderr.puts 1
+			files += client.search Date.new(year, 1, 1), Date.new(year, 3, 31)
+			$stderr.puts 4
+			files += client.search Date.new(year, 4, 1), Date.new(year, 5, 31)
+			$stderr.puts 6
+			files += client.search Date.new(year, 6, 1), Date.new(year, 8, 31)
+			$stderr.puts 9
+			files += client.search Date.new(year, 9, 1), Date.new(year, 10, 31)
+			$stderr.puts 11
+			files += client.search Date.new(year, 11, 1), Date.new(year, 12, 31)
+		rescue Timeout::Error => e
+			retry
+		end
+	end
+	files.flatten.each do |file|
+		puts file
+	end
 end
-
 
