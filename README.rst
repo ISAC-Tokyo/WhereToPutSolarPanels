@@ -75,8 +75,8 @@ SSH秘密鍵はfacebookグループにアップロードしました。
 Server API
 ==========
 
-/api/v1/get_rank
-----------------
+/api/v1/rank
+------------
 
 HTTP GET
 
@@ -108,8 +108,8 @@ Example
   http://xxxxx.com?/api/v1/rank?lat=35.666666&lan=135.333333333
 
 
-/api/v1/get_range_rank
-----------------------
+/api/v1/range_rank
+------------------
 
 - Request Parameters
 
