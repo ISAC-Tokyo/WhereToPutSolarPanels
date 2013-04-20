@@ -10,7 +10,16 @@ WhereToPutSolarPanels
 Members
 =======
 
+Softwares and Libraries
+=======================
 
+- HDF
+
+  - https://eosweb.larc.nasa.gov/HBDOCS/hdf.html
+
+- HDF Java
+
+  - http://www.hdfgroup.org/hdf-java-html/
 
 Servers
 =======
