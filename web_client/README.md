@@ -40,3 +40,11 @@ bower install
 # For example
 bower install angular
 ```
+
+## Other commands
+
+    # Launch web server with auto reloader
+    grunt server
+
+    # Check javascript style
+    grunt jshint
