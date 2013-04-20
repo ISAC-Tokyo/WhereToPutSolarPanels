@@ -12,13 +12,17 @@ wpsp.map = wpsp.map || function() {
   this.sprites = [];
 };
 
+wpsp.map.prototype.buildMap = function(options) {
+  return new google.maps.Map(document.getElementById("map"), options || {});
+};
+
 wpsp.map.prototype.init = function() {
   var mapOptions = {
-    center: new google.maps.LatLng(42.34941, -71.056137),
+    center: new google.maps.LatLng(37.0625, -95.677068),
     zoom: 12,
     mapTypeId: google.maps.MapTypeId.ROADMAP
   };
-  this.root = new google.maps.Map(document.getElementById("map"), mapOptions);
+  this.root = this.buildMap(mapOptions);
 };
 
 /**
@@ -118,6 +122,19 @@ wpsp.map.TextPaneItem = function() {
 $(document).ready(function() {
   var map = new wpsp.map;
   map.init();
+
+  /**
+   * Use current location if available.
+   */
+  if(navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(function(position) {
+      var center = new google.maps.LatLng(
+        position.coords.latitude,
+        position.coords.longitude
+      );
+      map.root.setCenter(center);
+    }, function() {});
+  }
 
   /**
    * Panes.
