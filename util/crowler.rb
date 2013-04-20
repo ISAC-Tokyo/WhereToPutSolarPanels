@@ -10,15 +10,26 @@ require 'rubygems'
 require 'mechanize'
 require 'open-uri'
 
+
+module HDF
+	module NASA
+	end
+end
+
 class HDF::NASA::Crowler
 	def initialize
 		@agent = Mechanize.new
 	end
+
+	def search
+		response = @agent.get 'http://ladsweb.nascom.nasa.gov/data/search.html'
+		puts response.forms.first
+	end
 end
 
-
 if __FILE__ == $0 then
-
+	client = HDF::NASA::Crowler.new
+	client.search
 end
 
 
