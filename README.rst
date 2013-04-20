@@ -12,7 +12,7 @@ Members
 
 - takano32
 - Takashi Nishibayashi (github:haginon3000)
-
+- Shun Shiramatsu (github:siramatu)
 
 Softwares and Libraries
 =======================
