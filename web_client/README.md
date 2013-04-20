@@ -16,17 +16,21 @@ see http://yeoman.io/
  - bower
  - yo
  - grunt-cli
+- Ruby
+- Compass
 
-## Install node modules
+## Install Node modules and Ruby gems
 
 ```
 npm install -g yo bower grunt-cli
+gem install compass
 ```
 
-## Init working direcotry
+## Init working directory
 
 ```
 cd web_client
+npm install
 bower install
 ```
 
