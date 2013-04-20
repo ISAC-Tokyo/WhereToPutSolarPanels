@@ -1,7 +1,7 @@
 #include <string.h>
-#include "hdf.h"
+#include <hdf/hdf.h>
 
-#define   FILE_NAME        "General_Vgroups.hdf"
+#define   FILE_NAME        "MOD35_L2.A2004026.0110.004.2004026151504.hdf"
 #define   VDATA_NAME       "Latitude"
 #define   MAX_FIELDNAME_LIST_LENGTH (1024 * 1024)
 #define   RECORD_INDEX     0
@@ -79,8 +79,9 @@ int main( )
 				   }
 			   }
 		   }
-		   else
+		   else {
 			   printf ("  <-- neither vdata nor vgroup\n");
+		   }
 	   } /* for */
    } /* if */
 
