@@ -30,21 +30,24 @@ gem install compass
 
 ```
 cd web_client
+# Download development tools specidied at package.json
 npm install
+# Download JavaScript libraries specified at component.json
 bower install
-```
-
-## Add JavaScript Library
-
-```
-# For example
-bower install angular
 ```
 
 ## Other commands
 
-    # Launch web server with auto reloader
-    grunt server
+```
+# Add JavaScript Library
+bower install angular
 
-    # Check javascript style
-    grunt jshint
+# Launch web server with auto browser reloader
+grunt server
+
+# Check javascript style
+grunt jshint
+
+# Create release files 
+grunt build
+```
