@@ -28,14 +28,13 @@ CONFIDENT_CLEAR = int('00000110', 2)
 db = pymongo.Connection('127.0.0.1', 27017).test
 mongo = db.cloud_mask
 
-for z in range(0, len(cloud_masks)):
-	for y in range(0, len(cloud_masks[z]) - 10):
-		for x in range(0, len(cloud_masks[z][y]) - 10):
-			if z == 1: break
+for z in range(0, 1):
+	for y in range(0, len(latitude)):
+		for x in range(0, len(latitude[0])):
 			print "x, y, z = %s, %s, %s" % (x, y, z)
-			cm = cloud_masks[z][y][x]
-			lat = latitude[math.ceil(y/5)][math.ceil(x/5)]
-			lon = longitude[math.ceil(y/5)][math.ceil(x/5)]
+			cm = cloud_masks[z][y * 5][x * 5]
+			lat = latitude[y][x]
+			lon = longitude[y][x]
 			print "Latitude: %s" % lat
 			print "Longitude: %s" % lon
 			print "Cloud Mask: %s" % cm
