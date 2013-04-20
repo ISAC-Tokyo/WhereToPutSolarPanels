@@ -20,7 +20,7 @@ Servers
 CommonSpec
 
 - Ubuntu 12.04 LTS 64bit
-- Disk 215GB
+- Disk 215GB (/ : 15GB, /mnt/work : 200GB)
 - Memory 8GB
 - CPU 1.7GHz * 2
 - SSH Port 22, Key Authentication only
