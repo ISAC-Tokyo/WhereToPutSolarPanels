@@ -1,6 +1,9 @@
 #include "hdf.h"
 
 #define   FILE_NAME        "General_Vgroups.hdf"
+#define   VDATA_NAME       "Temperature"
+#define   FIELDNAME_LIST   "TMP"
+#define   RECORD_INDEX     0
 
 int main( )
 {
@@ -8,11 +11,14 @@ int main( )
 
    intn   status_n;     /* returned status for functions returning an intn  */
    int32  status_32,    /* returned status for functions returning an int32 */
-          file_id, vgroup_id, vgroup_ref,
+          file_id, vgroup_id, vgroup_ref, vdata_id, vdata_ref,
+	  num_of_records, record_pos,
           obj_index,    /* index of an object within a vgroup */
           num_of_pairs, /* number of tag/ref number pairs, i.e., objects */
           obj_tag, obj_ref,     /* tag/ref number of an HDF object */
           vgroup_pos = 0;       /* position of a vgroup in the file */
+   float32 databuf[1][1];
+   int16 rec_num;
 
    /********************** End of variable declaration ***********************/
 
@@ -68,14 +74,26 @@ int main( )
             status_n = Vgettagref (vgroup_id, obj_index, &obj_tag, &obj_ref);
             printf ("tag = %d, ref = %d", obj_tag, obj_ref);
 
+
             /*
             * State whether the HDF object referred to by obj_ref is a vdata,
             * a vgroup, or neither.
             */
             if (Visvg (vgroup_id, obj_ref))
                printf ("  <-- is a vgroup\n");
-            else if (Visvs (vgroup_id, obj_ref))
-               printf ("  <-- is a vdata\n");
+	    else if (Visvs (vgroup_id, obj_ref)) {
+		    printf ("  <-- is a vdata\n");
+		    vdata_ref = VSfind (file_id, VDATA_NAME);
+		    vdata_id = VSattach (file_id, vdata_ref, "r");
+		    status_n = VSsetfields (vdata_id, FIELDNAME_LIST);
+		    record_pos = VSseek (vdata_id, RECORD_INDEX);
+		    num_of_records =
+			    VSread (vdata_id, (uint8 *)databuf, 1, FULL_INTERLACE);
+		    for (rec_num = 0; rec_num < num_of_records; rec_num++)
+		    {
+			    printf ("%6.2f\n", databuf[rec_num][0]);
+		    }
+	    }
             else
                printf ("  <-- neither vdata nor vgroup\n");
          } /* for */
