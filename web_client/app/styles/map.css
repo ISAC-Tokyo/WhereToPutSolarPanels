@@ -1,0 +1,78 @@
+html { height: 100% }
+body { height: 100%; margin: 0; padding: 0 }
+#map { height: 100% }
+
+.map-section-title {
+  font-size: 1.4em;
+  text-align: center;
+  color: #EEE;
+}
+
+.map-section-text {
+  text-align: left;
+  color: #DDD;
+}
+
+.map-pane-item {
+  display: inline;
+  float: left;
+  text-align: center;
+  margin: auto;
+  color: #FFF;
+}
+
+.map-pane-item-horizontal {
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.map-pane-item-vertical {
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.map-pane {
+  padding: 20px;
+  background: rgba(0, 0, 0, 0.4);
+  border: solid 1px;
+}
+
+.map-pane-top {
+  -moz-border-bottom-left-radius: 15px;
+  -webkit-border-bottom-left-radius: 15px;
+  border-bottom-left-radius: 15px;
+
+  -moz-border-bottom-right-radius: 15px;
+  -webkit-border-bottom-right-radius: 15px;
+  border-bottom-right-radius: 15px;
+}
+
+.map-pane-bottom {
+  -moz-border-top-left-radius: 15px;
+  -webkit-border-top-left-radius: 15px;
+  border-top-left-radius: 15px;
+
+  -moz-border-top-right-radius: 15px;
+  -webkit-border-top-right-radius: 15px;
+  border-top-right-radius: 15px;
+}
+
+.map-pane-right {
+  -moz-border-top-left-radius: 15px;
+  -webkit-border-top-left-radius: 15px;
+  border-top-left-radius: 15px;
+
+  -moz-border-bottom-left-radius: 15px;
+  -webkit-border-bottom-left-radius: 15px;
+  border-bottom-left-radius: 15px;
+}
+
+.map-pane-left {
+  -moz-border-top-right-radius: 15px;
+  -webkit-border-top-right-radius: 15px;
+  border-top-right-radius: 15px;
+
+  -moz-border-bottom-right-radius: 15px;
+  -webkit-border-bottom-right-radius: 15px;
+  border-bottom-right-radius: 15px;
+}
