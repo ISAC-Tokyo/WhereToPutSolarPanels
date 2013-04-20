@@ -71,3 +71,77 @@ SSH秘密鍵はfacebookグループにアップロードしました。
 - private ip address: 10.1.2.51
 - hostname: i-1603-29764-VM
 
+
+Server API
+==========
+
+/api/v1/get_rank
+----------------
+
+HTTP GET
+
+- Request Parameters
+
+  - lat (中心座標)
+  - lan (中心座標)
+
+Response
+
+- Content-Type:application/json
+
+::
+
+  {
+    rank: 5,
+    total_score: 3600, // 10年分の合計
+    series: {
+      from: "2000-01",
+      to: "2010-12",
+      data: [100, 105, 100, 30] // 10年分の月毎の晴れてる度
+    }
+  }
+
+Example
+
+::
+
+  http://xxxxx.com?/api/v1/rank?lat=35.666666&lan=135.333333333
+
+
+/api/v1/get_range_rank
+----------------------
+
+- Request Parameters
+
+  - lat (中心座標)
+  - lan (中心座標)
+  - scale (Google MapsのScaleの値をそのまま送る)
+
+Response
+
+ランクの配列、指定したレンジの左上から右へ。
+
+::
+
+  -------
+  |1|2|3|
+  -------
+  |4|5|6|
+  -------
+
+- Content-Type:application/json
+
+::
+
+  {
+    size: 400, // データの個数
+    ranks: [5, 6, 8 ....... ] // レンジのランク
+  }
+
+
+Example
+
+::
+
+  http://xxxxx.com/api/v1/range_rank?lat=35.666666&lan=135.333333333&scale=10
+
