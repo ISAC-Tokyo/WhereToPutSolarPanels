@@ -1,10 +1,12 @@
+'use strict';
+
 function askLocation() {
   if (Modernizr.geolocation) {
     navigator.geolocation.getCurrentPosition(
         handleSuccess, 
         handleFailure, 
         {
-          enableHighAccuracy:true,
+          enableHighAccuracy: true,
           timeout: 5000
         });
   } else {
