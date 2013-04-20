@@ -114,7 +114,7 @@ Example
 - Request Parameters
 
   - lat (中心座標)
-  - lan (中心座標)
+  - lon (中心座標)
   - scale (Google MapsのScaleの値をそのまま送る)
 
 Response
@@ -143,5 +143,5 @@ Example
 
 ::
 
-  http://xxxxx.com/api/v1/range_rank?lat=35.666666&lan=135.333333333&scale=10
+  http://xxxxx.com/api/v1/range_rank?lat=35.666666&lon=135.333333333&scale=10
 
