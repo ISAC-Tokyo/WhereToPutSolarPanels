@@ -29,3 +29,10 @@ npm install -g yo bower grunt-cli
 cd web_client
 bower install
 ```
+
+## Add JavaScript Library
+
+```
+# For example
+bower install angular
+```
