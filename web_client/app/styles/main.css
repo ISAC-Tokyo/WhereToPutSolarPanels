@@ -2,7 +2,45 @@ body {
     background: #fafafa;
 }
 
-.hero-unit {
-    margin: 50px auto 0 auto;
-    width: 300px;
+/*********************************************************
+ * index.html
+ *********************************************************/
+
+
+/*********************************************************
+ * select_location.html
+ *********************************************************/
+
+div.location-result {
+  margin-top: 8px;
+  margin-bottom: 10px;
+  min-height: 40px;
+}
+
+
+div.location-selector {
+  padding-bottom: 20px;
+}
+
+div.panel-selector {
+  padding-bottom: 20px;
+}
+
+div.location-result > p {
+  margin-bottom: 5px;
+}
+
+@media (max-width: 480px) {
+  .container {
+    position: relative;
+  }
+  .btn {
+    width:100%;
+  }
+  div.row a.btn {
+    padding: 9px 0;
+  }
+  div.row {
+    position: relative;
+  }
 }
