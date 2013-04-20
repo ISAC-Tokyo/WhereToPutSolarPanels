@@ -50,8 +50,8 @@ for z in range(0, len(cloud_masks)):
 			pass
 			mongo.insert({
 				'date': '2004-01-27',
-				'latitude': str(lat),
-				'longitude': str(lon),
+				'latitude': float(lat),
+				'longitude': float(lon),
 				'quority': str(quority),
 			})
 			print "----"
