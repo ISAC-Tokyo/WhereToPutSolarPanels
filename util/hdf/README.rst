@@ -1,3 +1,10 @@
+::
+
+  CC=h4cc ./configure --prefix=$HOME/local/stow/h4h5tools-2.2.1
+
+
+::
+
             SUMMARY OF THE HDF4 CONFIGURATION
             =================================
 
