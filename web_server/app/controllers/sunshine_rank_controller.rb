@@ -36,15 +36,12 @@ class SunshineRankController < ApplicationController
     ret["series"]["data"] = buf.sort.map{|s| s[1]}
     ret["rank"] = 5
 
-    render :json => ret.to_json
 
-=begin
     if params.has_key? :callback
       render json: ret.to_json, callback: params[:callback]
     else
       render json: ret.to_json
     end
-=end
   end
 
   # GET /api/v1/rank/range
@@ -67,19 +64,19 @@ class SunshineRankController < ApplicationController
       ret << new
     end
 
-    render :json => ret.to_json
 =begin
     lat_min, lat_max = params[:lat_r]
     lon_min, lon_max = params[:lon_r]
 
     ret = Cloud.find_range_by_geo(lat_min, lat_max, lon_min, lon_max)
+=end
 
     if params.has_key? :callback
       render :json => ret.to_json, callback: params[:callback]
     else
       render :json => ret.to_json
     end
-=end
+
   end
 
 end
