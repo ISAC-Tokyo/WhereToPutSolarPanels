@@ -9,7 +9,7 @@ wpsp.map = wpsp.map || function() {
   this.root = {};
   this.dataServer = window.location.protocol + "//" + window.location.host;
   this.panes = {};
-  this.heatMapData = {};
+  this.heatMapCache = {};
 };
 
 wpsp.map.prototype.buildMap = function(options) {
@@ -75,27 +75,35 @@ wpsp.map.prototype.buildHeatMapLayer = function(data) {
     me.heatMap.setMap(null);
   }
   var zoom = "" + me.root.getZoom();
-  if (me.heatMapData[zoom] == undefined) {
-    me.heatMapData[zoom] = {
-      location: [],
-      data: []
-    }
+  var center = "(" + me.root.getCenter().lat() + "," + me.root.getCenter().lng() + ")";
+  var dataSet = [];
+  if (me.heatMapCache[zoom] == undefined || me.heatMapCache[zoom][center] == undefined) {
     $(data).each(function(idx, d) {
-      me.heatMapData[zoom].data.push({
+      dataSet.push({
         location: new google.maps.LatLng(d.lat, d.lon),
         weight:   d.weight
       });
     });
   }
-  var heatmap = new google.maps.visualization.HeatmapLayer({
-    data: me.heatMapData[zoom].data
-  });
-  heatmap.setOptions({
-    radius: $("#map").width() / 20
-  });
+
+  if (me.heatMapCache[zoom] == undefined) {
+    me.heatMapCache[zoom] = {};
+  }
+
+  if (me.heatMapCache[zoom][center] == undefined) {
+    var heatmap = undefined;
+    heatmap = new google.maps.visualization.HeatmapLayer({
+      data: dataSet
+    });
+    heatmap.setOptions({
+      radius: $("#map").width() / 20
+    });
+    me.heatMapCache[zoom][center] = heatmap;
+  } else {
+    heatmap = me.heatMapCache[zoom][center];
+  }
   heatmap.setMap(this.root);
   me.heatMap = heatmap;
-  console.log("refreshed heatmap");
 };
 
 /**
