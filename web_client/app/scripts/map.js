@@ -9,7 +9,7 @@ wpsp.map = wpsp.map || function() {
   this.root = {};
   this.dataServer = window.location.protocol + "//" + window.location.host;
   this.panes = {};
-  this.heatMapData = [];
+  this.heatMapData = {};
 };
 
 wpsp.map.prototype.buildMap = function(options) {
@@ -29,7 +29,7 @@ wpsp.map.prototype.init = function() {
   var map = this.buildMap(mapOptions);
 
   var me = this;
-  google.maps.event.addListener(map, 'center_changed', function() {
+  var updateMap = function() {
     var targetURL = me.dataServer + "/api/v1/rank/range";
     var northEast = this.getBounds().getNorthEast();
     var southWest = this.getBounds().getSouthWest();
@@ -58,7 +58,10 @@ wpsp.map.prototype.init = function() {
         }
       });
     }
-  });
+  };
+  google.maps.event.addListenerOnce(map, 'center_changed', updateMap);
+  google.maps.event.addListener(map, 'dragend', updateMap);
+  google.maps.event.addListener(map, 'zoom_changed', updateMap);
 
   this.root = map;
 };
@@ -67,25 +70,31 @@ wpsp.map.prototype.init = function() {
  * Layers.
  */
 wpsp.map.prototype.buildHeatMapLayer = function(data) {
-  if (this.heatMap) {
-    this.heatMap.setMap(null);
-  }
-  this.heatMapData = [];
   var me = this;
-  $(data).each(function(idx, d) {
-    me.heatMapData.push({
-      location: new google.maps.LatLng(d.lat, d.lon),
-      weight:   d.weight
-    })
-  });
+  if (this.heatMap) {
+    me.heatMap.setMap(null);
+  }
+  var zoom = "" + me.root.getZoom();
+  if (me.heatMapData[zoom] == undefined) {
+    me.heatMapData[zoom] = {
+      location: [],
+      data: []
+    }
+    $(data).each(function(idx, d) {
+      me.heatMapData[zoom].data.push({
+        location: new google.maps.LatLng(d.lat, d.lon),
+        weight:   d.weight
+      });
+    });
+  }
   var heatmap = new google.maps.visualization.HeatmapLayer({
-    data: this.heatMapData
+    data: me.heatMapData[zoom].data
   });
   heatmap.setOptions({
     radius: $("#map").width() / 20
   });
   heatmap.setMap(this.root);
-  this.heatMap = heatmap;
+  me.heatMap = heatmap;
   console.log("refreshed heatmap");
 };
 
