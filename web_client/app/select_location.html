@@ -11,46 +11,60 @@
     <meta name="viewport" content="width=device-width">
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
     <link rel="stylesheet" href="styles/main.css">
+
+    <!-- build:css styles/vendor/bootstrap.css -->
     <link rel="stylesheet" href="components/bootstrap.css/css/bootstrap.min.css">
     <link rel="stylesheet" href="components/bootstrap.css/css/bootstrap-responsive.css">
-    <!-- build:js scripts/vendor/modernizr.js -->
+    <!-- endbuild -->
+
+    <!-- build:js scripts/common_lib.js -->
     <script src="components/modernizr/modernizr.js"></script>
+    <script src="components/jquery/jquery.js"></script>
+    <!-- endbuild -->
+
+    <!-- build:js scripts/select_location.js -->
+    <script src="scripts/select_location.js"></script>
     <!-- endbuild -->
 </head>
 <body>
     <div class="container">
-      <div class="location_selector">
-        <h1 >設置場所の選択</h1>
-        <p class="lead">
-        ああああああああああああああああああああああああああああああああああああああああああああああああああ
-        ええええええええええええええええええええええええええええええええええええええええええええええええええ
+      <div class="location-selector">
+        <h1 class="page-header">設置場所の選択</h1>
+        <p class="small">
+        あなたがいる場所の近くでソーラーパネルの設置場所を決めましょう。
         </p>
-        <p id="location-note" class="hidden alert alert-warning">お使いのブラウザでは位置情報が取得できません</p>
-        <p id="location-note-failed" class="hidden alert alert-error">位置情報が取得できませんでした</p>
-        <div class="result">
-          位置は
+        <iframe frameborder="0" width="100%" height="200" src="./map_frame.html"></iframe>
+        <div class="location-result">
+          <p class="address hidden alert alert-info"></p>
+          <p id="location-note" class="hidden alert alert-warning">お使いのブラウザでは位置情報が取得できません</p>
+          <p id="location-note-failed" class="hidden alert alert-error">位置情報が取得できませんでした。日本, 東京都目黒区駒場４丁目６を使用します。</p>
+          <div class="progress progress-striped active">
+            <div class="bar" style="width: 100%;"></div>
+          </div>
         </div>
-        <button class="btn btn-large btn-primary" id="location-ok">ソーラーパネル選択へ</button>
+        <button class="btn btn-large btn-primary" id="btn-location-ok">ソーラーパネル選択へ</button>
       </div>
 
-      <div class="panel_selector">
-        <h2>ソーラーパネルタイプ</h2>
-        <p class="lead">
+      <div class="panel-selector hidden">
+        <h1 class="page-header">ソーラーパネルタイプ</h1>
+        <p class="small">
         ああああああああああああああああああああああああああああああああああああああああああああああああああ
         ええええええええええええええええええええええええええええええええええええええええええええええええええ
         </p>
         <table class="table table-striped table-hover">
           <thead>
-            <tr><th>タイプ</th><th>発電量</th><th>耐久年数</th><th>価格(円)</th></tr>
+            <tr><th>タイプ</th><th>発電量(KW/h)</th><th>耐久年数</th><th>価格(万円)</th></tr>
           </thead>
           <tbody>
-            <tr><td>あああ</td><td>9999KW/h</td><td>10年</td><td>70,000,000</td></tr>
-            <tr><td>あああいいいい</td><td>9999KW/h</td><td>10年</td><td>70,000,000</td></tr>
-            <tr><td>おおおおおおお</td><td>9999KW/h</td><td>10年</td><td>70,000,000</td></tr>
-            <tr><td>fugafugafugafuaga</td><td>9999KW/h</td><td>10年</td><td>70,000,000</td></tr>
+            <tr><td>あああ</td><td>999</td><td>10年</td><td>70,000</td></tr>
+            <tr><td>あああいいいい</td><td>999</td><td>10年</td><td>70,000</td></tr>
+            <tr><td>おおおおおおお</td><td>999</td><td>10年</td><td>70,000</td></tr>
+            <tr><td>fugaafuaga</td><td>999</td><td>10年</td><td>70,000</td></tr>
           </tbody>
         </table>
-        <button class="btn btn-large btn-primary" id="panel-ok">結果表示</button>
+        <button class="btn btn-large btn-primary" id="btn-panel-ok">結果表示</button>
+        &nbsp;&nbsp;
+        <button class="btn btn-large" id="btn-back">戻る</button>
       </div>
 
     </div>
@@ -61,14 +75,12 @@
 
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
     <script>
-        var _gaq=[['_setAccount','UA-XXXXX-X'],['_trackPageview']];
-        (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
-        g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
-        s.parentNode.insertBefore(g,s)}(document,'script'));
+//        var _gaq=[['_setAccount','UA-XXXXX-X'],['_trackPageview']];
+//        (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+//        g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+//        s.parentNode.insertBefore(g,s)}(document,'script'));
     </script>
 
-    <script src="components/jquery/jquery.js"></script>
-    <script src="scripts/history_select.js"></script>
 
 </body>
 </html>
