@@ -14,7 +14,7 @@ var initialized = window.initialized = false;
 
     var myLatlng = new google.maps.LatLng(initLat, initLon);
     var mapOptions = {
-      zoom: 12,
+      zoom: 10,
       center: myLatlng,
       disableDefaultUI: true,
       mapTypeId: google.maps.MapTypeId.ROADMAP

@@ -10,7 +10,7 @@
         }
       },
       // Selected type
-      solerPanelType = 0;
+      solarPanelType = 0;
 
   function askLocation() {
     if (Modernizr.geolocation) {
@@ -63,7 +63,7 @@
     });
 
     $('#btn-panel-ok').on('click', function() {
-      location.href = './result.html?lat=' + pos.coords.latitude + '&lon=' + pos.coords.longitude + '&panelType=' + solerPanelType;
+      location.href = './result.html?lat=' + pos.coords.latitude + '&lon=' + pos.coords.longitude + '&panelType=' + solarPanelType;
     });
 
     $('#btn-back').on('click', function() {
@@ -71,8 +71,12 @@
         $('.location-selector').fadeIn(500).removeClass('hidden');
       });
     });
-
- 
+    
+    $('#solar-panel-list tr').on('click', function() {
+      $('.info', $(this).parent()).removeClass('info');
+      $(this).addClass('info');
+      solarPanelType = $($(this)[0]).data('panel-type');
+    });
   }
 
   function bootstrap() {
