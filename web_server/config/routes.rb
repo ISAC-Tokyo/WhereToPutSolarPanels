@@ -1,6 +1,8 @@
 WhereToPutSolarPanels::Application.routes.draw do
+
+  get 'api/v1/rank/range' => 'sunshine_rank#get_range_rank'
+
   match 'api/v1/rank' => 'sunshine_rank#get_rank'
-  match 'api/v1/range_rank' => 'sunshine_rank#get_range_rank'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

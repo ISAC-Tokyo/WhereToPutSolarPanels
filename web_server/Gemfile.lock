@@ -40,6 +40,13 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.6.2)
+    columnize (0.3.6)
+    debugger (1.5.0)
+      columnize (>= 0.3.1)
+      debugger-linecache (~> 1.2.0)
+      debugger-ruby_core_source (~> 1.2.0)
+    debugger-linecache (1.2.0)
+    debugger-ruby_core_source (1.2.0)
     erubis (2.7.0)
     execjs (1.4.0)
       multi_json (~> 1.0)
@@ -129,6 +136,7 @@ PLATFORMS
 DEPENDENCIES
   bson_ext
   coffee-rails (~> 3.2.1)
+  debugger
   jquery-rails
   mongo_mapper
   mongoid
