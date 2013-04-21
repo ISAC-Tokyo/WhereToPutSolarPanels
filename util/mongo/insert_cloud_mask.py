@@ -14,9 +14,11 @@ import datetime
 # > ruby -rdate -e 'p Date.new(2004, 1, 1) + 26'
 # <Date: 2004-01-27 ((2453032j,0s,0n),+0s,2299161j)>
 
-file_name = 'MOD35_L2.A2004274.1140.005.2010148215256.h5'
+#file_name = 'MOD35_L2.A2004274.1140.005.2010148215256.h5'
 #> ruby -rdate -e 'p Date.new(2004, 1, 1) + 274'
 #<Date: 2004-10-01 ((2453280j,0s,0n),+0s,2299161j)>
+
+file_name = 'MOD35_L2.A2012001.0005.005.2012001080819.h5'
 f = h5py.File(file_name, 'r')
 
 
@@ -42,6 +44,10 @@ for z in range(0, 1):
 			cm = cloud_masks[z][y * 5][x * 5]
 			lat = latitude[y][x]
 			lon = longitude[y][x]
+			if 36.0 < lat: continue
+			if lat < 32.0: continue
+			if 142.0 < lon: continue
+			if lon < 138.0: continue
 			print "Latitude: %s" % lat
 			print "Longitude: %s" % lon
 			# print "Cloud Mask: %s" % cm
@@ -57,7 +63,7 @@ for z in range(0, 1):
 				quority = "CONFIDENT_CLEAR"
 			pass
 			mongo.insert({
-				'date': datetime.datetime(2004, 10, 1),
+				'date': datetime.datetime(2012, 1, 1),
 				'latitude': float(lat),
 				'longitude': float(lon),
 				'quority': str(quority),
