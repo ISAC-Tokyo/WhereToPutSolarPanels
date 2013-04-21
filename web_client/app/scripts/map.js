@@ -9,7 +9,6 @@ wpsp.map = wpsp.map || function() {
   this.root = {};
   this.dataServer = window.location.protocol + "//" + window.location.host;
   this.panes = {};
-  this.heatMap = {};
   this.heatMapData = [];
 };
 
@@ -68,6 +67,9 @@ wpsp.map.prototype.init = function() {
  * Layers.
  */
 wpsp.map.prototype.buildHeatMapLayer = function(data) {
+  if (this.heatMap) {
+    this.heatMap.setMap(null);
+  }
   this.heatMapData = [];
   var me = this;
   $(data).each(function(idx, d) {
@@ -78,6 +80,9 @@ wpsp.map.prototype.buildHeatMapLayer = function(data) {
   });
   var heatmap = new google.maps.visualization.HeatmapLayer({
     data: this.heatMapData
+  });
+  heatmap.setOptions({
+    radius: $("#map").width() / 20
   });
   heatmap.setMap(this.root);
   this.heatMap = heatmap;
