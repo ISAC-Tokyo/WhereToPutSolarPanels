@@ -1,4 +1,5 @@
 class SunshineRankController < ApplicationController
+
   def get_rank
     lat = params[:lat]
     lon = params[:lon]
@@ -12,13 +13,13 @@ class SunshineRankController < ApplicationController
     end
   end
 
+  # GET /api/v1/rank/range
   def get_range_rank
-    lat = params[:lat]
-    lon = params[:lon]
-    scale = params[:scale]
-    range = culc_range(scale)
+    lat_min, lat_max = params[:lat_r]
+    lon_min, lon_max = params[:lon_r]
 
-    ret = Cloud.find_range_by_geo(lat, lon, range)
+    ret = Cloud.find_range_by_geo(lat_min, lat_max, lon_min, lon_max)
+
     if params.has_key? :callback
       render :json => ret.to_json, callback: params[:callback]
     else
@@ -26,11 +27,5 @@ class SunshineRankController < ApplicationController
     end
   end
 
-  private
-
-  def culc_range(scale)
-    # dummy
-    ret = [35.713382, 139.762376]
-    ret
-  end
 end
+

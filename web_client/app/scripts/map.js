@@ -7,7 +7,10 @@ var wpsp = wpsp || {};
  */
 wpsp.map = wpsp.map || function() {
   this.root = {};
+  this.dataServer = window.location.protocol + "//" + window.location.host;
   this.panes = {};
+  this.heatMap = {};
+  this.heatMapData = [];
 };
 
 wpsp.map.prototype.buildMap = function(options) {
@@ -16,7 +19,7 @@ wpsp.map.prototype.buildMap = function(options) {
 
 wpsp.map.prototype.init = function() {
   var mapOptions = {
-    center: new google.maps.LatLng(37.0625, -95.677068),
+    center: new google.maps.LatLng(37.0625, -95.677068), // Boston
     zoom: 14,
     mapTypeId: google.maps.MapTypeId.ROADMAP,
     zoomControlOptions: {
@@ -24,7 +27,61 @@ wpsp.map.prototype.init = function() {
     },
     streetViewControl: false
   };
-  this.root = this.buildMap(mapOptions);
+  var map = this.buildMap(mapOptions);
+
+  var me = this;
+  google.maps.event.addListener(map, 'center_changed', function() {
+    var targetURL = me.dataServer + "/api/v1/rank/range";
+    var northEast = this.getBounds().getNorthEast();
+    var southWest = this.getBounds().getSouthWest();
+    var data = {
+      lon_r: [ southWest.lng(), northEast.lng() ],
+      lat_r: [ southWest.lat(), northEast.lat() ],
+    };
+    if (me.dataServer != (window.location.protocol + "//" + window.location.host)) {
+      $.ajax(targetURL, {
+        data: data,
+        dataType: "jsonp",
+        success: function(data) {
+          me.buildHeatMapLayer(data);
+        }
+      });
+    } else {
+      $.ajax(targetURL, {
+        data: data,
+        dataType: "json",
+        timeout: 5,
+        success: function(data, textStatus, jqXHR) {
+          me.buildHeatMapLayer(data);
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+          alert("failed to update heat map data!");
+        }
+      });
+    }
+  });
+
+  this.root = map;
+};
+
+/**
+ * Layers.
+ */
+wpsp.map.prototype.buildHeatMapLayer = function(data) {
+  this.heatMapData = [];
+  var me = this;
+  $(data).each(function(idx, d) {
+    me.heatMapData.push({
+      location: new google.maps.LatLng(d.lat, d.lon),
+      weight:   d.weight
+    })
+  });
+  var heatmap = new google.maps.visualization.HeatmapLayer({
+    data: this.heatMapData
+  });
+  heatmap.setMap(this.root);
+  this.heatMap = heatmap;
+  console.log("refreshed heatmap");
 };
 
 /**
@@ -124,6 +181,7 @@ wpsp.map.TextPaneItem = function() {
 $(document).ready(function() {
   var map = new wpsp.map;
   map.init();
+  map.dataServer = "http://localhost:3000"
 
   /**
    * Use current location if available.
@@ -136,6 +194,8 @@ $(document).ready(function() {
       );
       map.root.setCenter(center);
     }, function() {});
+  } else {
+    // TODO Need to generate the layers?
   }
 
   /**
@@ -143,7 +203,9 @@ $(document).ready(function() {
    */
   var overlayControlPane = map.makeItemizedPane("overlay", [{
     "title": "HeatMap",
-    "action": function() { alert("HeatMap") },
+    "action": function() {
+      map.heatMap.setMap(map.heatMap.getMap() ? null : map.root);
+    },
     "image": "images/default-image.jpeg",
     "itemExtraClass": "map-pane-item-horizontal"
   }], "map-pane-bottom");
