@@ -10,9 +10,13 @@ import math
 import pymongo
 import datetime
 
-file_name = 'MOD35_L2.A2004026.0110.004.2004026151504.h5'
+#file_name = 'MOD35_L2.A2004026.0110.004.2004026151504.h5'
 # > ruby -rdate -e 'p Date.new(2004, 1, 1) + 26'
 # <Date: 2004-01-27 ((2453032j,0s,0n),+0s,2299161j)>
+
+file_name = 'MOD35_L2.A2004274.1140.005.2010148215256.h5'
+#> ruby -rdate -e 'p Date.new(2004, 1, 1) + 274'
+#<Date: 2004-10-01 ((2453280j,0s,0n),+0s,2299161j)>
 f = h5py.File(file_name, 'r')
 
 
@@ -25,7 +29,10 @@ UNCERTAIN       = int('00000010', 2)
 PROBABLY_CLEAR  = int('00000100', 2)
 CONFIDENT_CLEAR = int('00000110', 2)
 
-db = pymongo.Connection('127.0.0.1', 27017).test
+LAND_OR_WATER = int('11000000', 2)
+WATER         = int('00000000', 2)
+
+db = pymongo.Connection('127.0.0.1', 27017).foo
 mongo = db.cloud_mask
 
 for z in range(0, 1):
@@ -37,7 +44,8 @@ for z in range(0, 1):
 			lon = longitude[y][x]
 			print "Latitude: %s" % lat
 			print "Longitude: %s" % lon
-			print "Cloud Mask: %s" % cm
+			# print "Cloud Mask: %s" % cm
+			if cm & LAND_OR_WATER == WATER: continue
 			quority = ""
 			if cm & CLOUDY == CLOUDY:
 				quority = "CLOUDY"
@@ -49,12 +57,12 @@ for z in range(0, 1):
 				quority = "CONFIDENT_CLEAR"
 			pass
 			mongo.insert({
-				'date': datetime.datetime(2004, 1, 27),
+				'date': datetime.datetime(2004, 10, 1),
 				'latitude': float(lat),
 				'longitude': float(lon),
 				'quority': str(quority),
 			})
-			print "----"
+			#print "----"
 print "done"
 
 
