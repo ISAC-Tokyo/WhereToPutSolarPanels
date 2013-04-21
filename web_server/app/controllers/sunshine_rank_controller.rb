@@ -12,18 +12,29 @@ class SunshineRankController < ApplicationController
     lat = params[:lat].to_f
     lon = params[:lon].to_f
 
-    raw = Cloud.where(:latitude.gt => lat-RANGE, :latitude.lt => lat+RANGE, :longitude.gt => lon-RANGE, :longitude.lt => lon+RANGE)
+    raw = Cloud.where(:latitude.gt => lat-RANGE, :latitude.lt => lat+RANGE, :longitude.gt => lon-RANGE, :longitude.lt => lon+RANGE).to_a
 
-    ret = {}
+    buf = {}
+    sum = 0
     raw.each do |data|
       date = data["date"]
       score = SCORES[data["quority"]]
-      if ret[date]
-        ret[date] += score
+      sum += score
+      if buf[date]
+        buf[date] += score
       else
-        ret[date] = score
+        buf[date] = score
       end
     end
+    dates = buf.keys.sort
+
+    ret = {}
+    ret["total_score"] = sum
+    ret["series"] = {}
+    ret["series"]["from"] = dates.first
+    ret["series"]["to"] = dates.last
+    ret["series"]["data"] = buf.sort.map{|s| s[1]}
+    ret["rank"] = 5
 
     render :json => ret.to_json
   end
@@ -48,17 +59,5 @@ class SunshineRankController < ApplicationController
     end
 
     render :json => ret.to_json
-  end
-
-  private
-
-  def get_summary(raw)
-    sum = 0
-    raw.each do |data|
-      date = data["date"]
-      score = SCORES[data["quority"]]
-      sum += score
-    end
-    sum
   end
 end
