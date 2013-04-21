@@ -1,4 +1,3 @@
-=====================
 WhereToPutSolarPanels
 =====================
 
@@ -8,14 +7,14 @@ WhereToPutSolarPanels
 
 
 Members
-=======
+-------
 
 - takano32
 - Takashi Nishibayashi (github:haginon3000)
 - Shun Shiramatsu (github:siramatu)
 
 Softwares and Libraries
-=======================
+-----------------------
 
 - HDF
 
@@ -34,7 +33,7 @@ Softwares and Libraries
   - http://www.hdfgroup.org/HDF5/doc/RM/Tools.html#Tools-Dump
 
 Servers
-=======
+-------
 
 CommonSpec
 
@@ -73,21 +72,18 @@ SSH秘密鍵はfacebookグループにアップロードしました。
 
 
 Server API
-==========
+----------
 
-/api/v1/rank
-------------
-
-HTTP GET
+* GET /api/v1/rank
 
 - Request Parameters
 
   - lat (中心座標)
   - lan (中心座標)
 
-Response
+- Response
 
-- Content-Type:application/json
+  - Content-Type:application/json
 
 ::
 
@@ -101,23 +97,21 @@ Response
     }
   }
 
-Example
+- Example
 
 ::
 
   http://xxxxx.com?/api/v1/rank?lat=35.666666&lan=135.333333333
 
 
-/api/v1/range_rank
-------------------
+* GET /api/v1/rank/range
 
 - Request Parameters
 
-  - lat (中心座標)
-  - lon (中心座標)
-  - scale (Google MapsのScaleの値をそのまま送る)
+  - lat_r: latitude range
+  - lon_r: longitude range
 
-Response
+- Response
 
 ランクの配列、指定したレンジの左上から右へ。
 
@@ -133,15 +127,24 @@ Response
 
 ::
 
-  {
-    size: 400, // データの個数
-    ranks: [5, 6, 8 ....... ] // レンジのランク
-  }
+  [
+    {
+    "lat": 32.123,
+    "lon": 139.123,
+    "weight": 123
+    },
+    ...
+    {
+    "lat": 38.123,
+    "lon": 142.123,
+    "weight": 321
+    },
+  ]
 
 
-Example
+- Example
 
 ::
 
-  http://xxxxx.com/api/v1/range_rank?lat=35.666666&lon=135.333333333&scale=10
+  http://xxxxx.com/api/v1/range/rank?lat_r=32.123&lat_r=38.123&lon_r=139.123&lon_r=142.123
 
