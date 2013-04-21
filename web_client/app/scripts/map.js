@@ -274,6 +274,7 @@ $(document).ready(function() {
         "name": "overlay",
         "position": google.maps.ControlPosition.BOTTOM_CENTER,
         "pane": overlayControlPane
+          /**
       },
       {
         "name": "status",
@@ -289,6 +290,7 @@ $(document).ready(function() {
         "name": "sprite",
         "position": google.maps.ControlPosition.RIGHT_CENTER,
         "pane": spritePane
+        */
       }
     ]
   };
