@@ -4,7 +4,7 @@ class Cloud
 
   field :latitude, :type => Float
   field :longitude, :type => Float
-  field :date, :type => Integer
+  field :date, :type => Date
   field :quority, :type => String
 
   index({latitude: 1, longitude:1})
