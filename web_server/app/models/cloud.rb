@@ -22,10 +22,12 @@ class Cloud
     incLon = (maxL - minL) / 20.0
     idx = 0
     while true
-      lat = minl + incLat * (idx - idx % 20)
-      Rails.logger.info("#{idx}: #{lat}")
-      break unless lat < maxl
       lon = minL + incLon * (idx % 20)
+      if lon == minL
+        lat ||= minl + incLat
+        lat += incLat
+      end
+      break unless lat < maxl
       sample.push({
         lon: lon,
         lat: lat,
