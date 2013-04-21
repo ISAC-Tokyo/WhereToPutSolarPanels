@@ -9,6 +9,7 @@ import h5py
 import math
 import pymongo
 import datetime
+import time
 
 #file_name = 'MOD35_L2.A2004026.0110.004.2004026151504.h5'
 # > ruby -rdate -e 'p Date.new(2004, 1, 1) + 26'
@@ -21,6 +22,7 @@ import datetime
 file_name = 'MOD35_L2.A2012001.0005.005.2012001080819.h5'
 f = h5py.File(file_name, 'r')
 
+DEBUG = False
 
 cloud_masks = f['mod35']['Data Fields']['Cloud_Mask']
 latitude = f['mod35']['Geolocation Fields']['Latitude']
@@ -34,23 +36,25 @@ CONFIDENT_CLEAR = int('00000110', 2)
 LAND_OR_WATER = int('11000000', 2)
 WATER         = int('00000000', 2)
 
-db = pymongo.Connection('127.0.0.1', 27017).foo
+db = pymongo.Connection('10.1.1.82', 27017).test
 mongo = db.cloud_mask
 
 for z in range(0, 1):
 	for y in range(0, len(latitude)):
 		for x in range(0, len(latitude[0])):
+			if DEBUG: print time.ctime(time.time())
 			print "x, y, z = %s, %s, %s" % (x, y, z)
 			cm = cloud_masks[z][y * 5][x * 5]
 			lat = latitude[y][x]
 			lon = longitude[y][x]
+			if DEBUG: print time.ctime(time.time())
 			if 36.0 < lat: continue
 			if lat < 32.0: continue
 			if 142.0 < lon: continue
 			if lon < 138.0: continue
 			print "Latitude: %s" % lat
 			print "Longitude: %s" % lon
-			# print "Cloud Mask: %s" % cm
+			if DEBUG: print time.ctime(time.time())
 			if cm & LAND_OR_WATER == WATER: continue
 			quority = ""
 			if cm & CLOUDY == CLOUDY:
@@ -62,13 +66,15 @@ for z in range(0, 1):
 			elif cm & CONFIDENT_CLEAR == CONFIDENT_CLEAR:
 				quority = "CONFIDENT_CLEAR"
 			pass
+			if DEBUG: print time.ctime(time.time())
 			mongo.insert({
 				'date': datetime.datetime(2012, 1, 1),
 				'latitude': float(lat),
 				'longitude': float(lon),
 				'quority': str(quority),
 			})
-			#print "----"
+			if DEBUG: print time.ctime(time.time())
+			print "----"
 print "done"
 
 

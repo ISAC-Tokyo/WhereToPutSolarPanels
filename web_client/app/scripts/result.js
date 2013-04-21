@@ -15,7 +15,7 @@ $(function() {
     datasets[1].data.push([i+startyear, Math.log(i)*10000]);
   }
 
-  $.plot("#placeholder", datasets, {
+  $.plot("#result-graph", datasets, {
     yaxis: {
       min: 0
     },
