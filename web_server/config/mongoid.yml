@@ -5,11 +5,11 @@ development:
     default:
       # Defines the name of the default database that Mongoid can connect to.
       # (required).
-      database: where_to_put_solar_panels_development
+      database: test
       # Provides the hosts the default session can connect to. Must be an array
       # of host:port pairs. (required)
       hosts:
-        - localhost:27017
+        - 10.1.1.82:27017
       options:
         # Change whether the session persists in safe mode by default.
         # (default: false)

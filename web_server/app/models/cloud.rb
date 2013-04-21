@@ -1,5 +1,7 @@
 class Cloud
   include Mongoid::Document
+  store_in collection: "cloud_mask"
+
   field :latitude, :type => Float
   field :longitude, :type => Float
   field :date, :type => Integer
