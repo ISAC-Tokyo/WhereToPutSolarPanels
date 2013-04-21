@@ -51,12 +51,14 @@ logger.info ret
 
   # GET /api/v1/rank/range
   def get_range_rank
-    lat_s = params[:lat_s]
-    lat_e = params[:lat_e]
-    lon_s = params[:lon_s]
-    lon_e = params[:lon_e]
+    lat_min, lat_max = params[:lat_r]
+    lon_min, lon_max = params[:lon_r]
 
-    raw = Cloud.where(:latitude.gt => lat_s, :latitude.lt => lat_e, :longitude.gt => lon_s, :longitude.lt => lon_e).to_a
+    raw = Cloud.where(
+      :latitude.gt => lat_min,
+      :latitude.lt => lat_max,
+      :longitude.gt => lon_min,
+      :longitude.lt => lon_max).to_a
 
     ret = []
     step = raw.length / DIV_NUM
@@ -68,13 +70,6 @@ logger.info ret
       new["weight"] = SCORES[raw[idx]["quority"]]
       ret << new
     end
-
-=begin
-    lat_min, lat_max = params[:lat_r]
-    lon_min, lon_max = params[:lon_r]
-
-    ret = Cloud.find_range_by_geo(lat_min, lat_max, lon_min, lon_max)
-=end
 
     if params.has_key? :callback
       render :json => ret.to_json, callback: params[:callback]

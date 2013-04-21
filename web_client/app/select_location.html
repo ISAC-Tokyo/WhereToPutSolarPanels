@@ -6,7 +6,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title></title>
+    <title>ソーラーパネル、どこへ置く - Where to put solar panels? 設置場所選択</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
@@ -17,7 +17,7 @@
     <link rel="stylesheet" href="components/bootstrap.css/css/bootstrap-responsive.css">
     <!-- endbuild -->
 
-    <!-- build:js scripts/common_lib.js -->
+    <!-- build:js scripts/vendor/common_lib.js -->
     <script src="components/modernizr/modernizr.js"></script>
     <script src="components/jquery/jquery.js"></script>
     <!-- endbuild -->
@@ -42,24 +42,24 @@
             <div class="bar" style="width: 100%;"></div>
           </div>
         </div>
-        <button class="btn btn-large btn-primary" id="btn-location-ok">ソーラーパネル選択へ</button>
+        <button class="btn btn-large btn-primary" id="btn-location-ok">ソーラーパネルの選択へ</button>
       </div>
 
       <div class="panel-selector hidden">
-        <h1 class="page-header">ソーラーパネルタイプ</h1>
+        <h1 class="page-header">ソーラーパネルの選択</h1>
         <p class="small">
         ああああああああああああああああああああああああああああああああああああああああああああああああああ
         ええええええええええええええええええええええええええええええええええええええええええええええええええ
         </p>
-        <table class="table table-striped table-hover">
+        <table class="table table-striped table-hover" id="solar-panel-list">
           <thead>
-            <tr><th>タイプ</th><th>発電量(KW/h)</th><th>耐久年数</th><th>価格(万円)</th></tr>
+            <tr><th>タイプ</th><th>出力(W/m2)</th><th>耐用年数</th><th>価格(万円)</th></tr>
           </thead>
           <tbody>
-            <tr><td>あああ</td><td>999</td><td>10年</td><td>70,000</td></tr>
-            <tr><td>あああいいいい</td><td>999</td><td>10年</td><td>70,000</td></tr>
-            <tr><td>おおおおおおお</td><td>999</td><td>10年</td><td>70,000</td></tr>
-            <tr><td>fugaafuaga</td><td>999</td><td>10年</td><td>70,000</td></tr>
+            <tr data-panel-type="santec"><td>サンテック</td><td>250</td><td>6</td><td>181</td></tr>
+            <tr data-panel-type="rakuten"><td>楽天ソーラー</td><td>185</td><td>9</td><td>165</td></tr>
+            <tr data-panel-type="sera"><td>Kセラ</td><td>200</td><td>20</td><td>180</td></tr>
+            <tr data-panel-type="pana"><td>Pナソニック</td><td>233</td><td>10</td><td>224</td></tr>
           </tbody>
         </table>
         <button class="btn btn-large btn-primary" id="btn-panel-ok">結果表示</button>

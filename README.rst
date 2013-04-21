@@ -105,7 +105,7 @@ Example
 
 ::
 
-  http://xxxxx.com?/api/v1/rank?lat=35.666666&lan=135.333333333
+  http://xxxxx.com/api/v1/rank?lat=35.666666&lan=135.333333333
 
 
 /api/v1/range_rank
