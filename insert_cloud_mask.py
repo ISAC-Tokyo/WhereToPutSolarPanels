@@ -28,6 +28,7 @@ latitude = f['mod35']['Geolocation Fields']['Latitude']
 longitude = f['mod35']['Geolocation Fields']['Longitude']
 
 CLOUD_MASK = int('00000110', 2)
+DAY_OR_NIGHT = int('00001000', 2)
 
 mongoc = pymongo.Connection('10.1.1.82', 27017)
 mongo = mongoc.wtps.cloud_mask
@@ -53,6 +54,10 @@ for y in range(0, len(latitude)):
         lat = latitude[y][x]
         lon = longitude[y][x]
         if not in_japan(lat, lon):
+            continue
+        if (cm & DAY_OR_NIGHT) >> 3 == 0:
+            # 0: NIGHT
+            # 1: DAY
             continue
         score = (cm & CLOUD_MASK) >> 1
         print "x, y, z = %s, %s, %s" % (x, y, z)
