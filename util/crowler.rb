@@ -31,10 +31,10 @@ class HDF::NASA::Crowler
 		form['products'] = 'MOD35_L2'
 		form['coordinate_system'] = 'LAT_LON'
 		form['bboxType'] = 'NWES'
-		form['bb_top'] = 50
-		form['bb_left'] = 120
-		form['bb_right'] = 150
-		form['bb_bottom'] = 20
+		form['bb_top'] = form['north'] = '50'
+		form['bb_left'] = form['west'] = '120'
+		form['bb_right'] = form['east'] = '150'
+		form['bb_bottom'] = form['south'] = '20'
 		form['coverageOptions'] = 'D'
 		form['startClearPct250m'] = '0.0'
 		form['endClearPct250m'] = '100.0'
@@ -52,6 +52,8 @@ class HDF::NASA::Crowler
 		form['filterSuccessfulRetrievalPct'] = 'No'
 
 		form['metaRequired'] = '1'
+		form['temporal_type'] = 'RANGE'
+		form['archiveSet'] = '5'
 		button = form.buttons.last
 		response = @agent.submit form, button
 		form = response.forms.first
@@ -62,7 +64,7 @@ class HDF::NASA::Crowler
 	end
 end
 
-if __FILE__ == $0 then
+def print_urls
 	client = HDF::NASA::Crowler.new
 	files = []
 	2000.upto 2012 do |year|
@@ -85,5 +87,12 @@ if __FILE__ == $0 then
 	files.flatten.each do |file|
 		puts file
 	end
+end
+
+if __FILE__ == $0 then
+	# print_urls
+	client = HDF::NASA::Crowler.new
+	urls = client.search Date.new(2012, 3, 1), Date.new(2012, 3, 31)
+	puts "size: #{urls.size}"
 end
 
