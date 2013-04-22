@@ -83,8 +83,15 @@ usage
 
 ::
 
-  insert_cloud_mask.py [HDF5 File Name]
+  $ insert_cloud_mask.py [HDF5 File Name]
 
+multiple file insert.
+
+ex. from 2000-01-01 to 2000-12-31 data.
+
+::
+
+  $ ls MOD35_L2.A200[0]*.h5 | xargs -n1 insert_cloud_mask.py
 
 Server API
 ----------
