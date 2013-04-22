@@ -29,6 +29,7 @@ longitude = f['mod35']['Geolocation Fields']['Longitude']
 
 CLOUD_QUORITY = int('00000110', 2)
 DAY_OR_NIGHT = int('00001000', 2)
+LAND_OR_WATER = int('11000000', 2)
 
 mongoc = pymongo.Connection('10.1.1.82', 27017)
 mongo = mongoc.wtps.cloud_mask
@@ -53,23 +54,34 @@ for y in range(0, len(latitude)):
         cm = cloud_mask[y * 5][x * 5]
         lat = latitude[y][x]
         lon = longitude[y][x]
+
         if not in_japan(lat, lon):
             continue
+
         if cm & 1 == 0:
             # 0: Not determined.
             # 1: Determined.
-            continue # if 0
+            continue  # if 0
+
         if (cm & DAY_OR_NIGHT) >> 3 == 0:
             # 0: NIGHT
             # 1: DAY
-            continue # if 0
+            continue  # if 0
+
         score = 0
         if 1 < (cm & CLOUD_QUORITY) >> 1:
             # 00: Cloudy
             # 01: Uncertain
             # 10: Probably Clear
             # 11: Confident Clear
-            score = 1 # if 10 or 11
+            score = 1  # if 10 or 11
+
+        land_or_water = (cm & LAND_OR_WATER) >> 6
+        # 00: Water
+        # 01: Coastal
+        # 10: Desert
+        # 11: Land
+
         print "x, y, z = %s, %s, %s" % (x, y, z)
         print "Latitude: %s" % lat
         print "Longitude: %s" % lon
@@ -79,6 +91,7 @@ for y in range(0, len(latitude)):
             'lat': float(lat),
             'lon': float(lon),
             'score': int(score),
+            'low': int(land_or_water),
         }
         mongo.insert(data)
         print "----"
