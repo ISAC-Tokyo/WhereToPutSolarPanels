@@ -31,7 +31,7 @@ CLOUD_QUORITY = int('00000110', 2)
 DAY_OR_NIGHT = int('00001000', 2)
 LAND_OR_WATER = int('11000000', 2)
 
-mongoc = pymongo.Connection('10.1.1.82', 27017)
+mongoc = pymongo.Connection('10.1.2.94', 27017)
 mongo = mongoc.wtps.cloud_mask
 
 
