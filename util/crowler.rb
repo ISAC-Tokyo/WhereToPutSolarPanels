@@ -80,7 +80,7 @@ def print_urls
 			files += client.search Date.new(year, 9, 1), Date.new(year, 10, 31)
 			$stderr.puts 11
 			files += client.search Date.new(year, 11, 1), Date.new(year, 12, 31)
-		rescue Timeout::Error => e
+		rescue Timeout::Error
 			retry
 		end
 	end
@@ -93,6 +93,7 @@ if __FILE__ == $0 then
 	# print_urls
 	client = HDF::NASA::Crowler.new
 	urls = client.search Date.new(2012, 3, 1), Date.new(2012, 3, 31)
+	puts urls
 	puts "size: #{urls.size}"
 end
 
