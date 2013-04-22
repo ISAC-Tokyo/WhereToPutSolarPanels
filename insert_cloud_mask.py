@@ -27,7 +27,7 @@ cloud_masks = f['mod35']['Data Fields']['Cloud_Mask']
 latitude = f['mod35']['Geolocation Fields']['Latitude']
 longitude = f['mod35']['Geolocation Fields']['Longitude']
 
-CLOUD_MASK = int('00000110', 2)
+CLOUD_QUORITY = int('00000110', 2)
 DAY_OR_NIGHT = int('00001000', 2)
 
 mongoc = pymongo.Connection('10.1.1.82', 27017)
@@ -55,11 +55,21 @@ for y in range(0, len(latitude)):
         lon = longitude[y][x]
         if not in_japan(lat, lon):
             continue
+        if cm & 1 == 0:
+            # 0: Not determined.
+            # 1: Determined.
+            continue # if 0
         if (cm & DAY_OR_NIGHT) >> 3 == 0:
             # 0: NIGHT
             # 1: DAY
-            continue
-        score = (cm & CLOUD_MASK) >> 1
+            continue # if 0
+        score = 0
+        if 1 < (cm & CLOUD_QUORITY) >> 1:
+            # 00: Cloudy
+            # 01: Uncertain
+            # 10: Probably Clear
+            # 11: Confident Clear
+            score = 1 # if 10 or 11
         print "x, y, z = %s, %s, %s" % (x, y, z)
         print "Latitude: %s" % lat
         print "Longitude: %s" % lon
