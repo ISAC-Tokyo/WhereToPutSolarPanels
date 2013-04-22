@@ -84,7 +84,7 @@ end
 def print_urls
 	client = HDF::NASA::Crowler.new
 	files = []
-	2000.upto 2012 do |year|
+	2003.upto 2012 do |year|
 		begin
 			$stderr.puts year
 			$stderr.puts 1
@@ -97,20 +97,20 @@ def print_urls
 			files += client.search Date.new(year, 9, 1), Date.new(year, 10, 31)
 			$stderr.puts 11
 			files += client.search Date.new(year, 11, 1), Date.new(year, 12, 31)
-		rescue Timeout::Error
+		rescue Timeout::Error, Net::HTTP::Persistent::Error
 			retry
 		end
 	end
-	files.flatten.each do |file|
+	files.flatten.uniq.each do |file|
 		puts file
 	end
 end
 
 if __FILE__ == $0 then
-	# print_urls
-	client = HDF::NASA::Crowler.new
-	urls = client.search Date.new(2012, 3, 1), Date.new(2012, 3, 31)
-	puts urls
-	puts "size: #{urls.size}"
+	print_urls
+	#client = HDF::NASA::Crowler.new
+	#urls = client.search Date.new(2012, 3, 1), Date.new(2012, 3, 31)
+	#puts urls
+	#puts "size: #{urls.size}"
 end
 
