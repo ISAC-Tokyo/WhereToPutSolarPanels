@@ -1,11 +1,14 @@
 class Cloud
   include Mongoid::Document
-  field :latitude, :type => Float
-  field :longitude, :type => Float
-  field :date, :type => Integer
-  field :quority, :type => String
+  store_in collection: "cloud_mask"
 
-  index({latitude: 1, longitude:1})
+  field :lat, :type => Float
+  field :lon, :type => Float
+  field :date, :type => Date
+  field :score, :type => Integer
+  field :low, :type => Integer
+
+  index({lat: 1, lon:1})
   
   def self.find_by_geo(lat, lan)
     # 10 years dummy!
