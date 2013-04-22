@@ -65,6 +65,12 @@ class HDF::NASA::Crowler
 
 		form['metaRequired'] = '1'
 
+		form['fileName'] = ''
+		form['orderState'] = ''
+		form['__PREV_form'] = 'AADS'
+		form['__PREV_bboxType'] = 'NWES'
+		form['__PREV_coordinate_system'] = 'LAT_LON'
+
 		button = form.buttons.last
 		response = @agent.submit form, button
 		form = response.forms.first
