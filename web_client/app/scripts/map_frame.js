@@ -34,7 +34,7 @@ var initialized = window.initialized = false;
               callback(results[0].formatted_address);
             }
           } else {
-            alert("Geocoder failed due to: " + status);
+            callback(false,"Geocoder failed due to: " + status);
           }
         });
   }

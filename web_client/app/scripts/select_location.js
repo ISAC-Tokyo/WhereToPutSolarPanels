@@ -36,8 +36,12 @@
       if (f && f.initialized) {
         f.setMapCenter(lat, lon);
         withGeocode && f.geocode(lat, lon, function(result) {
-          $('.address').text(result + 'に設置します。').show(300).removeClass('hidden');
-          $(".location-result .progress").hide();
+          if (result) {
+            $('.address').text(result + 'に設置します。').show(300).removeClass('hidden');
+            $(".location-result .progress").hide();
+          } else {
+            handleFailure()
+          }
         });
 
 

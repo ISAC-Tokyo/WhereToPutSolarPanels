@@ -89,18 +89,18 @@ table#solar-panel-list  {
  *********************************************************/
 
 .graph-placeholder {
-    width: 380px;
-    height: 350px;
+    width: 360px;
+    height: 300px;
     font-size: 14px;
     line-height: 1.2em;
 }
 
 .graph-container {
     box-sizing: border-box;
-    width: 350px;
-    height: 350px;
+    width: 330px;
+    height: 300px;
     padding: 0px;
-    margin-top:10px;
+    margin:10px;
 }
 
 @media (max-width: 480px) {
@@ -116,6 +116,6 @@ table#solar-panel-list  {
       width: 270px;
       height: 250px;
       padding: 0px;
-      margin-top:10px;
+      margin:10px;
   }
 }
