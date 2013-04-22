@@ -24,36 +24,47 @@ class HDF::NASA::Crowler
 	def search(from, to)
 		response = @agent.get 'http://ladsweb.nascom.nasa.gov/data/search.html'
 		form = response.forms.first
-		form['endTime']   = to  .strftime '%m/%d/%Y 23:59:59'
-		form['startTime'] = from.strftime '%m/%d/%Y 00:00:00'
+
 		form['si'] = 'Terra MODIS'
 		form['group'] = 'Terra Atmosphere Level 2 Products'
 		form['products'] = 'MOD35_L2'
+
+		form['temporal_type'] = 'RANGE'
+		form['startTime'] = from.strftime '%m/%d/%Y 00:00:00'
+		form['endTime']   = to  .strftime '%m/%d/%Y 23:59:59'
+
+		form['archiveSet'] = '5'
+
 		form['coordinate_system'] = 'LAT_LON'
 		form['bboxType'] = 'NWES'
 		form['bb_top'] = form['north'] = '50'
 		form['bb_left'] = form['west'] = '120'
 		form['bb_right'] = form['east'] = '150'
 		form['bb_bottom'] = form['south'] = '20'
+
 		form['coverageOptions'] = 'D'
+
 		form['startClearPct250m'] = '0.0'
 		form['endClearPct250m'] = '100.0'
 		form['filterClearPct250m'] = 'No'
+
 		form['startCloudCoverPct250m'] = '0.0'
 		form['endCloudCoverPct250m'] = '100.0'
 		form['filterCloudCoverPct250m'] = 'No'
+
 		form['filterPGEVersion'] = 'No'
 		form['PGEVersion'] = ''
+
 		form['startQAPercentMissingData'] = '0.0'
 		form['endQAPercentMissingData'] = '100.0'
 		form['filterQAPercentMissingData'] = 'No'
+
 		form['startSuccessfulRetrievalPct'] = '0.0'
 		form['endSuccessfulRetrievalPct'] = '100.0'
 		form['filterSuccessfulRetrievalPct'] = 'No'
 
 		form['metaRequired'] = '1'
-		form['temporal_type'] = 'RANGE'
-		form['archiveSet'] = '5'
+
 		button = form.buttons.last
 		response = @agent.submit form, button
 		form = response.forms.first
