@@ -141,12 +141,22 @@ Server API
 
 - Request Parameters
 
-  - lat_r: latitude range
-  - lon_r: longitude range
+  - type1
+
+    - lat_s: latitude start of range
+    - lat_e: latitude end of range
+    - lon_s: longitude start of range
+    - lon_e: longitude end of range
+
+  - type2
+
+    - lat_r: latitude range
+    - lon_r: longitude range
 
 - Response
 
 ランクの配列、指定したレンジの左上から右へ。
+配列の長さは400。
 
 ::
 
@@ -175,9 +185,11 @@ Server API
   ]
 
 
-- Example
+- Examples
 
 ::
 
-  http://xxxxx.com/api/v1/range/rank?lat_r=32.123&lat_r=38.123&lon_r=139.123&lon_r=142.123
+  http://xxxxx.com/api/v1/rank/range?lat_s=20&lat_e=22&lon_s=120&lon_e=122
+    or
+  http://xxxxx.com/api/v1/rank/range?lon_r%5B%5D=139.73101258770754&lon_r%5B%5D=141.8147120048218&lat_r%5B%5D=37.04133331398954&lat_r%5B%5D=39.079552354108294
 
