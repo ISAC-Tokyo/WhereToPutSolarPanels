@@ -70,6 +70,21 @@ SSH秘密鍵はfacebookグループにアップロードしました。
 - private ip address: 10.1.2.51
 - hostname: i-1603-29764-VM
 
+Insert Data from HDF5
+---------------------
+
+``insert_cloud_mask.py`` using h5py and pymongo.
+
+::
+
+  $ sudo apt-get install python-h5py python-pymongo
+
+usage
+
+::
+
+  insert_cloud_mask.py [HDF5 File Name]
+
 
 Server API
 ----------
