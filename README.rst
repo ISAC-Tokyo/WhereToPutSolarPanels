@@ -70,6 +70,17 @@ SSH秘密鍵はfacebookグループにアップロードしました。
 - private ip address: 10.1.2.51
 - hostname: i-1603-29764-VM
 
+Convert HDF4 to HDF5
+--------------------
+
+install hdf5-tools
+
+::
+
+  apt-get install hdf5-tools
+
+use h4toh5.
+
 Insert Data from HDF5
 ---------------------
 
