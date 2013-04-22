@@ -86,6 +86,7 @@ for y in range(0, len(latitude)):
         print "Latitude: %s" % lat
         print "Longitude: %s" % lon
         print "Score: %d" % score
+        print "Land or Water: %d" % land_or_water
         data = {
             'date': date,
             'lat': float(lat),
