@@ -36,14 +36,14 @@ mongo = mongoc.wtps.cloud_mask
 
 def in_japan(lat, lon):
     if 50.0 < lat:
-        return True
+        return False
     if lat < 20.0:
-        return True
+        return False
     if 150.0 < lon:
-        return True
+        return False
     if lon < 120.0:
-        return True
-    return False
+        return False
+    return True
 
 
 z = 0
