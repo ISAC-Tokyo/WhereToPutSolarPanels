@@ -29,21 +29,18 @@ longitude = f['mod35']['Geolocation Fields']['Longitude']
 
 CLOUD_MASK = int('00000110', 2)
 
-LAND_OR_WATER = int('11000000', 2)
-WATER = int('00000000', 2)
-
-db = pymongo.Connection('10.1.1.82', 27017).wtps
-mongo = db.cloud_mask
+mongoc = pymongo.Connection('10.1.1.82', 27017)
+mongo = mongoc.wtps.cloud_mask
 
 
-def skip(lat, lon):
-    if 36.0 < lat:
+def in_japan(lat, lon):
+    if 50.0 < lat:
         return True
-    if lat < 32.0:
+    if lat < 20.0:
         return True
-    if 142.0 < lon:
+    if 150.0 < lon:
         return True
-    if lon < 138.0:
+    if lon < 120.0:
         return True
     return False
 
@@ -55,7 +52,7 @@ for y in range(0, len(latitude)):
         cm = cloud_mask[y * 5][x * 5]
         lat = latitude[y][x]
         lon = longitude[y][x]
-        if cm & LAND_OR_WATER == WATER:
+        if not in_japan(lat, lon):
             continue
         score = (cm & CLOUD_MASK) >> 1
         print "x, y, z = %s, %s, %s" % (x, y, z)
@@ -72,5 +69,6 @@ for y in range(0, len(latitude)):
         print "----"
 
 print date
+mongoc.disconnect()
 f.close()
 print "done"
