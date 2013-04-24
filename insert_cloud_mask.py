@@ -5,7 +5,7 @@
 # author: takano32 <tak@no32 dot tk>
 #
 
-DEBUG = True
+DEBUG = False
 
 import h5py
 import pymongo
@@ -21,6 +21,8 @@ year = int(m.group(1))
 yday = int(m.group(2)) - 1
 datedelta = datetime.timedelta(yday)
 date = datetime.datetime(year, 1, 1) + datedelta
+if not yday % 12 == 0:
+    exit()
 
 f = h5py.File(file_name, 'r')
 cloud_masks = f['mod35']['Data Fields']['Cloud_Mask']
@@ -31,9 +33,9 @@ CLOUD_QUORITY = int('00000110', 2)
 DAY_OR_NIGHT = int('00001000', 2)
 LAND_OR_WATER = int('11000000', 2)
 
-mongoc = pymongo.Connection('10.1.1.82', 27017)  # server 2
-# mongoc = pymongo.Connection('10.1.2.94', 27017)
-mongo = mongoc.gi.cloud_mask
+# mongoc = pymongo.Connection('10.1.1.82', 27017)  # server 2
+mongoc = pymongo.Connection('10.1.2.94', 27017) # server 3
+mongo = mongoc.wtps12.cloud_mask
 
 
 def in_japan(lat, lon):
