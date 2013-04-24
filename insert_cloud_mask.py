@@ -5,13 +5,14 @@
 # author: takano32 <tak@no32 dot tk>
 #
 
+DEBUG = True
+
 import h5py
 import pymongo
 
 
 import sys
 file_name = sys.argv[1]
-f = h5py.File(file_name, 'r')
 
 import datetime
 import re
@@ -21,8 +22,7 @@ yday = int(m.group(2)) - 1
 datedelta = datetime.timedelta(yday)
 date = datetime.datetime(year, 1, 1) + datedelta
 
-DEBUG = False
-
+f = h5py.File(file_name, 'r')
 cloud_masks = f['mod35']['Data Fields']['Cloud_Mask']
 latitude = f['mod35']['Geolocation Fields']['Latitude']
 longitude = f['mod35']['Geolocation Fields']['Longitude']
@@ -31,8 +31,9 @@ CLOUD_QUORITY = int('00000110', 2)
 DAY_OR_NIGHT = int('00001000', 2)
 LAND_OR_WATER = int('11000000', 2)
 
-mongoc = pymongo.Connection('10.1.2.94', 27017)
-mongo = mongoc.wtps.cloud_mask
+mongoc = pymongo.Connection('10.1.1.82', 27017)  # server 2
+# mongoc = pymongo.Connection('10.1.2.94', 27017)
+mongo = mongoc.gi.cloud_mask
 
 
 def in_japan(lat, lon):
@@ -47,6 +48,17 @@ def in_japan(lat, lon):
     return True
 
 
+def valid_cloud_mask(cm):
+    if cm & 1 == 0:
+        # 0: Not determined.
+        # 1: Determined.
+        return False  # if 0
+    if (cm & DAY_OR_NIGHT) >> 3 == 0:
+        # 0: NIGHT
+        # 1: DAY
+        return False  # if 0
+    return True
+
 z = 0
 cloud_mask = cloud_masks[z]
 for y in range(0, len(latitude)):
@@ -58,15 +70,8 @@ for y in range(0, len(latitude)):
         if not in_japan(lat, lon):
             continue
 
-        if cm & 1 == 0:
-            # 0: Not determined.
-            # 1: Determined.
-            continue  # if 0
-
-        if (cm & DAY_OR_NIGHT) >> 3 == 0:
-            # 0: NIGHT
-            # 1: DAY
-            continue  # if 0
+        if not valid_cloud_mask(cm):
+            continue
 
         score = 0
         if 1 < (cm & CLOUD_QUORITY) >> 1:
@@ -82,22 +87,27 @@ for y in range(0, len(latitude)):
         # 10: Desert
         # 11: Land
 
-        print "x, y, z = %s, %s, %s" % (x, y, z)
-        print "Latitude: %s" % lat
-        print "Longitude: %s" % lon
-        print "Score: %d" % score
-        print "Land or Water: %d" % land_or_water
+        if DEBUG:
+            print "x, y, z = %s, %s, %s" % (x, y, z)
+            print "Latitude: %s" % lat
+            print "Longitude: %s" % lon
+            print "Score: %d" % score
+            print "Land or Water: %d" % land_or_water
+            print "----"
+
         data = {
             'date': date,
-            'lat': float(lat),
-            'lon': float(lon),
+            'loc': {
+                'lat': float(lat),
+                'lon': float(lon),
+            },
             'score': int(score),
             'low': int(land_or_water),
         }
         mongo.insert(data)
-        print "----"
 
-print date
 mongoc.disconnect()
 f.close()
-print "done"
+print date
+print file_name
+print '--------'

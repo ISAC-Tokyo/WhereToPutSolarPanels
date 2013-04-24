@@ -9,15 +9,20 @@
     <meta name="viewport" content="width=device-width">
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
     <link rel="stylesheet" href="styles/main.css">
-    <link rel="stylesheet" href="components/bootstrap.css/css/bootstrap.min.css">
-    <link rel="stylesheet" href="components/bootstrap.css/css/bootstrap-responsive.css">
     <link rel="stylesheet" href="styles/map.css">
-    <!-- build:js scripts/vendor/modernizr.js -->
+    
+    <!-- build:js scripts/vendor/common_lib.js -->
     <script src="components/modernizr/modernizr.js"></script>
+    <script src="components/jquery/jquery.js"></script>
     <!-- endbuild -->
-    <script type="text/javascript" src="components/jquery/jquery.js"></script>
+
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=visualization&key=AIzaSyDxynbvhnTHYl8nIIAoct1AjbJCxWZSwPw&sensor=false"></script>
+
+    <!-- build:js scripts/map.js -->
+    <script type="text/javascript" src="scripts/common.js"></script>
     <script type="text/javascript" src="scripts/map.js"></script>
+    <!-- endbuild -->
+
   </head>
   <body>
     <div id="map"></div>

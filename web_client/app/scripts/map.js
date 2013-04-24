@@ -203,7 +203,7 @@ wpsp.map.TextPaneItem = function() {
 $(document).ready(function() {
   var map = new wpsp.map;
   map.init();
-  map.dataServer = "http://localhost:3000"
+  map.dataServer = wpsp.API_SERVER;
 
   /**
    * Use current location if available.
