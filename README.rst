@@ -108,6 +108,14 @@ ex. from 2000-01-01 to 2000-12-31 data.
 Mongo DB
 --------
 
+Create Geo Index
+^^^^^^^^^^^^^^^^
+
+::
+
+  > db.cloud_mask.ensureIndex({loc: '2d'}) 
+
+
 Count
 ^^^^^
 
