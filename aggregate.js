@@ -14,11 +14,15 @@ function round(val, decimal) {
 }
 
 (function() {
+  
+  // lat, lonが近い物が同じキーとなる
   function map() {
     var key = {
       date: this.date,
-      lat: round(this.lat.lat, 3),
-      lon: round(this.lat.lon, 3)
+      loc: {
+        lat: round(this.lat.lat, 3),
+        lon: round(this.lat.lon, 3)
+      }
     }
     emit(key, {
       score: this.score,
@@ -26,6 +30,7 @@ function round(val, decimal) {
     });
   }
 
+  // scoreとlowを平均する
   function reduce(key, values) {
     var totalScore = 0,
         totalLow = 0;
