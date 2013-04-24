@@ -235,9 +235,7 @@ Server API
 
 - Examples
 
-::
+  - http://xxxxx.com/api/v1/rank/range?lat_s=20&lat_e=22&lon_s=120&lon_e=122
 
-  http://xxxxx.com/api/v1/rank/range?lat_s=20&lat_e=22&lon_s=120&lon_e=122
-    or
-  http://xxxxx.com/api/v1/rank/range?lon_r%5B%5D=139.73101258770754&lon_r%5B%5D=141.8147120048218&lat_r%5B%5D=37.04133331398954&lat_r%5B%5D=39.079552354108294
+  - http://xxxxx.com/api/v1/rank/range?lon_r%5B%5D=139.73101258770754&lon_r%5B%5D=141.8147120048218&lat_r%5B%5D=37.04133331398954&lat_r%5B%5D=39.079552354108294
 
