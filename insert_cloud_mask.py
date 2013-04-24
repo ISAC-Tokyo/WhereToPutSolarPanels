@@ -22,6 +22,9 @@ yday = int(m.group(2)) - 1
 datedelta = datetime.timedelta(yday)
 date = datetime.datetime(year, 1, 1) + datedelta
 if not yday % 12 == 0:
+    print "pass"
+    print file_name
+    print "--------"
     exit()
 
 f = h5py.File(file_name, 'r')
