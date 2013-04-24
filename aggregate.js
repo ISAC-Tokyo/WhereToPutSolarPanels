@@ -20,8 +20,8 @@ function round(val, decimal) {
     var key = {
       date: this.date,
       loc: {
-        lat: round(this.lat.lat, 3),
-        lon: round(this.lat.lon, 3)
+        lat: round(this.loc.lat, 3),
+        lon: round(this.loc.lon, 3)
       }
     }
     emit(key, {
