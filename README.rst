@@ -104,6 +104,46 @@ ex. from 2000-01-01 to 2000-12-31 data.
 
   $ ls MOD35_L2.A200[0]*.h5 | xargs -n1 insert_cloud_mask.py
 
+
+Mongo DB
+--------
+
+Count
+^^^^^
+
+::
+
+    > db.cloud_mask.count({query: {
+        lat: {$gt: 35, $lt: 35.001},
+        lon: {$gt: 134, $lt: 134.001}
+        }})
+
+Map Reduce
+^^^^^^^^^^
+
+::
+
+    > var _m = function() {
+      emit(this._id, {score: this.score});
+    };
+    > var _r = function(key, values) {
+      var result = {count: 0, score: 0};
+      values.forEach(function(value){
+        result.count++;
+        result.score += value.score;
+      });
+      return result;
+    };
+
+::
+
+    > db.cloud_mask.mapReduce(_m, _r,
+      {out: {inline: 1},
+        query: {
+          lat: {$gt: 35, $lt: 35.01},
+          lon: {$gt: 134, $lt: 134.01}
+          }})
+
 Server API
 ----------
 
