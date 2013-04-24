@@ -6,6 +6,22 @@
     return match && decodeURIComponent(match[1].replace(/\+/g, ' '));
   }
 
+  function fetchRank(lat, lon) {
+//    $.ajax({
+//      url: wpsp.API_BASE + '/rank',
+//      crossDomain: true,
+//      data: {
+//        lat: lat,
+//        lon: lon
+//      },
+//    }).done(function(ret) {
+//      console.log(ret);
+//      callback(ret);
+//    }).fail(function(e) {
+//      alert('データの取得に失敗しました');
+//    });
+  }
+
   var solarTypes = {
     t: {
       name: 't',
@@ -85,7 +101,13 @@
 
   
   $(function() {
-    var panelType = getParameterByName('panelType');
+    var panelType = getParameterByName('panelType'),
+        lat = getParameterByName('lat'),
+        lon = getParameterByName('lon');
+
+    //fetchRank(lat, lon, function(result) {
+    //  plotPlofitSimulation(panelType, result)
+    //});
     plotPlofitSimulation(panelType)
   });
 
