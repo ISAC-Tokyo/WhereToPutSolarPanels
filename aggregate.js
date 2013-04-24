@@ -20,7 +20,7 @@ function round(val, decimal) {
       lat: round(this.lat.lat, 3),
       lon: round(this.lat.lon, 3)
     }
-    emit({
+    emit(key, {
       score: this.score,
       low: this.low
     });
