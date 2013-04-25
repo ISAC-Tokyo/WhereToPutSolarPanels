@@ -40,6 +40,7 @@ cloud_mask
   score: 0, // 平均
   low: 3,   // 平均
   totalScore: 999,
-  totalLow: 100
+  totalLow: 100,
+  count: 100 // 集計データの数
 }
 ```
