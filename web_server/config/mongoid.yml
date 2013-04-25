@@ -5,11 +5,11 @@ development:
     default:
       # Defines the name of the default database that Mongoid can connect to.
       # (required).
-      database: test
+      database: wtps12
       # Provides the hosts the default session can connect to. Must be an array
       # of host:port pairs. (required)
       hosts:
-        - 10.1.1.82:27017
+        - 10.1.2.94:27017
       options:
         # Change whether the session persists in safe mode by default.
         # (default: false)
