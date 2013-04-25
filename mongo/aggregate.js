@@ -26,38 +26,42 @@ print(Date());
     var key = {
       month: toMonth(this.date),
       loc: {
-        lat: round(this.loc.lat, 4),
-        lon: round(this.loc.lon, 4)
+        lat: round(this.loc.lat, 2),
+        lon: round(this.loc.lon, 2)
       }
     }
     emit(key, {
       score: this.score,
       low: this.low,
-      totalScore: 0,
-      totalLow: 0,
+      totalScore: this.score,
+      totalLow: this.low,
+      count: 1
     });
   }
  
   // scoreとlowを平均する
   function reduce(key, values) {
     var totalScore = 0,
-        totalLow = 0;
+        totalLow = 0,
+        totalCount = 0;
  
     values.forEach(function(v) {
       totalScore += Number(v.score);
       totalLow += Number(v.low);
+      totalCount += v.count;
     });
  
     return {
-      score: totalScore / values.length,
-      low: totalLow / values.length,
+      score: totalScore / totalCount,
+      low: totalLow / totalCount,
       totalScore: totalScore,
-      totalLow: totalLow
+      totalLow: totalLow,
+      count: totalCount
     }
   }
  
   var res = db.cloud_mask.mapReduce(map, reduce, {out: 'scale4'});  
-  print('count: ', db.scale4.find().count());
+  print('count: ', db.scale2.find().count());
 })();
 
 print('Finished');
