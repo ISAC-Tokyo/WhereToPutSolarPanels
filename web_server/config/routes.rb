@@ -1,6 +1,7 @@
 WhereToPutSolarPanels::Application.routes.draw do
 
   get 'api/v1/rank/range' => 'sunshine_rank#get_range_rank'
+  get 'api/v1/rank/range/scale' => 'sunshine_rank#get_scale_rank'
 
   match 'api/v1/rank' => 'sunshine_rank#get_rank'
 

@@ -111,6 +111,39 @@ logger.info("mongo(/rank/range/): #{e-s}")
     end
   end
 
+  # GET /api/v1/rank/range/scale
+  def get_scale_rank
+    if params[:lat_r] && params[:lon_r]
+      lat_min, lat_max = params[:lat_r]
+      lon_min, lon_max = params[:lon_r]
+    elsif params[:lat_s] && params[:lat_e] && params[:lon_s] && params[:lon_e]
+      lat_min = params[:lat_s]
+      lat_max = params[:lat_e]
+      lon_min = params[:lon_s]
+      lon_max = params[:lon_e]
+    end
+    lat_min = lat_min.to_f
+    lat_max = lat_max.to_f
+    lon_min = lon_min.to_f
+    lon_max = lon_max.to_f
+
+    ret = Scale1.within_box(loc: [[lat_min, lon_min], [lat_max, lon_max]]).to_a
+    raise 'no data error' if ret.length == 0
+
+    if params.has_key? :callback
+      render :json => ret.to_json, callback: params[:callback]
+    else
+      render :json => ret.to_json
+    end
+  rescue => e
+    logger.info("INFO: #{e}")
+    if params.has_key? :callback
+      render :json => [].to_json, callback: params[:callback]
+     else
+      render :json => [].to_json
+    end
+  end
+
   def calc_rank(score, size)
     step = size / 5
     if score <= step * 1
