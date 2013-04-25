@@ -70,6 +70,30 @@ SSH秘密鍵はfacebookグループにアップロードしました。
 - private ip address: 10.1.2.51
 - hostname: i-1603-29764-VM
 
+SSH Config
+^^^^^^^^^^
+
+::
+
+  Host wtps*
+    User root
+    IdentityFile ~/.ssh/id_rsa_wtps
+    ProxyCommand ssh -i ~/.ssh/id_rsa_wtps root@210.129.195.213 nc -w 60 %h %p
+
+  Host wtps2
+    Hostname 10.1.1.82
+
+  Host wtps3
+    Hostname 10.1.2.94
+
+  Host wtps4
+    Hostname 10.1.2.51
+
+  Host wtps
+    User root
+    IdentityFile ~/.ssh/id_rsa_wtps
+    Hostname 210.129.195.213
+
 Convert HDF4 to HDF5
 --------------------
 
