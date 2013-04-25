@@ -26,8 +26,8 @@ print(Date());
     var key = {
       month: toMonth(this.date),
       loc: {
-        lat: round(this.loc.lat, 2),
-        lon: round(this.loc.lon, 2)
+        lat: round(this.loc.lat, 1),
+        lon: round(this.loc.lon, 1)
       }
     }
     emit(key, {
@@ -60,8 +60,8 @@ print(Date());
     }
   }
  
-  var res = db.cloud_mask.mapReduce(map, reduce, {out: 'scale4'});  
-  print('count: ', db.scale2.find().count());
+  var res = db.cloud_mask.mapReduce(map, reduce, {out: 'scale1'});  
+  print('count: ', db.scale1.find().count());
 })();
 
 print('Finished');
