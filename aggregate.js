@@ -44,8 +44,8 @@ print(Date());
         totalLow = 0;
  
     values.forEach(function(v) {
-      totalScore += v.score;
-      totalLow += v.low;
+      totalScore += Number(v.score);
+      totalLow += Number(v.low);
     });
  
     return {
