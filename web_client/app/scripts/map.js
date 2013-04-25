@@ -95,8 +95,15 @@ wpsp.map.prototype.buildHeatMapLayer = function(data) {
     heatmap = new google.maps.visualization.HeatmapLayer({
       data: dataSet
     });
+    var gradient = [
+      'rgba(255, 0, 0, 1)',
+      'rgba(192, 128, 0, 1)',
+      'rgba(0, 0, 200, 1)',
+      'rgba(0, 128, 0, 1)'
+    ]
     heatmap.setOptions({
-      radius: $("#map").width() / 20
+      radius: $("#map").width() / 20,
+      gradient: heatmap.get('gradient') ? null : gradient
     });
     me.heatMapCache[zoom][center] = heatmap;
   } else {
