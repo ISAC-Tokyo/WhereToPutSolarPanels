@@ -52,7 +52,13 @@ print(Date());
   }
 
   function finalize(key, value) {
+    var keys = key.split('_')[0];
     return {
+      month: keys[0],
+      loc: {
+        lat: keys[1],
+        lon: keys[2],
+      },
       totalScore: value.score,
       totalLow: value.low,
       count: value.count,
