@@ -22,24 +22,17 @@ print(Date());
       }
       return String(year) + String(month);
     }
+    var DECIMAL = 1;
     
-    var key = {
-      month: toMonth(this.date),
-      loc: {
-        lat: round(this.loc.lat, 1),
-        lon: round(this.loc.lon, 1)
-      }
-    }
+    var key = toMonth(this.date) + '_' + round(this.loc.lat, DECIMAL) + '_' + round(this.loc.lon, DECIMAL);
     emit(key, {
       score: this.score,
       low: this.low,
-      totalScore: this.score,
-      totalLow: this.low,
       count: 1
     });
   }
  
-  // scoreとlowを平均する
+  // scoreとlowを積みあげる
   function reduce(key, values) {
     var totalScore = 0,
         totalLow = 0,
@@ -52,16 +45,28 @@ print(Date());
     });
  
     return {
-      score: totalScore / totalCount,
-      low: totalLow / totalCount,
-      totalScore: totalScore,
-      totalLow: totalLow,
+      score: totalScore,
+      low: totalLow,
       count: totalCount
     }
   }
+
+  function finalize(key, value) {
+    return {
+      totalScore: value.score,
+      totalLow: value.low,
+      count: value.count,
+      score: value.score / value.count,
+      low: value.low / value.count
+    }
+  }
  
-  var res = db.cloud_mask.mapReduce(map, reduce, {out: 'scale1'});  
-  print('count: ', db.scale1.find().count());
+  var outCollection = 'scale1';
+  var res = db.cloud_mask.mapReduce(map, reduce, {
+    out: outCollection,
+    finalize: finalize
+  });  
+  print('count: ', db[outCollection].find().count());
 })();
 
 print('Finished');
