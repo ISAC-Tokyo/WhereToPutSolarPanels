@@ -52,7 +52,7 @@ print(Date());
   }
 
   function finalize(key, value) {
-    var keys = key.split('_')[0];
+    var keys = key.split('_');
     return {
       month: keys[0],
       loc: {
