@@ -38,7 +38,7 @@ LAND_OR_WATER = int('11000000', 2)
 
 # mongoc = pymongo.Connection('10.1.1.82', 27017)  # server 2
 mongoc = pymongo.Connection('10.1.2.94', 27017) # server 3
-mongo = mongoc.wtps12.cloud_mask
+mongo = mongoc.wtps12_12.cloud_mask
 
 
 def in_japan(lat, lon):

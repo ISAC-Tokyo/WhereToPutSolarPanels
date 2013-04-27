@@ -84,7 +84,7 @@ end
 def print_urls
 	client = HDF::NASA::Crowler.new
 	files = []
-	2003.upto 2012 do |year|
+	2000.upto 2012 do |year|
 		begin
 			$stderr.puts year
 			$stderr.puts 1
