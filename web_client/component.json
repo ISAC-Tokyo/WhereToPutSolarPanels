@@ -5,7 +5,8 @@
     "modernizr": "~2.6.2",
     "jquery": "~1.9.1",
     "bootstrap.css": "~2.1.1",
-    "flot": "~0.8.0"
+    "flot": "~0.8.0",
+    "intro.js": "~0.3.0"
   },
   "devDependencies": {}
 }

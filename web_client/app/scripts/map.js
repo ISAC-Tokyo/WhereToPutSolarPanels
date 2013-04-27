@@ -96,10 +96,8 @@ wpsp.map.prototype.buildHeatMapLayer = function(data) {
       data: dataSet
     });
     var gradient = [
-      'rgba(255, 0, 0, 1)',
-      'rgba(192, 128, 0, 1)',
-      'rgba(0, 0, 200, 1)',
-      'rgba(0, 128, 0, 1)'
+      'rgba(0, 0, 0, 1)',
+      'rgba(0, 200, 0, 1)'
     ]
     heatmap.setOptions({
       radius: $("#map").width() / 20,
@@ -109,7 +107,7 @@ wpsp.map.prototype.buildHeatMapLayer = function(data) {
   } else {
     heatmap = me.heatMapCache[zoom][center];
   }
-  heatmap.setMap(this.root);
+  //heatmap.setMap(this.root);
   me.heatMap = heatmap;
 };
 
@@ -139,7 +137,9 @@ wpsp.map.prototype.makeItemizedPane = function(name, contentList, extraClass) {
     $(contentDiv).addClass("map-pane-item");
     var itemExtraClass = contentList[i].itemExtraClass;
     if (itemExtraClass) {
-      $(contentDiv).addClass(itemExtraClass);
+      $.each(itemExtraClass, function(i, c) {
+        $(contentDiv).addClass(c);
+      });
     }
     var content = new wpsp.map.ItemizedPaneItem();
     content.title = contentList[i].title;
@@ -155,6 +155,12 @@ wpsp.map.prototype.makeItemizedPane = function(name, contentList, extraClass) {
     }
     $(image).click(content.action);
     content.image = image;
+    var itemExtraAttr = contentList[i].itemExtraAttr;
+    if (itemExtraAttr) {
+      $.each(itemExtraAttr, function(k, v) {
+        $(contentDiv).attr(k, v);
+      });
+    }
     contentDiv.appendChild(image);
     contentDiv.appendChild(title);
     pane.appendChild(contentDiv);
@@ -230,13 +236,16 @@ $(document).ready(function() {
   /**
    * Panes.
    */
+
   var overlayControlPane = map.makeItemizedPane("overlay", [{
-    "title": "HeatMap",
+    "title": "Sunshine Map",
     "action": function() {
       map.heatMap.setMap(map.heatMap.getMap() ? null : map.root);
     },
-    "image": "images/default-image.jpeg",
-    "itemExtraClass": "map-pane-item-horizontal"
+    "image": "images/layer-icon.png",
+    "imageSize": { "width": 48 },
+    "itemExtraClass": ["map-pane-item-horizontal"],
+    "itemExtraAttr": { "data-intro": 'Show and hide the sun map', "data-step": '1', "data-position": "top" }
   }], "map-pane-bottom");
 
   /*
@@ -245,19 +254,19 @@ $(document).ready(function() {
       "title": "KWh",
       "image": "images/green.png",
       "imageSize": { "width": 16 },
-      "itemExtraClass": "map-pane-item-horizontal"
+      "itemExtraClass": ["map-pane-item-horizontal"]
     },
     {
       "title": "Awesomeness",
       "image": "images/orange.png",
       "imageSize": { "width": 16 },
-      "itemExtraClass": "map-pane-item-horizontal"
+      "itemExtraClass": ["map-pane-item-horizontal"]
     },
     {
       "title": "YA Hard-coded Value",
       "image": "images/red.png",
       "imageSize": { "width": 16 },
-      "itemExtraClass": "map-pane-item-horizontal"
+      "itemExtraClass": ["map-pane-item-horizontal"]
     },
   ], "map-pane-top");
 
@@ -275,10 +284,12 @@ $(document).ready(function() {
             'rgba(0, 0, 0, 1)',
             'rgba(0, 200, 0, 1)'
           ]
-        map.heatMap.setOptions({ gradient: gradient });
-      },
-      "image": "images/sun-icon.png",
-      "itemExtraClass": "map-pane-item-vertical"
+          map.heatMap.setOptions({ gradient: gradient });
+        },
+        "image": "images/sun-icon.png",
+        "imageSize": { "width": 54 },
+        "itemExtraClass": ["map-pane-item-vertical"],
+        "itemExtraAttr": { "data-intro": 'Green areas show the best sunlight.', "data-step": '2', "data-position": "left" }
       },
       {
         "title": "Modis Full Data",
@@ -289,9 +300,20 @@ $(document).ready(function() {
             'rgba(0, 200, 0, 1)'
           ]
           map.heatMap.setOptions({ gradient: gradient });
+        },
+        "image": "images/satellite-icon.png",
+        "imageSize": { "width": 48 },
+        "itemExtraClass": ["map-pane-item-vertical"],
+        "itemExtraAttr": { "data-intro": 'Green: sunny; Orange: rather cloudy; Red: cloudy.', "data-step": '3', "data-position": "left" }
       },
-      "image": "images/satellite-icon.png",
-      "itemExtraClass": "map-pane-item-vertical"
+      {
+        "title": "Help",
+        "action": function() {
+          introJs().start();
+        },
+        "image": "images/help.png",
+        "imageSize": { "width": 32 },
+        "itemExtraClass": ["map-pane-item-horizontal"]
       }
   ], "map-pane-right");
 
