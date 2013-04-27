@@ -239,6 +239,7 @@ $(document).ready(function() {
     "itemExtraClass": "map-pane-item-horizontal"
   }], "map-pane-bottom");
 
+  /*
   var statusPane = map.makeItemizedPane("status", [
     {
       "title": "KWh",
@@ -264,13 +265,35 @@ $(document).ready(function() {
     "title": "Detail Title",
     "content": "Detail Contents."
   }], "map-pane-left");
+  */
 
-  var spritePane = map.makeItemizedPane("sprite", [{
-    "title": "Plant",
-    "action": function() { alert("Plant action") },
-    "image": "images/nuclear-power-plant.png",
-    "itemExtraClass": "map-pane-item-vertical"
-  }], "map-pane-right");
+  var mapModesPane = map.makeItemizedPane("map-modes", [
+      {
+        "title": "Sunny Places",
+      "action": function() {
+        var gradient = [
+          'rgba(0, 0, 0, 1)',
+          'rgba(0, 200, 0, 1)'
+        ]
+        map.heatMap.setOptions({ gradient: gradient });
+      },
+      "image": "images/nuclear-power-plant.png",
+      "itemExtraClass": "map-pane-item-vertical"
+      },
+      {
+        "title": "Modis Full Data",
+      "action": function() {
+        var gradient = [
+          'rgba(200, 0, 0, 1)',
+          'rgba(128, 60, 0, 1)',
+          'rgba(0, 200, 0, 1)'
+        ]
+        map.heatMap.setOptions({ gradient: gradient });
+      },
+      "image": "images/nuclear-power-plant.png",
+      "itemExtraClass": "map-pane-item-vertical"
+      }
+  ], "map-pane-right");
 
   /**
    * Layout.
@@ -281,8 +304,8 @@ $(document).ready(function() {
         "name": "overlay",
         "position": google.maps.ControlPosition.BOTTOM_CENTER,
         "pane": overlayControlPane
-          /**
       },
+          /**
       {
         "name": "status",
         "position": google.maps.ControlPosition.TOP_CENTER,
@@ -293,11 +316,11 @@ $(document).ready(function() {
         "position": google.maps.ControlPosition.LEFT_CENTER,
         "pane": detailPane
       },
-      {
-        "name": "sprite",
-        "position": google.maps.ControlPosition.RIGHT_CENTER,
-        "pane": spritePane
         */
+      {
+        "name": "map-modes",
+        "position": google.maps.ControlPosition.RIGHT_CENTER,
+        "pane": mapModesPane
       }
     ]
   };
