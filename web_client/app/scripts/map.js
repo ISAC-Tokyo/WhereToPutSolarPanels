@@ -270,27 +270,27 @@ $(document).ready(function() {
   var mapModesPane = map.makeItemizedPane("map-modes", [
       {
         "title": "Sunny Places",
-      "action": function() {
-        var gradient = [
-          'rgba(0, 0, 0, 1)',
-          'rgba(0, 200, 0, 1)'
-        ]
+        "action": function() {
+          var gradient = [
+            'rgba(0, 0, 0, 1)',
+            'rgba(0, 200, 0, 1)'
+          ]
         map.heatMap.setOptions({ gradient: gradient });
       },
-      "image": "images/nuclear-power-plant.png",
+      "image": "images/sun-icon.png",
       "itemExtraClass": "map-pane-item-vertical"
       },
       {
         "title": "Modis Full Data",
-      "action": function() {
-        var gradient = [
-          'rgba(200, 0, 0, 1)',
-          'rgba(128, 60, 0, 1)',
-          'rgba(0, 200, 0, 1)'
-        ]
-        map.heatMap.setOptions({ gradient: gradient });
+        "action": function() {
+          var gradient = [
+            'rgba(200, 0, 0, 1)',
+            'rgba(128, 60, 0, 1)',
+            'rgba(0, 200, 0, 1)'
+          ]
+          map.heatMap.setOptions({ gradient: gradient });
       },
-      "image": "images/nuclear-power-plant.png",
+      "image": "images/satellite-icon.png",
       "itemExtraClass": "map-pane-item-vertical"
       }
   ], "map-pane-right");

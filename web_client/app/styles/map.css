@@ -14,14 +14,14 @@ body { height: 100%; margin: 0; padding: 0 }
 }
 
 .map-pane-item {
-  display: inline;
-  float: left;
   text-align: center;
   margin: auto;
   color: #FFF;
 }
 
 .map-pane-item-horizontal {
+  display: inline;
+  float: left;
   padding-left: 20px;
   padding-right: 20px;
 }
