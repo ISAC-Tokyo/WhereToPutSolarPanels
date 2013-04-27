@@ -1,4 +1,5 @@
-var COORDINATE_DECIMAL = 2;
+//同じ位置のスコアを全期間で集計する
+var COORDINATE_DECIMAL = 1;
 
 print('Start aggregate by location and date')
 print(Date());
@@ -14,17 +15,7 @@ function map() {
     val = val / Math.pow(10, decimal);
     return val;
   }
-  // ISODate to "201301"
-  var toMonth = function(d) {
-    var year = d.getFullYear();
-    var month = d.getMonth() + 1;
-    if (month < 10) {
-      month = '0' + month;
-    }
-    return String(year) + String(month);
-  }
-  
-  var key = toMonth(this.date) + '_' + round(this.loc.lat, COORDINATE_DECIMAL) + '_' + round(this.loc.lon, COORDINATE_DECIMAL);
+  var key = round(this.loc.lat, COORDINATE_DECIMAL) + '_' + round(this.loc.lon, COORDINATE_DECIMAL);
   emit(key, {
     score: this.score,
     low: this.low,
@@ -54,10 +45,9 @@ function reduce(key, values) {
 function finalize(key, value) {
   var keys = key.split('_');
   return {
-    month: keys[0],
     loc: {
-      lat: keys[1],
-      lon: keys[2],
+      lat: keys[0],
+      lon: keys[1],
     },
     totalScore: value.score,
     totalLow: value.low,
@@ -67,7 +57,7 @@ function finalize(key, value) {
   }
 }
 
-var outCollection = 'bymonth_scale' + COORDINATE_DECIMAL;
+var outCollection = 'alldate_scale' + COORDINATE_DECIMAL;
 var res = db.cloud_mask.mapReduce(map, reduce, {
   out: outCollection,
   finalize: finalize,
@@ -75,8 +65,9 @@ var res = db.cloud_mask.mapReduce(map, reduce, {
     COORDINATE_DECIMAL: COORDINATE_DECIMAL
   },
   verbose: true
-});  
+});
 
 print('count: ', db[outCollection].find().count());
-print('Finished');
+print('Finished. Created ', outCollection);
 print(Date());
+
