@@ -1,12 +1,25 @@
 # mongodb のデータ構成
 
-## dai2 Server
+## 積みあげ計算について
 
-### gi
+日付違いのデータについて、座標が近くても完全に一致はしていないので、座標の精度を落して積み上げ計算をする。
 
-#### Collection:cloud_mask
 
-一番粒度の細かいデータ。日毎、2013年3月のみ。
+## Databases
+
+- dai2 Server
+ - gi 2013年03月のデータのみ
+ - test test?
+ - wtps ???
+- dai3 Server
+ - wtps12_5 %12=0のデータのみ。5年分
+ - wtps12_8 %12=0のデータのみ。8年分
+
+## Collections 
+
+### cloud_mask
+
+生データ、日毎。
 
 ```
 > db.cloud_mask.find.limit(1)
@@ -22,21 +35,50 @@
 }
 ```
 
+### alldate_scaleX
 
+すべての日付の平均、座標は小数点X桁の精度で保持。
 
-## dai3 Server
+```
+> db.alldate_scale1.findOne()
+{
+        "_id" : "20.1_120.1",
+        "value" : {
+                "loc" : {
+                        "lat" : "20.1",
+                        "lon" : "120.1"
+                },
+                "totalScore" : 2,
+                "totalLow" : 0,
+                "count" : 4, // 集計したデータの個数
+                "score" : 0.5,
+                "low" : 0
+        }
+}
+```
 
-### wtps12
+### scaleX_by_month
 
-???
+月毎に集計、座標は小数点X桁の精度で保持。
 
-### wtps12_5
-
-???
-
-### wtps12_8
-
-???
+```
+> db.scale2_by_month.findOne()
+{
+        "_id" : "201301_20.1_120.1", // keyはmonth + lac + lon
+        "value" : {
+                "month": "201301"
+                "loc" : {
+                        "lat" : "20.12",
+                        "lon" : "120.15"
+                },
+                "totalScore" : 2,
+                "totalLow" : 0,
+                "count" : 4, // 集計したデータの個数
+                "score" : 0.5,
+                "low" : 0
+        }
+}
+```
 
 
 
