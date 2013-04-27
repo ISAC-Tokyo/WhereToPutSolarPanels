@@ -1,10 +1,12 @@
 # mongodb のデータ構成
 
-## Collections
+## dai2 Server
 
-### 一番粒度の細かいデータ。日毎。
+### gi
 
-cloud_mask
+#### Collection:cloud_mask
+
+一番粒度の細かいデータ。日毎、2013年3月のみ。
 
 ```
 > db.cloud_mask.find.limit(1)
@@ -20,27 +22,21 @@ cloud_mask
 }
 ```
 
-### 月毎のデータ、さらに座標の近い物をまとめて平均をとった物
 
-- scale1
-- scale2
-- scale3
-- scale4
-- scale5
 
-```
-> db.scale5.find().limit(1)
-{
-  _id: ObjectId("5177e2e33b02d17a04000000"), 
-  month: "201201",  //YYYYMM
-  loc: {
-    lat: 49.116271, // scaleによって小数点以下の桁数がかわる
-    lon: 128.44750  // scaleによって小数点以下の桁数がかわる
-  },
-  score: 0, // 平均
-  low: 3,   // 平均
-  totalScore: 999,
-  totalLow: 100,
-  count: 100 // 集計データの数
-}
-```
+## dai3 Server
+
+### wtps12
+
+???
+
+### wtps12_5
+
+???
+
+### wtps12_8
+
+???
+
+
+
