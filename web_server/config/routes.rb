@@ -5,6 +5,11 @@ WhereToPutSolarPanels::Application.routes.draw do
 
   match 'api/v1/rank' => 'sunshine_rank#get_rank'
 
+  # Redirect unkown request to the web client.
+  root to: redirect { |p, request|
+      "http://#{request.host}/"
+  }
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
