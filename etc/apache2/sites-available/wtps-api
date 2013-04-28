@@ -9,9 +9,9 @@ PassengerRoot /srv/WhereToPutSolarPanels/web_server/vendor/bundle/gems/passenger
 PassengerRuby /usr/local/rvm/rubies/ruby-1.9.3-p392/bin/ruby
 RackEnv production
 
-Listen 3000
+Listen 3003
 
-<VirtualHost *:3000>
+<VirtualHost *:3003>
   DocumentRoot /srv/WhereToPutSolarPanels/web_server
   <Directory /srv/WhereToPutSolarPanels/web_server>
      AllowOverride all
