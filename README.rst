@@ -48,8 +48,11 @@ Install virtual hosts
 
 ::
 
+    # As root
     ln -s /srv/WhereToPutSolarPanels/etc/apache2/sites-available/wtps-api /etc/apache2/sites-available/wtps-api
     ln -s /srv/WhereToPutSolarPanels/etc/apache2/sites-available/wtps-web /etc/apache2/sites-available/wtps-web
+    a2ensite wtps-web
+    a2ensite wtps-api
 
 Start/Restart Apache
 
