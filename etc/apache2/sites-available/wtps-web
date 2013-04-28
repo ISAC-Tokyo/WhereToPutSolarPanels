@@ -5,8 +5,13 @@ Header always unset "Server"
 ServerSignature Off
 
 <VirtualHost *:80>
-  DocumentRoot /srv/WhereToPutSolarPanels/web_client/app
+  LogLevel warn
+  ErrorLog ${APACHE_LOG_DIR}/error.log
+  CustomLog ${APACHE_LOG_DIR}/access.log combined
+  DocumentRoot /srv/WhereToPutSolarPanels/web_client/app/
   <Directory /srv/WhereToPutSolarPanels/web_client/app>
+     DirectoryIndex index.html
+     DirectorySlash On
      AllowOverride all
      Options -MultiViews
   </Directory>

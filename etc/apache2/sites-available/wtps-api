@@ -12,8 +12,8 @@ RackEnv production
 Listen 3003
 
 <VirtualHost *:3003>
-  DocumentRoot /srv/WhereToPutSolarPanels/web_server
-  <Directory /srv/WhereToPutSolarPanels/web_server>
+  DocumentRoot /srv/WhereToPutSolarPanels/web_server/public
+  <Directory /srv/WhereToPutSolarPanels/web_server/public>
      AllowOverride all
      Options -MultiViews
   </Directory>
