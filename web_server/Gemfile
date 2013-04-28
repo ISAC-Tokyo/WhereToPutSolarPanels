@@ -24,10 +24,8 @@ end
 
 gem 'jquery-rails'
 
-group :production do
-  # Passenger uses an exact version, as the Apache configuration depends on it.
-  gem 'passenger', '=3.0.19'
-end
+# Passenger uses an exact version, as the Apache configuration depends on it.
+gem 'passenger', '=3.0.19'
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
