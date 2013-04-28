@@ -1,0 +1,21 @@
+LoadModule headers_module /usr/lib/apache2/modules/mod_headers.so
+Header always unset "X-Powered-By"
+Header always unset "X-Runtime"
+Header always unset "Server"
+ServerSignature Off
+
+LoadModule passenger_module /srv/WhereToPutSolarPanels/web_server/vendor/bundle/ruby/1.9.1/gems/passenger-3.0.19/ext/apache2/mod_passenger.so
+PassengerRoot /srv/WhereToPutSolarPanels/web_server/vendor/bundle/ruby/1.9.1/gems/passenger-3.0.19
+PassengerRuby /usr/local/rvm/rubies/ruby-1.9.3-p392/bin/ruby
+RackEnv production
+
+Listen 3000
+
+<VirtualHost *:3000>
+  DocumentRoot /srv/WhereToPutSolarPanels/web_server
+  <Directory /srv/WhereToPutSolarPanels/web_server>
+     AllowOverride all
+     Options -MultiViews
+  </Directory>
+</VirtualHost>
+

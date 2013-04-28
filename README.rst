@@ -1,18 +1,59 @@
+=====================
 WhereToPutSolarPanels
 =====================
 
-- Facebook
+- Home: http://spaceappschallenge.org/project/where-to-put-solar-panels-/
+- Facebook (sometimes private!): http://www.facebook.com/groups/435555353200281/
 
-  - http://www.facebook.com/groups/435555353200281/
-
-
+-------
 Members
 -------
 
-- takano32
+- Wataru Ohira (Lead)
+- Ryota Ayaki
+- Hiroki Matsue
 - Takashi Nishibayashi (github:haginon3000)
+- Eric Platon
+- Hajime Sasaki
 - Shun Shiramatsu (github:siramatu)
+- Mitsuhiro Takano (takano32)
 
+----------
+Deployment
+----------
+
+*Assuming Ubuntu 12_04*
+
+*See also web_client/README.md for the web server configuration (behind the wtps-web virtual host configured here)*
+
+Package requirements
+
+::
+
+    # As root
+    apt-get install git apache2 <必須なパケージを追加してください！>
+    \curl -L https://get.rvm.io | bash -s stable --ruby=1.9.3
+
+Get the code
+
+::
+
+    cd /srv && git clone git://github.com/International-Space-Apps-Challenge-Tokyo/WhereToPutSolarPanels.git
+
+Install virtual hosts
+
+::
+
+    ln -s etc/apache2/sites-available/wtps-api /etc/apache2/sites-available/wtps-api
+    ln -s etc/apache2/sites-available/wtps-web /etc/apache2/sites-available/wtps-web
+
+Start/Restart Apache
+
+::
+
+    sudo apache2ctl start || sudo apache2ctl graceful
+
+-----------------------
 Softwares and Libraries
 -----------------------
 
@@ -32,6 +73,8 @@ Softwares and Libraries
 
   - http://www.hdfgroup.org/HDF5/doc/RM/Tools.html#Tools-Dump
 
+
+-------
 Servers
 -------
 
@@ -58,7 +101,7 @@ SSH秘密鍵はfacebookグループにアップロードしました。
 
 - private ip address: 10.1.1.82
 - hostname: i-1603-29759-VM
-たかのさんが作業中
+  たかのさんが作業中
 
 サーバー3
 
@@ -71,7 +114,7 @@ SSH秘密鍵はfacebookグループにアップロードしました。
 - hostname: i-1603-29764-VM
 
 SSH Config
-^^^^^^^^^^
+----------
 
 ::
 
@@ -93,6 +136,10 @@ SSH Config
     User root
     IdentityFile ~/.ssh/id_rsa_wtps
     Hostname 210.129.195.213
+
+---------------
+Data Management
+---------------
 
 Convert HDF4 to HDF5
 --------------------
@@ -129,11 +176,12 @@ ex. from 2000-01-01 to 2000-12-31 data.
   $ ls MOD35_L2.A200[0]*.h5 | xargs -n1 insert_cloud_mask.py
 
 
+--------
 Mongo DB
 --------
 
 Create Geo Index
-^^^^^^^^^^^^^^^^
+----------------
 
 ::
 
@@ -141,7 +189,7 @@ Create Geo Index
 
 
 Count
-^^^^^
+-----
 
 ::
 
@@ -151,7 +199,7 @@ Count
         }})
 
 Map Reduce
-^^^^^^^^^^
+----------
 
 ::
 
@@ -176,6 +224,7 @@ Map Reduce
           lon: {$gt: 134, $lt: 134.01}
           }})
 
+----------
 Server API
 ----------
 
