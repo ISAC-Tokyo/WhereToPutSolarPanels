@@ -69,6 +69,7 @@ var res = db.cloud_mask.mapReduce(map, reduce, {
 });
 
 print('count: ', db[outCollection].find().count());
-print('Finished. Created ', outCollection);
+print('Finished. Created collection ', outCollection);
 print(Date());
+print('===========================');
 

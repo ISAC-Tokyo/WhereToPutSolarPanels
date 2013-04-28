@@ -67,7 +67,7 @@ function finalize(key, value) {
   }
 }
 
-var outCollection = 'bymonth_scale' + COORDINATE_DECIMAL;
+var outCollection = 'scale' + COORDINATE_DECIMAL + '_by_month';
 var res = db.cloud_mask.mapReduce(map, reduce, {
   out: outCollection,
   finalize: finalize,
@@ -80,5 +80,6 @@ var res = db.cloud_mask.mapReduce(map, reduce, {
 });  
 
 print('count: ', db[outCollection].find().count());
-print('Finished');
+print('Finished. Created collection ', outCollection);
 print(Date());
+print('===========================');
