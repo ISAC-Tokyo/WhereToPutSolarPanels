@@ -44,8 +44,8 @@ Install virtual hosts
 
 ::
 
-    ln -s etc/apache2/sites-available/wtps-api /etc/apache2/sites-available/wtps-api
-    ln -s etc/apache2/sites-available/wtps-web /etc/apache2/sites-available/wtps-web
+    ln -s /srv/WhereToPutSolarPanels/etc/apache2/sites-available/wtps-api /etc/apache2/sites-available/wtps-api
+    ln -s /srv/WhereToPutSolarPanels/etc/apache2/sites-available/wtps-web /etc/apache2/sites-available/wtps-web
 
 Start/Restart Apache
 
