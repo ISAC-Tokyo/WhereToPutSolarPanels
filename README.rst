@@ -31,14 +31,18 @@ Package requirements
 ::
 
     # As root
-    apt-get install git apache2 <必須なパケージを追加してください！>
+    apt-get install build-essential libcurl4-openssl-dev apache2-prefork-dev apache2 nodejs git <必須なパケージを追加してください！>
     \curl -L https://get.rvm.io | bash -s stable --ruby=1.9.3
 
 Get the code
 
 ::
 
-    cd /srv && git clone git://github.com/International-Space-Apps-Challenge-Tokyo/WhereToPutSolarPanels.git
+    cd /srv && \
+    git clone git://github.com/International-Space-Apps-Challenge-Tokyo/WhereToPutSolarPanels.git
+    # As needed
+    RAILS_ENV=production BUNDLE_PATH=vendor/bundle bundle install && \
+    RAILS_ENV=production BUNDLE_PATH=vendor/bundle bundle exec passenger-install-apache2-module -a
 
 Install virtual hosts
 
