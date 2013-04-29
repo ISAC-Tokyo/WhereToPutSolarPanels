@@ -45,7 +45,7 @@ def fill_rank_data(arr):
 def write_binary(ranks):
     out = open('binary_map_[20,120]to[50,150].dat', 'wb')
     for rank in ranks:
-        out.write(pack('<H', 0))
+        out.write(pack('<H', rank))
 
 
 def main():
