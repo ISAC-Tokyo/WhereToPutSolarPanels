@@ -11,7 +11,7 @@
 mongoexport --db wtps12_12 --collection alldate_scale1 --csv --fields value.loc.lat,value.loc.lon,value.score,value.low,value.totalScore,value.totalLow,value.count --out alldate_scale1.csv
 ```
 
-出力データはこんな感じ
+出力データはこんな感じ、それぞれのデータの意味は[alldate_scaleX](#alldate_scaleX)を参照
 ```
 value.loc.lat,value.loc.lon,value.score,value.low,value.totalScore,value.totalLow,value.count
 "20.1","120",0.238,0.0,99.0,0.0,416.0
@@ -65,11 +65,11 @@ value.loc.lat,value.loc.lon,value.score,value.low,value.totalScore,value.totalLo
                         "lat" : "20.1",
                         "lon" : "120.1"
                 },
-                "totalScore" : 2,
-                "totalLow" : 0,
-                "count" : 4, // 集計したデータの個数
-                "score" : 0.5,
-                "low" : 0
+                "totalScore" : 2, // scoreの合計
+                "totalLow" : 0,   // lowの合計
+                "count" : 4,      // 集計したデータの個数
+                "score" : 0.5,    // score/count
+                "low" : 0         // low/count
         }
 }
 ```
