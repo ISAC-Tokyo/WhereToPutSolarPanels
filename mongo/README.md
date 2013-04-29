@@ -4,6 +4,23 @@
 
 日付違いのデータについて、座標が近くても完全に一致はしていないので、座標の精度を落して積み上げ計算をする。
 
+### 積みあげ後データのExport
+
+```
+# コマンド
+mongoexport --db wtps12_12 --collection alldate_scale1 --csv --fields value.loc.lat,value.loc.lon,value.score,value.low,value.totalScore,value.totalLow,value.count --out alldate_scale1.csv
+```
+
+出力データはこんな感じ
+```
+value.loc.lat,value.loc.lon,value.score,value.low,value.totalScore,value.totalLow,value.count
+"20.1","120",0.238,0.0,99.0,0.0,416.0
+"20.1","120.1",0.2398,0.0,211.0,0.0,880.0
+"20.1","120.2",0.2216,0.0,205.0,0.0,925.0
+"20.1","120.3",0.2525,0.0,225.0,0.0,891.0
+"20.1","120.4",0.2399,0.0,220.0,0.0,917.0
+```
+
 
 ## Databases
 
