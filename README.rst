@@ -145,6 +145,72 @@ SSH秘密鍵はfacebookグループにアップロードしました。
 
   - i-1603-29764-VM
 
+ワーカー1
+---------
+
+- private ip address
+
+  - 10.1.0.226
+
+- hostname
+
+  - i-1603-30061-VM
+
+ワーカー2
+---------
+
+- private ip address
+
+  - 10.1.0.167
+
+- hostname
+
+  - i-1603-30062-VM
+
+ワーカー3
+---------
+
+- private ip address
+
+  - 10.1.0.122
+
+- hostname
+
+  - i-1603-30063-VM
+
+ワーカー4
+---------
+
+- private ip address
+
+  - 10.1.1.246
+
+- hostname
+
+  - i-1603-30064-VM
+
+ワーカー5
+---------
+
+- private ip address
+
+  - 10.1.0.195
+
+- hostname
+
+  - i-1603-30065-VM
+
+ワーカー6
+---------
+
+- private ip address
+
+  - 10.1.2.84
+
+- hostname
+
+  - i-1603-30066-VM
+
 ----------
 SSH Config
 ----------
