@@ -46,8 +46,8 @@ function finalize(key, value) {
   var keys = key.split('_');
   return {
     loc: {
-      lat: keys[0],
-      lon: keys[1],
+      lat: Number(keys[0]),
+      lon: Number(keys[1])
     },
     totalScore: value.score,
     totalLow: value.low,

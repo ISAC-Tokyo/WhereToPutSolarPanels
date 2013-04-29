@@ -56,8 +56,8 @@ function finalize(key, value) {
   return {
     month: keys[0],
     loc: {
-      lat: keys[1],
-      lon: keys[2],
+      lat: Number(keys[1]),
+      lon: Number(keys[2]),
     },
     totalScore: value.score,
     totalLow: value.low,
