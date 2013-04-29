@@ -29,8 +29,10 @@ value.loc.lat,value.loc.lon,value.score,value.low,value.totalScore,value.totalLo
  - test test?
  - wtps ???
 - dai3 Server
- - wtps12_5 %12=0のデータのみ。5年分
- - wtps12_8 %12=0のデータのみ。8年分
+ - wtps12_2  %12=0のデータのみ。2年分
+ - wtps12_5  %12=0のデータのみ。5年分
+ - wtps12_8  %12=0のデータのみ。8年分
+ - wtps12_12 %12=0のデータのみ。12年分
 
 ## Collections 
 
