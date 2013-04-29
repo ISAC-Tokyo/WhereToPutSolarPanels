@@ -1,5 +1,12 @@
 = API part of WhereToPutSolarPanels
 
+== Deployment for development mode
+For production: https://github.com/International-Space-Apps-Challenge-Tokyo/WhereToPutSolarPanels/blob/master/README.rst#deployment
+  # Install required gems
+  bundle install --path=.bundle
+  # Start server
+  bundle exec rails s
+
 == 関連ファイル
   |-- app
   |   |-- controllers
