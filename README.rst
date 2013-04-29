@@ -58,7 +58,6 @@ SSH秘密鍵はfacebookグループにアップロードしました。
 
 - private ip address: 10.1.1.82
 - hostname: i-1603-29759-VM
-たかのさんが作業中
 
 サーバー3
 
