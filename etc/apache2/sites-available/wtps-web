@@ -1,0 +1,19 @@
+LoadModule headers_module /usr/lib/apache2/modules/mod_headers.so
+Header always unset "X-Powered-By"
+Header always unset "X-Runtime"
+Header always unset "Server"
+ServerSignature Off
+
+<VirtualHost *:80>
+  LogLevel warn
+  ErrorLog ${APACHE_LOG_DIR}/error.log
+  CustomLog ${APACHE_LOG_DIR}/access.log combined
+  DocumentRoot /srv/WhereToPutSolarPanels/web_client/app/
+  <Directory /srv/WhereToPutSolarPanels/web_client/app>
+     DirectoryIndex index.html
+     DirectorySlash On
+     AllowOverride all
+     Options -MultiViews
+  </Directory>
+</VirtualHost>
+
