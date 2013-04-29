@@ -37,13 +37,15 @@ def fill_rank_data(arr):
         col = int(lon * RESOLUTION - LON_MIN)
         idx = row * (LAT_MAX - LAT_MIN + 1) + col
 
-        ret[idx] = int(score * 10000)
+        arr[idx] = int(score * 10000)
+
+    return arr
 
 
 def write_binary(ranks):
     out = open('binary_map_[20,120]to[50,150].dat', 'wb')
     for rank in ranks:
-        out.write(pack('<H', rank))
+        out.write(pack('<H', 0))
 
 
 def main():
