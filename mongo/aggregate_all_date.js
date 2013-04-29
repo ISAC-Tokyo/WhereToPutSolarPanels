@@ -3,18 +3,18 @@ var COORDINATE_DECIMAL = 1;
 
 print('Start aggregate by location and date')
 print(Date());
+
+// 小数桁を指定したまるめ
+// round(49.11627197265625, 3) => 49.116
+function round(val, decimal) {
+  val = val * Math.pow(10, decimal);
+  val = Math.round(val);
+  val = val / Math.pow(10, decimal);
+  return val;
+}
  
 // lat, lonが近い物が同じキーとなる
 function map() {
-
-  // 位置のまるめ
-  // round(49.11627197265625, 3) => 49.116
-  var round = function(val, decimal) {
-    val = val * Math.pow(10, decimal);
-    val = Math.round(val);
-    val = val / Math.pow(10, decimal);
-    return val;
-  }
   var key = round(this.loc.lat, COORDINATE_DECIMAL) + '_' + round(this.loc.lon, COORDINATE_DECIMAL);
   emit(key, {
     score: this.score,
@@ -46,14 +46,14 @@ function finalize(key, value) {
   var keys = key.split('_');
   return {
     loc: {
-      lat: keys[0],
-      lon: keys[1],
+      lat: Number(keys[0]),
+      lon: Number(keys[1])
     },
     totalScore: value.score,
     totalLow: value.low,
     count: value.count,
-    score: value.score / value.count,
-    low: value.low / value.count
+    score: round(value.score / value.count, 4),
+    low: round(value.low / value.count, 4)
   }
 }
 
@@ -62,12 +62,14 @@ var res = db.cloud_mask.mapReduce(map, reduce, {
   out: outCollection,
   finalize: finalize,
   scope: {
+    round: round,
     COORDINATE_DECIMAL: COORDINATE_DECIMAL
   },
   verbose: true
 });
 
 print('count: ', db[outCollection].find().count());
-print('Finished. Created ', outCollection);
+print('Finished. Created collection ', outCollection);
 print(Date());
+print('===========================');
 

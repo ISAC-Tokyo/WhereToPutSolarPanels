@@ -95,30 +95,55 @@ CommonSpec
 
 SSH秘密鍵はfacebookグループにアップロードしました。
 
-    ssh root@210.129.195.213 -i ~/.ssh/id_rsa_wtps
+::
+
+  ssh root@210.129.195.213 -i ~/.ssh/id_rsa_wtps
 
 でログインできます。
 
 公開サーバー
+^^^^^^^^^^^^
 
-- global ip address: 210.129.195.213
-- hostname: i-1603-29752-VM
+- global ip address
+
+  - 210.129.195.213
+
+- hostname
+
+  - i-1603-29752-VM
 
 サーバー2
+^^^^^^^^^
 
-- private ip address: 10.1.1.82
-- hostname: i-1603-29759-VM
-  たかのさんが作業中
+- private ip address
+
+  - 10.1.1.82
+
+- hostname
+
+  - i-1603-29759-VM
 
 サーバー3
+^^^^^^^^^
 
-- private ip address: 10.1.2.94
-- hostname: i-1603-29760-VM
+- private ip address
+
+  - 10.1.2.94
+
+- hostname
+
+  - i-1603-29760-VM
 
 サーバー4
+^^^^^^^^^
 
-- private ip address: 10.1.2.51
-- hostname: i-1603-29764-VM
+- private ip address
+
+  - 10.1.2.51
+
+- hostname
+
+  - i-1603-29764-VM
 
 SSH Config
 ----------

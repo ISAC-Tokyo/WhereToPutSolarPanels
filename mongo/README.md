@@ -4,6 +4,23 @@
 
 日付違いのデータについて、座標が近くても完全に一致はしていないので、座標の精度を落して積み上げ計算をする。
 
+### 積みあげ後データのExport
+
+```
+# コマンド
+mongoexport --db wtps12_12 --collection alldate_scale1 --csv --fields value.loc.lat,value.loc.lon,value.score,value.low,value.totalScore,value.totalLow,value.count --out alldate_scale1.csv
+```
+
+出力データはこんな感じ、それぞれのデータの意味は[alldate_scaleX](./README.md#alldate_scalex)を参照
+```
+value.loc.lat,value.loc.lon,value.score,value.low,value.totalScore,value.totalLow,value.count
+20.1,120,0.238,0.0,99.0,0.0,416.0
+20.1,120.1,0.2398,0.0,211.0,0.0,880.0
+20.1,120.2,0.2216,0.0,205.0,0.0,925.0
+20.1,120.3,0.2525,0.0,225.0,0.0,891.0
+20.1,120.4,0.2399,0.0,220.0,0.0,917.0
+```
+
 
 ## Databases
 
@@ -12,8 +29,10 @@
  - test test?
  - wtps ???
 - dai3 Server
- - wtps12_5 %12=0のデータのみ。5年分
- - wtps12_8 %12=0のデータのみ。8年分
+ - wtps12_2  %12=0のデータのみ。2年分
+ - wtps12_5  %12=0のデータのみ。5年分
+ - wtps12_8  %12=0のデータのみ。8年分
+ - wtps12_12 %12=0のデータのみ。12年分
 
 ## Collections 
 
@@ -45,14 +64,14 @@
         "_id" : "20.1_120.1",
         "value" : {
                 "loc" : {
-                        "lat" : "20.1",
-                        "lon" : "120.1"
+                        "lat" : 20.1,
+                        "lon" : 120.1
                 },
-                "totalScore" : 2,
-                "totalLow" : 0,
-                "count" : 4, // 集計したデータの個数
-                "score" : 0.5,
-                "low" : 0
+                "totalScore" : 2, // scoreの合計
+                "totalLow" : 0,   // lowの合計
+                "count" : 4,      // 集計したデータの個数
+                "score" : 0.5,    // score/count
+                "low" : 0         // low/count
         }
 }
 ```
