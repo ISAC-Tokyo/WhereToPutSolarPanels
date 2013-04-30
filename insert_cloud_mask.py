@@ -38,8 +38,8 @@ CLOUD_QUORITY = int('00000110', 2)
 DAY_OR_NIGHT = int('00001000', 2)
 LAND_OR_WATER = int('11000000', 2)
 
-# mongoc = pymongo.Connection('10.1.1.82', 27017)  # server 2
-mongoc = pymongo.Connection('10.1.2.94', 27017)  # server 3
+mongoc = pymongo.Connection('10.1.1.82', 27017)  # server 2
+# mongoc = pymongo.Connection('10.1.2.94', 27017)  # server 3
 mongodb = "wtps%d_%d" % (shard, shard_index)
 mongo = mongoc[mongodb].cloud_mask
 
