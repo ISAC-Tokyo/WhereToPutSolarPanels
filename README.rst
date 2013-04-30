@@ -1,9 +1,11 @@
+=====================
 WhereToPutSolarPanels
 =====================
 
 - Home: http://spaceappschallenge.org/project/where-to-put-solar-panels-/
 - Facebook (sometimes private!): http://www.facebook.com/groups/435555353200281/
 
+-------
 Members
 -------
 
@@ -16,6 +18,7 @@ Members
 - Shun Shiramatsu (github:siramatu)
 - Mitsuhiro Takano (takano32)
 
+----------
 Deployment
 ----------
 
@@ -57,6 +60,7 @@ Start/Restart Apache
 
     sudo apache2ctl start || sudo apache2ctl graceful
 
+-----------------------
 Softwares and Libraries
 -----------------------
 
@@ -77,6 +81,7 @@ Softwares and Libraries
   - http://www.hdfgroup.org/HDF5/doc/RM/Tools.html#Tools-Dump
 
 
+-------
 Servers
 -------
 
@@ -97,7 +102,7 @@ SSH秘密鍵はfacebookグループにアップロードしました。
 でログインできます。
 
 公開サーバー
-^^^^^^^^^^^^
+------------
 
 - global ip address
 
@@ -108,7 +113,7 @@ SSH秘密鍵はfacebookグループにアップロードしました。
   - i-1603-29752-VM
 
 サーバー2
-^^^^^^^^^
+---------
 
 - private ip address
 
@@ -119,7 +124,7 @@ SSH秘密鍵はfacebookグループにアップロードしました。
   - i-1603-29759-VM
 
 サーバー3
-^^^^^^^^^
+---------
 
 - private ip address
 
@@ -130,7 +135,7 @@ SSH秘密鍵はfacebookグループにアップロードしました。
   - i-1603-29760-VM
 
 サーバー4
-^^^^^^^^^
+---------
 
 - private ip address
 
@@ -140,6 +145,73 @@ SSH秘密鍵はfacebookグループにアップロードしました。
 
   - i-1603-29764-VM
 
+ワーカー1
+---------
+
+- private ip address
+
+  - 10.1.0.226
+
+- hostname
+
+  - i-1603-30061-VM
+
+ワーカー2
+---------
+
+- private ip address
+
+  - 10.1.0.167
+
+- hostname
+
+  - i-1603-30062-VM
+
+ワーカー3
+---------
+
+- private ip address
+
+  - 10.1.0.122
+
+- hostname
+
+  - i-1603-30063-VM
+
+ワーカー4
+---------
+
+- private ip address
+
+  - 10.1.1.246
+
+- hostname
+
+  - i-1603-30064-VM
+
+ワーカー5
+---------
+
+- private ip address
+
+  - 10.1.0.195
+
+- hostname
+
+  - i-1603-30065-VM
+
+ワーカー6
+---------
+
+- private ip address
+
+  - 10.1.2.84
+
+- hostname
+
+  - i-1603-30066-VM
+
+----------
 SSH Config
 ----------
 
@@ -164,6 +236,7 @@ SSH Config
     IdentityFile ~/.ssh/id_rsa_wtps
     Hostname 210.129.195.213
 
+---------------
 Data Management
 ---------------
 
@@ -202,8 +275,11 @@ ex. from 2000-01-01 to 2000-12-31 data.
   $ ls MOD35_L2.A200[0]*.h5 | xargs -n1 insert_cloud_mask.py
 
 
+--------
 Mongo DB
 --------
+
+Current Data Structure https://github.com/International-Space-Apps-Challenge-Tokyo/WhereToPutSolarPanels/blob/master/mongo/README.md
 
 Create Geo Index
 ----------------
@@ -249,6 +325,7 @@ Map Reduce
           lon: {$gt: 134, $lt: 134.01}
           }})
 
+----------
 Server API
 ----------
 
