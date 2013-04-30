@@ -6,11 +6,12 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>ソーラーパネル、どこへ置く - Where to put solar panels? 設置結果</title>
+    <title>Results - Where to put solar panels?</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
     <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/result.css">
 
     <!-- build:css styles/vendor/bootstrap.css -->
     <link rel="stylesheet" href="components/bootstrap.css/css/bootstrap.min.css">
@@ -24,25 +25,27 @@
 
     <!-- build:js scripts/result.js -->
     <script type="text/javascript" src="components/flot/jquery.flot.js"></script>
+    <script type="text/javascript" src="components/flot/jquery.flot.time.js"></script>
     <script type="text/javascript" src="scripts/common.js"></script>
     <script type="text/javascript" src="scripts/result.js"></script>
     <!-- endbuild -->
 </head>
 <body>
   <div class="container">
-    <h1 class="page-header">あなたのソーラーパネルの設置結果</h1>
+    <h1 class="page-header">Results</h1>
     <div class="row">
         <div class="span6">
-          <h3>日照条件</h3>
+          <h3>Sunshine Performance</h3>
           <p>
-          total_score / 4
-          良好な日照条件です。平均で晴れの日数が年間300日あります。
+          <span id="score" class="inline"></span>/4
+          This location has <span id="score-label" class="inline"></span> sunshine conditions, with an average of <span id="score-days" class="inline"></span> days of sunshine per year.
           </p>
         </div>
         <div class="span6">
-          <p>
-          分布図をここに
-          </p>
+          <h3>Sunshine Distribution</h3>
+          <div class="graph-container">
+            <div id="distribution-graph" class="graph-placeholder"></div>
+          </div>
         </div>
     </div>
 
@@ -55,18 +58,21 @@
         <div class="span6">
           <h3>xxx年でペイできる計算です</h3>
           <p>
+          The graph shows the results of the computation based on the average amount of sunshine available and the output level of the solar panel.
+          This information allows to estimate a return on investing in solar panels
+
           ソーラーパネルの発電量と日照量から計算したグラフです。
           日本の平均日照量におけるソーラーパネルのコスト回収期間の10年と比較してxxxxxxxといえるでしょう。
           </p>
           <p>
-          10年後における発電量の買い取り価格は99999円となります。
+          The cost of producing this amount of electricity in the next 10 years is 99999 yens, as for 2013 prices.
           </p>
         </div>
     </div>
     <div class="row">
       <div class="span12">
         <br>
-        <a href="./" class="btn btn-primary btn-large">トップに戻る</a> 
+        <a href="./" class="btn btn-primary btn-large">Home</a>
       </div>
     </div>
   </div>
@@ -78,3 +84,4 @@
 
 </body>
 </html>
+
