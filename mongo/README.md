@@ -87,8 +87,8 @@ value.loc.lat,value.loc.lon,value.score,value.low,value.totalScore,value.totalLo
         "value" : {
                 "month": "201301"
                 "loc" : {
-                        "lat" : "20.12",
-                        "lon" : "120.15"
+                        "lat" : 20.12,
+                        "lon" : 120.15
                 },
                 "totalScore" : 2,
                 "totalLow" : 0,
