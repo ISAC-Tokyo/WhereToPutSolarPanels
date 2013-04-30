@@ -12,7 +12,9 @@ import pymongo
 
 
 import sys
-file_name = sys.argv[1]
+shard = 12
+shard_index = int(sys.argv[1])
+file_name = sys.argv[2]
 
 import datetime
 import re
@@ -21,7 +23,7 @@ year = int(m.group(1))
 yday = int(m.group(2)) - 1
 datedelta = datetime.timedelta(yday)
 date = datetime.datetime(year, 1, 1) + datedelta
-if not yday % 12 == 0:
+if not yday % shard == shard_index:
     print "pass"
     print file_name
     print "--------"
@@ -37,8 +39,9 @@ DAY_OR_NIGHT = int('00001000', 2)
 LAND_OR_WATER = int('11000000', 2)
 
 # mongoc = pymongo.Connection('10.1.1.82', 27017)  # server 2
-mongoc = pymongo.Connection('10.1.2.94', 27017) # server 3
-mongo = mongoc.wtps12_12.cloud_mask
+mongoc = pymongo.Connection('10.1.2.94', 27017)  # server 3
+mongodb = "wtps%d_%d" % (shard, shard_index)
+mongo = mongoc[mongodb].cloud_mask
 
 
 def in_japan(lat, lon):
@@ -63,6 +66,7 @@ def valid_cloud_mask(cm):
         # 1: DAY
         return False  # if 0
     return True
+
 
 z = 0
 cloud_mask = cloud_masks[z]
