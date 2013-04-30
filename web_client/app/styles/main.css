@@ -84,38 +84,3 @@ table#solar-panel-list  {
   border-bottom: 2px solid #555;
 }
 
-/*********************************************************
- * result.html
- *********************************************************/
-
-.graph-placeholder {
-    width: 360px;
-    height: 300px;
-    font-size: 14px;
-    line-height: 1.2em;
-}
-
-.graph-container {
-    box-sizing: border-box;
-    width: 330px;
-    height: 300px;
-    padding: 0px;
-    margin:10px;
-}
-
-@media (max-width: 480px) {
-  .graph-placeholder {
-      width: 280px;
-      height: 250px;
-      font-size: 14px;
-      line-height: 1.2em;
-  }
-
-  .graph-container {
-      box-sizing: border-box;
-      width: 270px;
-      height: 250px;
-      padding: 0px;
-      margin:10px;
-  }
-}

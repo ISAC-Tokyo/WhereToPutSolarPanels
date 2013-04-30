@@ -6,20 +6,28 @@
     return match && decodeURIComponent(match[1].replace(/\+/g, ' '));
   }
 
-  function fetchRank(lat, lon) {
-//    $.ajax({
-//      url: wpsp.API_BASE + '/rank',
-//      crossDomain: true,
-//      data: {
-//        lat: lat,
-//        lon: lon
-//      },
-//    }).done(function(ret) {
-//      console.log(ret);
-//      callback(ret);
-//    }).fail(function(e) {
-//      alert('データの取得に失敗しました');
-//    });
+  function fetchRank(lat, lon, callback) {
+    $.ajax({
+      url: wpsp.API_BASE + '/rank',
+      crossDomain: true,
+      data: {
+        lat: lat,
+        lon: lon
+      },
+    }).done(function(ret) {
+      console.log(ret);
+      callback(ret);
+    }).fail(function(e) {
+      console.log("Failed to fetch place evaluation data for (" + lat + ", " + lon + ")");
+    });
+  }
+
+  var scoreLabels = {
+    "0": "very poor",
+    "1": "very poor",
+    "2": "poor",
+    "3": "good",
+    "4": "excellent"
   }
 
   var solarTypes = {
@@ -55,6 +63,9 @@
 
 
   function plotPlofitSimulation(solarPanelType) {
+    if (solarPanelType == undefined || solarTypes[solarPanelType] == undefined) {
+      solarPanelType = "t";
+    }
     var startyear = 2000;
     var panel = solarTypes[solarPanelType];
     var month = 20;// * 12; // 20 years
@@ -96,19 +107,64 @@
     });
   }
 
+  function plotTemporalDistribution(data, from, to) {
+    var plotSet = [];
+    var fromDate = (new Date(from));
+    var year = fromDate.getFullYear();
+    var month = fromDate.getMonth() + 1;
+    for (var i = 0; i < data.length; i++) {
+      if (month > 12) { month = 1; year += 1 }
+      plotSet.push([Date.parse(year + "/" + month), data[i]]);
+      month += 1;
+    }
+    $.plot("#distribution-graph", [plotSet], {
+      yaxis: {
+        min: 0,
+        tickSize: 1,
+        tickDecimals: 0
+      },
+      xaxis: {
+        mode: "time",
+        timeformat: "%Y/%m",
+        minTickSize: [1, "month"],
+        timezone: "browser"
+      },
+      series: {
+        bars: {
+          show: true,
+          barWidth: 10,
+          align: "center",
+          horizontal: false
+        }
+      }
+    });
+  }
+
+  function updateInformationPanel(results) {
+    if (results.rank != undefined) {
+      $("#score").html(results.rank);
+      $("#score-label").html(scoreLabels[results.rank.toString()]);
+    }
+    if (results.total_score != undefined) {
+      $("#score-days").html(results.total_score);
+    }
+  }
+
   function plotCloudyDistribution() {
   }
 
-  
+
   $(function() {
     var panelType = getParameterByName('panelType'),
-        lat = getParameterByName('lat'),
-        lon = getParameterByName('lon');
+  lat = getParameterByName('lat'),
+  lon = getParameterByName('lon');
 
-    //fetchRank(lat, lon, function(result) {
-    //  plotPlofitSimulation(panelType, result)
-    //});
-    plotPlofitSimulation(panelType)
+  fetchRank(lat, lon, function(result) {
+    updateInformationPanel(result);
+    plotTemporalDistribution(result.series.data, result.series.from, result.series.to);
+  });
+
+  plotPlofitSimulation(panelType);
   });
 
 })(jQuery);
