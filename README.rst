@@ -234,22 +234,22 @@ SSH Config
     Hostname 10.1.2.51
 
   Host wtps01
-    10.1.0.226
+    Hostname 10.1.0.226
 
   Host wtps02
-    10.1.0.167
+    Hostname 10.1.0.167
 
   Host wtps03
-    10.1.0.122
+    Hostname 10.1.0.122
 
   Host wtps04
-    10.1.1.246
+    Hostname 10.1.1.246
 
   Host wtps05
-    10.1.0.195
+    Hostname 10.1.0.195
 
   Host wtps06
-    10.1.2.84
+    Hostname 10.1.2.84
 
   Host wtps
     User root
