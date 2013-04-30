@@ -12,13 +12,13 @@ import pymongo
 
 
 import sys
-shard = 12
 shard_index = int(sys.argv[1])
-file_name = sys.argv[2]
+shard = int(sys.argv[2])
+file_name = sys.argv[3]
 
 import datetime
 import re
-m = re.match('^MOD35_L2.A([0-9]{4})([0-9]{3}).*', file_name)
+m = re.match('^.*/MOD35_L2.A([0-9]{4})([0-9]{3}).*', file_name)
 year = int(m.group(1))
 yday = int(m.group(2)) - 1
 datedelta = datetime.timedelta(yday)
