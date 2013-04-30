@@ -284,7 +284,7 @@ usage
 
 ::
 
-  $ insert_cloud_mask.py [HDF5 File Name]
+  $ insert_cloud_mask.py [shard_index] [shard_num] [HDF5 File Name]
 
 multiple file insert.
 
@@ -292,8 +292,18 @@ ex. from 2000-01-01 to 2000-12-31 data.
 
 ::
 
-  $ ls MOD35_L2.A200[0]*.h5 | xargs -n1 insert_cloud_mask.py
+  $ echo MOD35_L2.A200[0]*.h5 | xargs -n1 insert_cloud_mask.py [shard_index] [shard_num]
 
+ex. from 2001-01-01 to 2012-12-31 data w/ concurrency 4.
+
+::
+
+  $ echo MOD35_L2.A200[12]/*.h5 | xargs -P4 -n1 ./WhereToPutSolarPanels/insert_cloud_mask.py 0 12
+  $ echo MOD35_L2.A200[34]/*.h5 | xargs -P4 -n1 ./WhereToPutSolarPanels/insert_cloud_mask.py 0 12
+  $ echo MOD35_L2.A200[56]/*.h5 | xargs -P4 -n1 ./WhereToPutSolarPanels/insert_cloud_mask.py 0 12
+  $ echo MOD35_L2.A200[78]/*.h5 | xargs -P4 -n1 ./WhereToPutSolarPanels/insert_cloud_mask.py 0 12
+  $ echo MOD35_L2.A20[0-1][09]/*.h5 | xargs -P4 -n1 ./WhereToPutSolarPanels/insert_cloud_mask.py 0 12
+  $ echo MOD35_L2.A201[12]/*.h5 | xargs -P4 -n1 ./WhereToPutSolarPanels/insert_cloud_mask.py 0 12
 
 --------
 Mongo DB
