@@ -279,6 +279,8 @@ ex. from 2000-01-01 to 2000-12-31 data.
 Mongo DB
 --------
 
+Current Data Structure https://github.com/International-Space-Apps-Challenge-Tokyo/WhereToPutSolarPanels/blob/master/mongo/README.md
+
 Create Geo Index
 ----------------
 
