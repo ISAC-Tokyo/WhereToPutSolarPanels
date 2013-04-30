@@ -11,7 +11,7 @@ s=Time.now
     #raw = Cloud.where(:lat.gt => lat-RANGE, :lat.lt => lat+RANGE, :lon.gt => lon-RANGE, :lon.lt => lon+RANGE).to_a
     raw = Cloud.near(loc:[lat, lon]).to_a
 e=Time.now
-logger.info("mongo(/rank/): #{e-s}")
+logger.info("mongo(/rank/): #{e-s}second #{raw.size}data")
 
     buf = {}
     sum = 0
@@ -68,7 +68,7 @@ s=Time.now
     raw = Cloud.within_box(loc: [[lat_min, lon_min], [lat_max, lon_max]]).to_a
     raise 'no data error' if raw.length == 0
 e=Time.now
-logger.info("mongo(/rank/range/): #{e-s}")
+logger.info("mongo(/rank/range/): #{e-s}second #{raw.size}data")
 
     res = []
     temp = []
@@ -127,8 +127,17 @@ logger.info("mongo(/rank/range/): #{e-s}")
     lon_min = lon_min.to_f
     lon_max = lon_max.to_f
 
-    ret = Scale1.within_box(loc: [[lat_min, lon_min], [lat_max, lon_max]]).to_a
-    raise 'no data error' if ret.length == 0
+    raw = Scale1.within_box("value.loc" => [[lat_min, lon_min], [lat_max, lon_max]]).to_a
+    raise 'no data error' if raw.length == 0
+
+    ret = []
+    raw.each do |data|
+      new = {}
+      new["lat"] = data["value"]["loc"]["lat"]
+      new["lon"] = data["value"]["loc"]["lon"]
+      new["weight"] = data["value"]["score"]
+      ret << new
+    end
 
     if params.has_key? :callback
       render :json => ret.to_json, callback: params[:callback]

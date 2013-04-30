@@ -1,12 +1,8 @@
 class Scale1
   include Mongoid::Document
-  store_in collection: "scale1", database: "gi", session: "dai2"
+  store_in collection: "alldate_scale1", database: "wtps12_8", session: "dai3"
 
-  field :loc, type: Hash 
-  field :score, :type => Integer
-  field :totalScore, :type => Integer
-  field :totalLow, :type => Integer
-  field :count, :type => Integer
+  field :value, type: Hash 
 
-  index({ loc: "2d" })
+  index({ "value.loc" => "2d" })
 end

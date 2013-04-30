@@ -147,7 +147,7 @@ DEPENDENCIES
   jquery-rails
   mongo_mapper
   mongoid
-  passenger
+  passenger (= 3.0.19)
   rails (= 3.2.13)
   sass-rails (~> 3.2.3)
   sqlite3
