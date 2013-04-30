@@ -34,6 +34,8 @@ Package requirements
     apt-get install build-essential libcurl4-openssl-dev apache2-prefork-dev apache2 nodejs git <必須なパケージを追加してください！>
     \curl -L https://get.rvm.io | bash -s stable --ruby=1.9.3
 
+*If you want to install latest nodejs, see here: https://github.com/joyent/node/wiki/Installing-Node.js-via-package-manager#ubuntu-mint*
+
 Get the code
 
 ::
