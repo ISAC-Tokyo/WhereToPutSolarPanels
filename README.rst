@@ -251,10 +251,60 @@ SSH Config
   Host wtps06
     Hostname 10.1.2.84
 
+  #Host wtps001
+  #  Hostname
+
+  #Host wtps002
+  #  Hostname
+
+  Host wtps003
+    Hostname 10.1.3.162
+
+  Host wtps004
+    Hostname 10.1.3.121
+
+  #Host wtps005
+  #  Hostname
+
+  Host wtps006
+    Hostname 10.1.0.144
+
   Host wtps
     User root
     IdentityFile ~/.ssh/id_rsa_wtps
     Hostname 210.129.195.213
+
+-------------
+SetUp Workers
+-------------
+
+::
+
+  # apt-get update
+  # apt-get upgrade
+  # apt-get dist-upgrade
+  # fdisk /dev/sdb
+  # mkfs.ext4 /dev/sdb1
+  # blkid /dev/sdb1
+  # vi /etc/fstab
+  # reboot
+
+at 210.129.195.213, foreach new worker's hostname.
+
+::
+
+  # scp -i ~/.ssh/id_rsa_wtps{,} hostname:~/.ssh
+  # apt-get install git
+  # cd /mnt/work
+  # git clone https://github.com/International-Space-Apps-Challenge-Tokyo/WhereToPutSolarPanels.git
+
+return to worker.
+
+::
+
+  # apt-get install python-h5py python-pymongo
+
+let's get started to insert data!
 
 ---------------
 Data Management
