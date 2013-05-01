@@ -49,7 +49,7 @@ value.loc.lat,value.loc.lon,value.score,value.low,value.totalScore,value.totalLo
     lat: 49.11627197265625,
     lon: 128.447509765625
   },
-  score: 0,
+  score: 0, // 0:曇ってる, 1:晴れ or 快晴
   low: 3
 }
 ```
