@@ -6,6 +6,7 @@ html, body {
 	font-family: 'Abel', helvetica neue, sans-serif;
 	letter-spacing: -1px;
 	font-size: 24px;
+	background-color: #000;
 }
 
 h2 {
@@ -31,7 +32,7 @@ body {
 	right: 0px;
 	top: 0px;
 	height: 730px;
-	background-image: url("header_min.png");
+	background-image: url("header.png");
 	background-position-x: 50%;
 }
 
