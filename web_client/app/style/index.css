@@ -1,0 +1,214 @@
+@import url(http://fonts.googleapis.com/css?family=Abel|Oswald);
+
+html, body {
+	padding: 0px;
+	margin: 0px;
+	font-family: 'Abel', helvetica neue, sans-serif;
+	letter-spacing: -1px;
+	font-size: 24px;
+}
+
+h2 {
+	font-family: 'Oswald', helvetica neue, sans-serif;
+	letter-spacing: -1px;
+	font-weight: normal;
+	font-size: 48px;
+	line-height: 1.2;
+}
+
+body {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+}
+
+.box {
+	position: absolute;
+}
+
+#header {
+	left: 0px;
+	right: 0px;
+	top: 0px;
+	height: 730px;
+	background-image: url("header_min.png");
+	background-position-x: 50%;
+}
+
+#mainContainer {
+top: 600px;
+margin-left: -570px;
+width: 1180px;
+left: 50%;
+color: 
+#fff;
+}
+
+#mainContainer p {
+display: block;
+color: #fff;
+text-align: left;
+width: 750px;
+padding-right: 50px;
+margin: auto;
+margin-bottom: 120px;
+}
+
+#mainContainer h2 {
+padding: 0px;
+display: block;
+color: #fff;
+text-align: left;
+width: 800px;
+margin: auto;
+margin-bottom: 10px;
+font-weight: normal;
+}
+
+#stratosphere {
+	top: 0px;
+	left: 0px;
+	right: 0px;
+	height: 4258px;
+	background-repeat: repeat-x;;
+	background-image: url("background.jpg");
+}
+
+#sky01, #sky02, #sky03 {
+	left: 0px;
+	right: 0px;
+	background-position-x: 50%;
+	background-position-y:0px;
+}
+
+#sky01 {
+	height: 783px;
+	top :1050px;
+	background-image: url("sky_01.png");
+}
+#sky02 {
+	height: 1019px;
+	top :1833px;
+	background-image: url("sky_02.png");
+}
+#sky03 {
+	height: 1009px;
+	top :2852px;
+	background-image: url("sky_03.png");
+}
+
+#skyBody {
+top: 1960px;
+margin-left: -580px;
+width: 1180px;
+left: 50%;
+}
+
+#skyBody h2{
+padding: 0px;
+display: block;
+color: #000;
+text-align: left;
+width: 680px;
+margin: 0px;
+margin-bottom: 20px;
+}
+
+#skyBody #gpshead, #skyBody #gpsBody  {
+	margin-left: 350px;
+}
+
+#skyBody #gpsBody {
+display: block;
+color: #000;
+text-align: left;
+width: 690px;
+margin-bottom: 120px;
+margin-right: 180px;
+margin-top: -10px;
+}
+
+.btn{
+font-size: 26px;
+color: #fff;
+border-style: solid;
+border-width: 2px;
+border-color: #fff;
+border-radius: 7px;
+background-color: rgb( 70, 189, 145 );
+width: 360px;
+height: 70px;
+margin-top: 60px;
+cursor: pointer;
+}
+
+#skyBody #mapHead {
+color: 
+#000;
+width: 745px;
+height: 174px;
+margin: auto;
+margin-top: 720px;
+margin-bottom: 0px;
+padding: 0px;
+}
+
+#skyBody #mapBody {
+width: 700px;
+margin: 0px;
+margin-left: 220px;
+margin-top: -50px;
+}
+
+#EarthLine {
+	position: absolute;
+background-image: url("earth.png");
+background-repeat: repeat-x;
+width: 100%;
+height: 82px;
+top: 3700px;
+}
+#Earth {
+position: absolute;
+left: 0px;
+top: 3782px;
+display: block;
+width: 100%;
+height: 920px;
+
+
+background-color: 
+#251f0e;
+
+}
+
+#EarthContent {
+	color: 
+#fff;
+width: 1000px;
+margin: auto;
+text-align: center;
+}
+#EarthContent h2{
+	margin-bottom: 70px;
+}
+.members {
+	display: inline-block;
+width: 300px;
+height:150px;
+margin: auto;
+}
+.members img {
+	width: 100px;
+border: 2px solid 
+#fff;
+float: left;
+margin-right: 10px;
+}
+
+.members h3 {
+	font-size: 20px;
+margin: 0px;
+padding: 0px;
+text-align: left;
+}

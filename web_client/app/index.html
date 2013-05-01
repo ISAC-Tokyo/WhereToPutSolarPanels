@@ -1,85 +1,57 @@
-<!doctype html>
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+<!DOCTYPE html>
+<html>
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>ソーラーパネル、どこへ置く - Where to put solar panels?</title>
-    <meta name="description" content="">
-    <meta name="viewport" content="width=device-width">
-    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
-    <link rel="stylesheet" href="styles/main.css">
-
-    <!-- build:css styles/vendor/bootstrap.css -->
-    <link rel="stylesheet" href="components/bootstrap.css/css/bootstrap.min.css">
-    <link rel="stylesheet" href="components/bootstrap.css/css/bootstrap-responsive.css">
-    <!-- endbuild -->
-
-    <!-- build:js scripts/vendor/common_lib.js -->
-    <script src="components/modernizr/modernizr.js"></script>
-    <script src="components/jquery/jquery.js"></script>
-    <!-- endbuild -->
+<title>Image</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link rel="stylesheet" href="./style/index.css" type="text/css">
 </head>
 <body>
-    <div class="container">
-      <h1 class="page-header">ソーラーパネル、どこへ置く<small>Where to put solar panels?</small></h1>
-      <p class="lead">
-      雲の観測データを基にしたソーラパネル導入シミュレーションで、あなたの設置したソーラーパネルの費用回収期間がわかります。
-      </p>
+	<div id="stratosphere" class="box"></div>
+	<div id="header" class="box"></div>
+	<div id="sky01" class="box"></div>
+	<div id="sky02" class="box"></div>
+	<div id="sky03" class="box"></div>
+	<div id="mainContainer" class="box">
+<h2>Our planet, Earth, is a source of various but limited energy resources and home of a fast-growing population that increasingly requires more energy.</h2>
+<p>This situation thus led science, technology and policies to focus on searching for better energy sources for quite long time already. Moreover, global disasters---such as the tsunami in 2011 that damaged a nuclear power plant in Fukushima, Japan---led to re-evaluate the viability of current energy production means, and to consider safer alternative sources.</p>
 
-      <div class="row">
-        <div class="span5 top-images">
-          <div>
-          <img src="./images/solar_panel.jpg" height="300" class="img-rounded">
-          <div class="license"><a href="http://www.flickr.com/photos/chandramarsono/2283251419/sizes/o/in/photostream/">CC by Chandra Marsono</a></div>
-          </div>
-        </div>
-        <div class="span5">
-          <h3>あなたの地域にソーラーパネルを設置すると……</h3>
-          <p>あなたの地域にソーラーパネルを設置した時の発電量と収支のシミュレーションができます</p>
-          <a class="btn btn-large btn-primary" href="./select_location.html">Get Started</a>
-        </div>
-      </div>
-      <br>
+<h2>Solar energy is one type of renewable energy that is gaining popularity in many countries in recent years.</h2>
+<p> The industry is now able to build more efficient solar panels that produce electric energy in cost-effective ways. One problem, though, is that the energy input of solar panels depends on weather conditions, notably the rate of sunlight exposure. It should be noted that energy output of same solar panel technology may differ based on its location, thus yields different return on investments as well.</p>
 
-      <div class="row">
-        <div class="span5 top-images">
-          <div>
-          <img src="./images/cloudy.jpg" height="300" class="img-rounded">
-          <div class="license"><a href="http://www.flickr.com/photos/dampowls/3926244534/">CC by Chris J Bowley</a></div>
-          </div>
+<h2>Where to put solar panels?</h2>
+<p>The aim of this application is to find the best spots where to install the solar panels. How is it possible? The idea here is simple: Finding areas with fewer cloud cover! This system determines which  areas have less cloud by analyzing historical satellite data from 2001-2012 and by evaluating expected solar power generation. Spots with the best sun exposure in the past can then be used to model return on  investment and to guide decisions on where to put-up the panels.</p>
+	</div>
 
-        </div>
-        <div class="span6">
-          <h3>地図から雲の量をほげほげ</h3>
-          <p>地図から日照量の10年間の推移と積算量がああああああああ</p>
-          <a class="btn btn-large btn-success" href="./map.html">Get Started</a>
-        </div>
-      </div>
-    </div>
-    <footer>
-    <div class="container">
-      <a href="https://github.com/International-Space-Apps-Challenge-Tokyo/WhereToPutSolarPanels/tree/master/web_client">Composed by Where to put solar panels team.</a>
-    </div>
-    </footer>
+	<div id="skyBody" class="box">
+<h2 id="gpshead">Install a solar panel at your current location...</h2>
+<p id="gpsBody">You can simulate the sun exposure where you are and estimate the electricity you can generate to recover the installation cost.<br />
+<a href="select_location.html"><button class="btn">GET STARTED</button></a>
+</p>
 
-    <!--[if lt IE 7]>
-        <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
-    <![endif]-->
+<h2 id="mapHead">You can evaluate a location from scientific data collected by the MODIS Earth</h2>
+<p id="mapBody">Heat-map and time series represent the data visually so as to ease the search for cloudless spots.<br />
+<a href="select_location.html"><button class="btn">GET STARTED</button></a>
+</div>
+<div id="EarthLine"></div>
+<div id="Earth">
+<div id="EarthContent">
+	<h2>Members</h2>
+	<div class="members"><img src="./style/face/wataru.jpg" /><h3>Wataru Ohira</h3><h3>Position</h3><h3>facebook</h3></div>
+	<div class="members"><img src="./style/face/Shun_Shiramatsu.jpg" /><h3>Shun Shiramatsu</h3><h3>Position</h3><h3>facebook</h3></div>
+	<div class="members"><img src="./style/face/Ryota_Ayaki.jpg" /><h3>Ryota Ayaki</h3><h3>Position</h3><h3>facebook</h3></div>
+	<div class="members"><img src="./style/face/Kenshiro_Buma.jpg" /><h3>Kenshiro Buma</h3><h3>Position</h3><h3>facebook</h3></div>
+	<div class="members"><img src="./style/face/Yusuke_Niwa.jpg" /><h3>Yusuke Niwa</h3><h3>Position</h3><h3>facebook</h3></div>
+	<div class="members"><img src="./style/face/Mitsuhiro_TAKANO.jpg" /><h3>Mitsuhiro Takano</h3><h3>Position</h3><h3>facebook</h3></div>
+	<div class="members"><img src="./style/face/Hajime_Sasaki.jpg" /><h3>Hajime Sasaki</h3><h3>Position</h3><h3>facebook</h3></div>
+	<div class="members"><img src="./style/face/Takashi_Nishibayashi.jpg" /><h3>Takashi Nishibayashi</h3><h3>Position</h3><h3>facebook</h3></div>
+	<div class="members"><img src="./style/face/Hiroki_Matsue.jpg" /><h3>Hiroki Matsue</h3><h3>Position</h3><h3>facebook</h3></div>
+	<div class="members"><img src="./style/face/Eric_Platon.jpg" /><h3>Eric Platon</h3><h3>Position</h3><h3>facebook</h3></div>
+	<div class="members"><img src="./style/face/Kunihiko_Nomoto.jpg" /><h3>Kunihiko Nomoto</h3><h3>Position</h3><h3>facebook</h3></div>
+	<div class="members"><img src="./style/face/ts.jpg" /><h3>takanori sugawara</h3><h3>WebDesing</h3><h3>facebook</h3></div>
 
-    <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
-    <script>
-        var _gaq=[['_setAccount','UA-XXXXX-X'],['_trackPageview']];
-        (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
-        g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
-        s.parentNode.insertBefore(g,s)}(document,'script'));
-    </script>
-
-    <!-- build:js scripts/main.js -->
-    <script src="scripts/main.js"></script>
-    <!-- endbuild -->
+	<div class="members"><img src="./style/logo_idcf_02.gif" /><h3>IDC Frontier</h3><h3>Server provides</h3></div>
+</div>
+</div>
 
 </body>
 </html>
