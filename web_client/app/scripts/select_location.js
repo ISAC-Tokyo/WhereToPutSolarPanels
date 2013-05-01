@@ -15,8 +15,8 @@
   function askLocation() {
     if (Modernizr.geolocation) {
       navigator.geolocation.getCurrentPosition(
-          handleSuccess, 
-          handleFailure, 
+          handleSuccess,
+          handleFailure,
           {
             enableHighAccuracy: true,
             timeout: 10000
@@ -37,7 +37,7 @@
         f.setMapCenter(lat, lon);
         withGeocode && f.geocode(lat, lon, function(result) {
           if (result) {
-            $('.address').text(result + 'に設置します。').show(300).removeClass('hidden');
+            $('.address').text(result).show(300).removeClass('hidden');
             $(".location-result .progress").hide();
           } else {
             handleFailure()
@@ -75,7 +75,7 @@
         $('.location-selector').fadeIn(500).removeClass('hidden');
       });
     });
-    
+
     $('#solar-panel-list tr').on('click', function() {
       $('.info', $(this).parent()).removeClass('info');
       $(this).addClass('info');
