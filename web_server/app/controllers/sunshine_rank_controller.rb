@@ -95,7 +95,7 @@ logger.info("mongo(/rank/range/): #{e-s}second #{raw.size}data")
       ret << new
       end
     end
-     
+
     if params.has_key? :callback
       render :json => ret.to_json, callback: params[:callback]
     else
@@ -153,6 +153,7 @@ logger.info("mongo(/rank/range/): #{e-s}second #{raw.size}data")
     end
   end
 
+  private
   def calc_rank(score, size)
     step = size / 5
     if score <= step * 1

@@ -6,7 +6,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>ソーラーパネル、どこへ置く - Where to put solar panels? 設置場所選択</title>
+    <title>Place - Where to put solar panels?</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
@@ -29,42 +29,41 @@
 <body>
     <div class="container">
       <div class="location-selector">
-        <h1 class="page-header">設置場所の選択</h1>
+        <h1 class="page-header">Place</h1>
         <p class="small">
-        あなたがいる場所の近くでソーラーパネルの設置場所を決めましょう。
+        Please select a place where to put your solar panel.
         </p>
         <iframe frameborder="0" width="100%" height="200" src="./map_frame.html"></iframe>
         <div class="location-result">
           <p class="address hidden alert alert-info"></p>
-          <p id="location-note" class="hidden alert alert-warning">お使いのブラウザでは位置情報が取得できません</p>
-          <p id="location-note-failed" class="hidden alert alert-error">位置情報が取得できませんでした。日本, 東京都目黒区駒場４丁目６を使用します。</p>
+          <p id="location-note" class="hidden alert alert-warning">Your browser does not allow to find your location automatically</p>
+          <p id="location-note-failed" class="hidden alert alert-error">We could not determine your location information. By default, we will use the address where this service has been created: 4-6 Komaba, Meguro, Tokyo, Japan.</p>
           <div class="progress progress-striped active">
             <div class="bar" style="width: 100%;"></div>
           </div>
         </div>
-        <button class="btn btn-large btn-primary" id="btn-location-ok">ソーラーパネルの選択へ</button>
+        <button class="btn btn-large btn-primary" id="btn-location-ok">Select a solar panel</button>
       </div>
 
       <div class="panel-selector hidden">
-        <h1 class="page-header">ソーラーパネルの選択</h1>
+        <h1 class="page-header">Solar Panel Model</h1>
         <p class="small">
-        ああああああああああああああああああああああああああああああああああああああああああああああああああ
-        ええええええええええええええええええええええええええええええええええええええええええええええええええ
+        Please select a solar panel depending on your budget, target output, and the expected lifespan.
         </p>
         <table class="table table-striped table-hover" id="solar-panel-list">
           <thead>
-            <tr><th>タイプ</th><th>出力(W/m2)</th><th>耐用年数</th><th>価格(万円)</th></tr>
+            <tr><th>Model</th><th>Output (W/m<sup>2</sup>)</th><th>Lifespan (years)</th><th>Price (unit 1000 yens)</th></tr>
           </thead>
           <tbody>
-            <tr data-panel-type="t"><td>T芝</td><td>250</td><td>10</td><td>181</td></tr>
-            <tr data-panel-type="m"><td>M菱</td><td>185</td><td>9</td><td>165</td></tr>
-            <tr data-panel-type="k"><td>Kセラ</td><td>200</td><td>20</td><td>180</td></tr>
-            <tr data-panel-type="p"><td>Pナソニック</td><td>233</td><td>10</td><td>224</td></tr>
+            <tr data-panel-type="t"><td>Toshiba</td><td>250</td><td>10</td><td>1810</td></tr>
+            <tr data-panel-type="m"><td>Mitsubishi</td><td>185</td><td>9</td><td>1650</td></tr>
+            <tr data-panel-type="k"><td>Kyocera</td><td>200</td><td>20</td><td>1800</td></tr>
+            <tr data-panel-type="p"><td>Panasonic</td><td>233</td><td>10</td><td>2240</td></tr>
           </tbody>
         </table>
-        <button class="btn btn-large btn-primary" id="btn-panel-ok">結果表示</button>
+        <button class="btn btn-large btn-primary" id="btn-panel-ok">Results</button>
         &nbsp;&nbsp;
-        <button class="btn btn-large" id="btn-back">戻る</button>
+        <button class="btn btn-large" id="btn-back">Back</button>
       </div>
 
     </div>
@@ -80,7 +79,6 @@
 //        g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
 //        s.parentNode.insertBefore(g,s)}(document,'script'));
     </script>
-
-
 </body>
 </html>
+
