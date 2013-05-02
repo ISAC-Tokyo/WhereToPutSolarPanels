@@ -11,12 +11,17 @@
     <script>mocha.setup('bdd')</script>
     <!-- assertion framework -->
     <script src="lib/chai.js"></script>
-    <script>var expect = chai.expect</script>
+    <script>
+      var expect = chai.expect;
+      var assert = chai.assert;
+    </script>
 
     <!-- include source files here... -->
+    <script src="../app/scripts/solar_panel.js"></script>
 
     <!-- include spec files here... -->
     <script src="spec/test.js"></script>
+    <script src="spec/simulater_test.js"></script>
 
     <script>mocha.run()</script>
 </body>

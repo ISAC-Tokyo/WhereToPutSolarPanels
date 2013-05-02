@@ -4,7 +4,7 @@
  *********************************************************/
 
 .graph-placeholder {
-    width: 530px;
+    width: 500px;
     height: 300px;
     font-size: 14px;
     line-height: 1.2em;
@@ -12,9 +12,9 @@
 
 .graph-container {
     box-sizing: border-box;
-    width: 500px;
+    width: 470px;
     height: 300px;
-    padding: 0px;
+    padding: 0px 0px 10px 20px;
     margin:10px;
 }
 
@@ -35,30 +35,33 @@
   }
 }
 
-
-#content {
-    width: 880px;
-    margin: 0 auto;
-    padding: 10px;
+.legendLabel {
+  font-size: 14px;
 }
 
-.demo-container {
-    box-sizing: border-box;
-    width: 850px;
-    height: 450px;
-    padding: 20px 15px 15px 15px;
-    margin: 15px auto 30px auto;
-    border: 1px solid #ddd;
-    background: #fff;
-    background: linear-gradient(#f6f6f6 0, #fff 50px);
-    background: -o-linear-gradient(#f6f6f6 0, #fff 50px);
-    background: -ms-linear-gradient(#f6f6f6 0, #fff 50px);
-    background: -moz-linear-gradient(#f6f6f6 0, #fff 50px);
-    background: -webkit-linear-gradient(#f6f6f6 0, #fff 50px);
-    box-shadow: 0 3px 10px rgba(0,0,0,0.15);
-    -o-box-shadow: 0 3px 10px rgba(0,0,0,0.1);
-    -ms-box-shadow: 0 3px 10px rgba(0,0,0,0.1);
-    -moz-box-shadow: 0 3px 10px rgba(0,0,0,0.1);
-    -webkit-box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+.axisLabel {
+	position: absolute;
+	text-align: center;
+	font-size: 14px;
+}
+
+.yaxisLabel {
+	top: 70%;
+	left: -20px;
+	transform: rotate(-90deg);
+	-o-transform: rotate(-90deg);
+	-ms-transform: rotate(-90deg);
+	-moz-transform: rotate(-90deg);
+	-webkit-transform:  rotate(-90deg);
+	transform-origin: 0 0;
+	-o-transform-origin: 0 0;
+	-ms-transform-origin: 0 0;
+	-moz-transform-origin: 0 0;
+	-webkit-transform-origin: 0 0;
+}
+
+.xaxisLabel {
+  bottom: -20px;
+  left: 50%;
 }
 
