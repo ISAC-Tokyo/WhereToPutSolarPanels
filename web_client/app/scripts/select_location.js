@@ -94,6 +94,7 @@
         var tr = $('<tr>');
         tr.append($('<td>').text(p.name));
         tr.append($('<td class="num">').text(p.pow));
+        tr.append($('<td class="num decimal percent">').text(p.effModule * 100));
         tr.append($('<td class="num decimal">').text(p.usefulLife / 12));
         tr.append($('<td class="num">').text(p.initCost / 1000));
         tr.data('panel-type', idx);
@@ -114,18 +115,18 @@
       }
       num = String(num);
       while (num != (num = num.replace(/^(-?\d+)(\d{3})/, "$1,$2")));
+      $(el).hasClass('percent') && (num = num + '%');
       $(el).text(num);
     });
   }
 
-  function bootstrap() {
+  // Bootstrap
+  $(function() {
     fillSolarPanelList();
     formatNumber();
     setupEvents();
     askLocation();
-  }
-
-  $(bootstrap);
+  });
 
 })(jQuery, this);
 
