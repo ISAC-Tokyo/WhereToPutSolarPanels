@@ -98,8 +98,6 @@
         // 雲の影響度
         cloudImpact = cloudlessScore2Impact(cloudlessScore);
 
-    console.log("life Coff", p.lifeCoff);
-    console.log("Cloud impact", cloudImpact);
 
     // Results
     var series1 = [0], // Clac without cloud impact
