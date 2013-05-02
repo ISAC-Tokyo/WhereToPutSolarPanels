@@ -18,9 +18,13 @@
         lon: lon
       },
     }).done(function(ret) {
+      if (ret.series.data.length === 0) {
+        $('#location-note-no-data').removeClass('hidden');
+      }
       callback(ret);
     }).fail(function(e) {
       console.error("Failed to fetch place evaluation data for (" + lat + ", " + lon + ")");
+      $('#location-note-failed').removeClass('hidden');
     });
   }
 
