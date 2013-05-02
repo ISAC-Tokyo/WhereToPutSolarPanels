@@ -1,4 +1,6 @@
-(function($, undefined) {
+(function($, global, undefined) {
+
+  var sp = global.wpsp.sp;
 
   function getParameterByName(name) {
     var match = RegExp('[?&]' + name + '=([^&]*)&?')
@@ -30,81 +32,57 @@
     "4": "excellent"
   }
 
-  var solarTypes = {
-    t: {
-      name: 't',
-      power: 250,
-      realIncomePerMonth: 15156.1375,
-      limit: 6, // year
-      price: 1814400
-    },
-    m: {
-      name: 'm',
-      power: 185,
-      realIncomePerMonth: 14097.125,
-      limit: 9,
-      price: 1651300
-    },
-    k: {
-      name: 'Sera',
-      power: 200,
-      realIncomePerMonth: 14853.5625,
-      limit: 20,
-      price: 1806000
-    },
-    p: {
-      name: 'Sonic',
-      power: 233,
-      realIncomePerMonth: 17274.1625,
-      limit: 10,
-      price: 2242240
+  function plotPlofitSimulation(solarPanelType, score) {
+    if (solarPanelType == undefined || sp.profiles[solarPanelType] == undefined) {
+      alert('Invalid solar panel type speciified');
+      return;
     }
-  };
+    var profile = sp.profiles[solarPanelType];
 
-
-  function plotPlofitSimulation(solarPanelType) {
-    if (solarPanelType == undefined || solarTypes[solarPanelType] == undefined) {
-      solarPanelType = "t";
-    }
-    var startyear = 2000;
-    var panel = solarTypes[solarPanelType];
-    var month = 20;// * 12; // 20 years
-    var year = 20;
+    var month = 20 * 12;// 20 years
     var datasets = [
       {
         label: "Initial Cost (yen)",
-        data: [[startyear, panel.price], [startyear+month, panel.price]]
-      },
-      {
-        label: "Integrated Cost (yen)",
+        data: [[0, profile.initCost], [month, profile.initCost]]
+      }, {
+        label: "Revenue with average cloud score (yen)",
+        data: []
+      }, {
+        label: "Revenue with your location cloud score (yen)",
         data: []
       }
     ];
 
-    var limit = panel.limit;
+    var simulator = new sp.SolarPanelSimulator(profile);
+    simulator.calc(score);
+    var results = simulator.getDataSeries();
 
     for (var i = 0; i <= month; i++) {
-      datasets[1].data.push([i+startyear, (function(i) {
-        var prev = 0;
-        var append = 0;
-        if (i > 0) {
-          prev = datasets[1].data[i - 1][1];
-          append = Math.max(panel.realIncomePerMonth * 12 * Math.min(1, (limit * 1.5 - i/1.5)/limit), 0);
-        }
-        console.log(i);
-        return prev + append;
-      })(i)]);
+      datasets[1].data.push([i, results[0][i]]);
+      datasets[2].data.push([i, results[1][i]]);
     }
-    console.log(datasets);
 
     $.plot("#result-graph", datasets, {
       yaxis: {
-        min: 0
+        min: 0,
+        tickFormatter: function(num) {
+          num = Math.round(num/1000);
+          while (num != (num = String(num).replace(/^(-?\d+)(\d{3})/, "$1,$2")));
+          return num;
+        }
       },
       xaxis: {
-        tickDecimals: 0
+      },
+      legend: {
+        position: "se"
       }
     });
+    var yaxisLabel = $("<div class='axisLabel yaxisLabel'></div>")
+      .text("Total Revenue (1,000 Yen)")
+      .appendTo($('#result-graph'));
+    var xaxisLabel = $("<div class='axisLabel xaxisLabel'></div>")
+      .text("Month")
+      .appendTo($('#result-graph'));
   }
 
   function plotTemporalDistribution(data, from, to) {
@@ -156,16 +134,16 @@
 
   $(function() {
     var panelType = getParameterByName('panelType'),
-  lat = getParameterByName('lat'),
-  lon = getParameterByName('lon');
+        lat = getParameterByName('lat'),
+        lon = getParameterByName('lon');
 
-  fetchRank(lat, lon, function(result) {
-    updateInformationPanel(result);
-    plotTemporalDistribution(result.series.data, result.series.from, result.series.to);
+    fetchRank(lat, lon, function(result) {
+      console.log("Fetched:", result);
+      updateInformationPanel(result);
+      plotTemporalDistribution(result.series.data, result.series.from, result.series.to);
+      plotPlofitSimulation(panelType, result.total_score/result.series.data.length);
+    });
   });
 
-  plotPlofitSimulation(panelType);
-  });
-
-})(jQuery);
+})(jQuery, window);
 
