@@ -198,6 +198,7 @@ text-align: center;
 width: 300px;
 height:150px;
 margin: auto;
+vertical-align:top;
 }
 .members img {
 	width: 100px;
