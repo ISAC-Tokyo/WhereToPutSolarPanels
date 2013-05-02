@@ -99,7 +99,7 @@ font-weight: normal;
 }
 
 #skyBody {
-top: 1960px;
+top: 1280px;
 margin-left: -580px;
 width: 1180px;
 left: 50%;
@@ -119,7 +119,7 @@ margin-bottom: 20px;
 	margin-left: 350px;
 }
 
-#skyBody #gpsBody {
+#skyBody #gpshead #skyBody #gpsBody {
 display: block;
 color: #000;
 text-align: left;
