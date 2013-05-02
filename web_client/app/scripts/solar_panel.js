@@ -127,6 +127,10 @@
     this.results.paidWithCloudImpact = paid2;
     this.results.dataSeries = [series1, series2];
     this.results.period = period;
+
+    this.areaModule = areaModule;
+    this.instVol = instVol;
+    this.gen = gen;
   }
 
   function getDataSeries() {

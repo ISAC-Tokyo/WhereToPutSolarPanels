@@ -1,6 +1,7 @@
 (function($, global, undefined) {
 
   var sp = global.wpsp.sp;
+  var utils = global.wpsp.utils;
 
   function getParameterByName(name) {
     var match = RegExp('[?&]' + name + '=([^&]*)&?')
@@ -32,13 +33,29 @@
     "4": "excellent"
   }
 
-  function plotPlofitSimulation(solarPanelType, score) {
+  function calcSimulation(solarPanelType, score) {
     if (solarPanelType == undefined || sp.profiles[solarPanelType] == undefined) {
       alert('Invalid solar panel type speciified');
       return;
     }
     var profile = sp.profiles[solarPanelType];
+    var simulator = new sp.SolarPanelSimulator(profile);
+    simulator.calc(score);
+    var results = simulator.getDataSeries();
 
+    plotRevenueSimulation(results, profile);
+
+    return {
+      profile: profile,
+      ave: simulator.getCostRecoveryTermNorm(),
+      yourScore: simulator.getCostRecoveryTerm(),
+      areaModule: simulator.areaModule,
+      instVol: simulator.instVol,
+      gen: simulator.gen
+    }
+  }
+
+  function plotRevenueSimulation(results, profile) {
     var month = 20 * 12;// 20 years
     var datasets = [
       {
@@ -52,10 +69,6 @@
         data: []
       }
     ];
-
-    var simulator = new sp.SolarPanelSimulator(profile);
-    simulator.calc(score);
-    var results = simulator.getDataSeries();
 
     for (var i = 0; i <= month; i++) {
       datasets[1].data.push([i, results[0][i]]);
@@ -128,9 +141,23 @@
     }
   }
 
-  function plotCloudyDistribution() {
-  }
+  function updateSimulationDesc(simulated) {
+    var data = {
+      initCost: simulated.profile.initCost / 1000,
+      recoveryTermYear: utils.round(simulated.yourScore/12, 1),
+      faster: utils.round((simulated.ave - simulated.yourScore)/12, 1),
+      areaModule: utils.round(simulated.areaModule, 3),
+      instVol: utils.round(simulated.instVol, 3),
+      gen: utils.round(simulated.gen, 3)
+    }
 
+    $('.simulation-desc h3,p,li').each(function(idx, el) {
+      var template = $(el).html();
+      console.log(template);
+      var rendered = Mustache.render(template, data);
+      $(el).html(rendered);
+    });
+  }
 
   $(function() {
     var panelType = getParameterByName('panelType'),
@@ -139,9 +166,10 @@
 
     fetchRank(lat, lon, function(result) {
       console.log("Fetched:", result);
-      updateInformationPanel(result);
       plotTemporalDistribution(result.series.data, result.series.from, result.series.to);
-      plotPlofitSimulation(panelType, result.total_score/result.series.data.length);
+      updateInformationPanel(result);
+      var simulated = calcSimulation(panelType, result.total_score/result.series.data.length);
+      updateSimulationDesc(simulated);
     });
   });
 

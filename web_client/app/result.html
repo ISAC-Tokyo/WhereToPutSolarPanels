@@ -26,6 +26,7 @@
     <!-- build:js scripts/result.js -->
     <script type="text/javascript" src="components/flot/jquery.flot.js"></script>
     <script type="text/javascript" src="components/flot/jquery.flot.time.js"></script>
+    <script type="text/javascript" src="components/mustache/mustache.js"></script>
     <script type="text/javascript" src="scripts/solar_panel.js"></script>
     <script type="text/javascript" src="scripts/common.js"></script>
     <script type="text/javascript" src="scripts/result.js"></script>
@@ -56,18 +57,19 @@
             <div id="result-graph" class="graph-placeholder"></div>
           </div>
         </div>
-        <div class="span6">
-          <h3>xxx年でペイできる計算です</h3>
+        <div class="span6 simulation-desc">
+          <h3>{{recoveryTermYear}}年でペイできる計算です</h3>
           <p>
-          The graph shows the results of the computation based on the average amount of sunshine available and the output level of the solar panel.
-          This information allows to estimate a return on investing in solar panels
-
-          ソーラーパネルの発電量と日照量から計算したグラフです。
-          日本の平均日照量におけるソーラーパネルのコスト回収期間の10年と比較してxxxxxxxといえるでしょう。
+          The initial cost of the panel is {{initCost}} thousand yens. 
+          You may recover the initial cost in about {{recoveryTermYear}} years, which is {{faster}} years earlier than in average sunshine.
+          The figure on the right shows the results of the simulation based on the average amount of sunshine available and the output level of the solar panel. This information allows estimating a return on investing in solar panels
           </p>
-          <p>
-          The cost of producing this amount of electricity in the next 10 years is 99999 yens, as for 2013 prices.
-          </p>
+          <p>Technical specifications of the panel you have chosen are as below:</p>
+          <ul>
+            <li>The module area is {{areaModule}}m<sup>2</sup>.</li>
+            <li>The amount of introduction is {{instVol}}KW</li>
+            <li>The power throughput is {{gen}}KW.h</li>
+          </ul>
         </div>
     </div>
     <div class="row">
