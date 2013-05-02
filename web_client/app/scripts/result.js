@@ -18,10 +18,9 @@
         lon: lon
       },
     }).done(function(ret) {
-      console.log(ret);
       callback(ret);
     }).fail(function(e) {
-      console.log("Failed to fetch place evaluation data for (" + lat + ", " + lon + ")");
+      console.error("Failed to fetch place evaluation data for (" + lat + ", " + lon + ")");
     });
   }
 
@@ -153,7 +152,6 @@
 
     $('.simulation-desc h3,p,li').each(function(idx, el) {
       var template = $(el).html();
-      console.log(template);
       var rendered = Mustache.render(template, data);
       $(el).html(rendered);
     });
@@ -165,7 +163,6 @@
         lon = getParameterByName('lon');
 
     fetchRank(lat, lon, function(result) {
-      console.log("Fetched:", result);
       plotTemporalDistribution(result.series.data, result.series.from, result.series.to);
       updateInformationPanel(result);
       var simulated = calcSimulation(panelType, result.total_score/result.series.data.length);
