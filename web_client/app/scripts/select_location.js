@@ -81,6 +81,9 @@
       $(this).addClass('info');
       solarPanelType = $($(this)[0]).data('panel-type');
     });
+
+    // Default select
+    $('#solar-panel-list tbody tr:first').trigger('click');
   }
 
   function fillSolarPanelList() {
