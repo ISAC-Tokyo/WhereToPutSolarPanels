@@ -30,31 +30,36 @@
    * pow: 出力[W/m2]
    * effModule: モジュール変換効率
    * usefulLife: 耐用年数[month]
+   * lifeCoff: 寿命係数
    */
   var profiles = [{
     name: "Solar A",
     initCost: 1000000,
     pow: 250,
-    effModule: 0.15,
-    usefulLife: 71
+    effModule: 0.154,
+    usefulLife: 71,
+    lifeCoff: 0.013
   }, {
     name: "Solar B",
     initCost: 1200000,
     pow: 300,
     effModule: 0.187,
-    usefulLife: 84
+    usefulLife: 84,
+    lifeCoff: 0.011
   }, {
     name: "Solar C",
     initCost: 1500000,
     pow: 350,
     effModule: 0.16,
-    usefulLife: 115
+    usefulLife: 115,
+    lifeCoff: 0.008
   }, {
     name: "Solar D",
     initCost: 2000000,
     pow: 200,
     effModule: 0.17,
-    usefulLife: 184
+    usefulLife: 184,
+    lifeCoff: 0.005
   }];
 
   // Constructor
@@ -69,7 +74,10 @@
 
   function cloudlessScore2Impact(score) {
     var diff  = score - CLOUDLESS_SCORE_MID;
-    return 1 + 0.2 * Math.min(diff/(CLOUDLESS_SCORE_MAX - CLOUDLESS_SCORE_MIN)/2, 1);
+    // Between -1 to +1
+    var impact = Math.max(Math.min(diff/((CLOUDLESS_SCORE_MAX - CLOUDLESS_SCORE_MIN)/2), 1), -1)
+    // Between 0.8 to 1.2
+    return 1 + 0.2 * impact;
   }
 
   /**
@@ -87,10 +95,11 @@
         revenuePerMonth = gen * UNIT_PRICE / 12,
         // 月間の利益
         grossProfit = ORDINARY_ENERGY_COST - 7000 + revenuePerMonth,
-        // 寿命定数
-        lifeCoff = 1/p.usefulLife,
         // 雲の影響度
         cloudImpact = cloudlessScore2Impact(cloudlessScore);
+
+    console.log("life Coff", p.lifeCoff);
+    console.log("Cloud impact", cloudImpact);
 
     // Results
     var series1 = [0], // Clac without cloud impact
@@ -98,14 +107,14 @@
         reduction = 0, 
         y1 = 0, 
         y2 = 0, 
-        paid1 = 0, 
-        paid2 = 0,
-        peried = 200;
+        paid1 = undefined, 
+        paid2 = undefined,
+        period = 12 * 20; // 20 year
 
     for (var x = 1; x < period; x++) {
-      reduction = Math.exp(-1 * lifeCoff * x);
-      y1 = reduction * grossProfit + series[x-1];
-      y2 = reduction * grossProfit * cloudImpact + series[x-1];
+      reduction = Math.exp(-1 * p.lifeCoff * x);
+      y1 = reduction * grossProfit + series1[x-1];
+      y2 = reduction * grossProfit * cloudImpact + series2[x-1];
 
       if (!paid1 && y1 > p.initCost) {
         paid1 = x;
@@ -126,7 +135,7 @@
     return this.results.dataSeries;
   }
 
-  function getCostRecoveryTermAverage() {
+  function getCostRecoveryTermNorm() {
     return this.results.paidWithoutCloudImpact;
   }
 
@@ -138,7 +147,7 @@
     constructor: SolarPanelSimulator,
     calc: calc,
     getDataSeries: getDataSeries,
-    getCostRecoveryTermAverage: getCostRecoveryTermAverage,
+    getCostRecoveryTermNorm: getCostRecoveryTermNorm,
     getCostRecoveryTerm: getCostRecoveryTerm
   }
 
