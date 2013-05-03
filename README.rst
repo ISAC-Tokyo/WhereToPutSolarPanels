@@ -277,6 +277,7 @@ SSH Config
 
   Host wtpsdb1
     Hostname 10.1.3.41
+
   Host wtps
     User root
     IdentityFile ~/.ssh/id_rsa_wtps
