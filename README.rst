@@ -233,29 +233,29 @@ SSH Config
   Host wtps4
     Hostname 10.1.2.51
 
-  Host wtps01
-    Hostname 10.1.0.226
+  #Host wtps01
+  #  Hostname 10.1.0.226
 
-  Host wtps02
-    Hostname 10.1.0.167
+  #Host wtps02
+  #  Hostname 10.1.0.167
 
-  Host wtps03
-    Hostname 10.1.0.122
+  #Host wtps03
+  #  Hostname 10.1.0.122
 
-  Host wtps04
-    Hostname 10.1.1.246
+  #Host wtps04
+  #  Hostname 10.1.1.246
 
-  Host wtps05
-    Hostname 10.1.0.195
+  #Host wtps05
+  #  Hostname 10.1.0.195
 
-  Host wtps06
-    Hostname 10.1.2.84
+  #Host wtps06
+  #  Hostname 10.1.2.84
 
-  #Host wtps001
-  #  Hostname
+  Host wtps001
+    Hostname 10.1.1.182
 
-  #Host wtps002
-  #  Hostname
+  Host wtps002
+    Hostname 10.1.0.98
 
   Host wtps003
     Hostname 10.1.3.162
@@ -263,12 +263,20 @@ SSH Config
   Host wtps004
     Hostname 10.1.3.121
 
-  #Host wtps005
-  #  Hostname
+  Host wtps005
+    Hostname 10.1.3.226
 
   Host wtps006
     Hostname 10.1.0.144
 
+  Host wtpsdb
+    Hostname 10.1.3.155
+
+  Host wtpsdb0
+    Hostname 10.1.1.35
+
+  Host wtpsdb1
+    Hostname 10.1.3.41
   Host wtps
     User root
     IdentityFile ~/.ssh/id_rsa_wtps
