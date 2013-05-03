@@ -131,12 +131,23 @@ class SunshineRankController < ApplicationController
     raise 'no data error' if raw.length == 0
 
     ret = []
+    max = 0
+    min = 1
     raw.each do |data|
       new = {}
       new["lat"] = data["value"]["loc"]["lat"]
       new["lon"] = data["value"]["loc"]["lon"]
       new["weight"] = data["value"]["score"]
       ret << new
+
+      max = new["weight"] if max < new["weight"]
+      min = new["weight"] if min > new["weight"]
+    end
+
+    # normalization
+    diff = max - min
+    ret.length.times do | i|
+      ret[i]["weight"] = (ret[i]["weight"] - min) / diff
     end
 
     if params.has_key? :callback
