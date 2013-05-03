@@ -7,11 +7,11 @@ class SunshineRankController < ApplicationController
     lat = params[:lat].to_f
     lon = params[:lon].to_f
 
-s=Time.now
+    s=Time.now
     #raw = Cloud.where(:lat.gt => lat-RANGE, :lat.lt => lat+RANGE, :lon.gt => lon-RANGE, :lon.lt => lon+RANGE).to_a
     raw = Cloud.near(loc:[lat, lon]).to_a
-e=Time.now
-logger.info("mongo(/rank/): #{e-s}second #{raw.size}data")
+    e=Time.now
+    logger.info("mongo(/rank/): #{e-s}second #{raw.size}data")
 
     buf = {}
     sum = 0
@@ -32,7 +32,7 @@ logger.info("mongo(/rank/): #{e-s}second #{raw.size}data")
     ret["series"] = {}
     ret["series"]["from"] = dates.first
     ret["series"]["to"] = dates.last
-    ret["series"]["data"] = buf.sort.map{|s| s[1]}
+    ret["series"]["data"] = buf.sort.map{|d| d[1]}
     ret["rank"] = calc_rank(sum, raw.size)
 
     if params.has_key? :callback
@@ -58,7 +58,7 @@ logger.info("mongo(/rank/): #{e-s}second #{raw.size}data")
     lon_min = lon_min.to_f
     lon_max = lon_max.to_f
 
-s=Time.now
+    s=Time.now
     #ret = Cloud.find_range_by_geo(lat_min, lat_max, lon_min, lon_max)
     #raw = Cloud.where(
     #  :lat.gt => lat_min,
@@ -67,8 +67,8 @@ s=Time.now
     #  :lon.lt => lon_max).to_a
     raw = Cloud.within_box(loc: [[lat_min, lon_min], [lat_max, lon_max]]).to_a
     raise 'no data error' if raw.length == 0
-e=Time.now
-logger.info("mongo(/rank/range/): #{e-s}second #{raw.size}data")
+    e=Time.now
+    logger.info("mongo(/rank/range/): #{e-s}second #{raw.size}data")
 
     res = []
     temp = []
@@ -87,12 +87,12 @@ logger.info("mongo(/rank/range/): #{e-s}second #{raw.size}data")
     ret = []
     SIDE_RANGE.times do |i|
       SIDE_RANGE.times do |j|
-      next unless res[i] && res[i][j]
-      new = {}
-      new["lat"] = lat_min + (lat_step * i) + (lat_step / 2)
-      new["lon"] = lon_min + (lon_step * j) + (lon_step / 2)
-      new["weight"] = res[i][j][:sum].to_f / res[i][j][:count]
-      ret << new
+        next unless res[i] && res[i][j]
+        new = {}
+        new["lat"] = lat_min + (lat_step * i) + (lat_step / 2)
+        new["lon"] = lon_min + (lon_step * j) + (lon_step / 2)
+        new["weight"] = res[i][j][:sum].to_f / res[i][j][:count]
+        ret << new
       end
     end
 
@@ -106,7 +106,7 @@ logger.info("mongo(/rank/range/): #{e-s}second #{raw.size}data")
     logger.info("INFO: #{e}")
     if params.has_key? :callback
       render :json => [].to_json, callback: params[:callback]
-     else
+    else
       render :json => [].to_json
     end
   end
@@ -148,7 +148,7 @@ logger.info("mongo(/rank/range/): #{e-s}second #{raw.size}data")
     logger.info("INFO: #{e}")
     if params.has_key? :callback
       render :json => [].to_json, callback: params[:callback]
-     else
+    else
       render :json => [].to_json
     end
   end
