@@ -108,24 +108,23 @@ left: 50%;
 #skyBody h2{
 padding: 0px;
 display: block;
-color: #000;
+color: 
+#000;
 text-align: left;
 width: 680px;
-margin: 0px;
+margin-left: -50px;
 margin-bottom: 20px;
-}
-
-#skyBody #gpshead, #skyBody #gpsBody  {
-	margin-left: 350px;
+margin-top: 330px;
 }
 
 #skyBody #gpsBody {
 display: block;
-color: #000;
+color: 
+#000;
 text-align: left;
-width: 690px;
+width: 630px;
 margin-bottom: 120px;
-margin-right: 180px;
+margin-left: -50px;
 margin-top: -10px;
 }
 
@@ -149,15 +148,16 @@ color:
 width: 745px;
 height: 174px;
 margin: auto;
-margin-top: 720px;
+margin-top: 50px;
 margin-bottom: 0px;
 padding: 0px;
+margin-left: 330px;
 }
 
 #skyBody #mapBody {
 width: 700px;
 margin: 0px;
-margin-left: 220px;
+margin-left: 330px;
 margin-top: -50px;
 }
 
