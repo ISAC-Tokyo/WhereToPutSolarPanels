@@ -1,4 +1,4 @@
-LoadModule headers_module /usr/lib/apache2/modules/mod_headers.so
+LoadModule headers_module /usr/lib/apache3/modules/mod_headers.so
 Header always unset "X-Powered-By"
 Header always unset "X-Runtime"
 Header always unset "Server"
@@ -11,6 +11,13 @@ RackEnv development
 
 Listen 3003
 SetEnv BUNDLE_PATH /srv/WhereToPutSolarPanels/web_server/vendor/bundle
+
+PassengerMaxPoolSize 240
+PassengerMaxRequests 0
+PassengerPoolIdleTime 3600
+PassengerStatThrottleRate 240
+PassengerHighPerformance on
+
 
 <VirtualHost *:3003>
   DocumentRoot /srv/WhereToPutSolarPanels/web_server/public
