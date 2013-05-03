@@ -325,7 +325,7 @@ $(document).ready(function() {
         "image": "images/satellite-icon.png",
         "imageSize": { "width": 48 },
         "itemExtraClass": ["map-pane-item-vertical"],
-        "itemExtraAttr": { "data-intro": 'Green: sunny; Orange: rather cloudy; Red: cloudy.', "data-step": '3', "data-position": "left" }
+        "itemExtraAttr": { "data-intro": 'Blue: cloudy, Green: rather cloudy; Yellow: rather sunny; Red: sunny.', "data-step": '3', "data-position": "left" }
       },
       {
         "title": "Help",
