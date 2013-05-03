@@ -35,12 +35,15 @@
 <body>
   <div class="container">
     <h1 class="page-header">Results</h1>
+
     <div class="row">
-      <div class="span12">
-      <p id="location-note-no-data" class="hidden alert alert-error">Sorry, No cloud score found to your location.</p>
-      <p id="location-note-failed" class="hidden alert alert-error">Failed to get cloud score.</p>
+      <div class="span6">
+        <p id="loading-info" class="alert alert-info"><img src="images/loading.gif" class="loadingicon">Getting cloud data....</p>
+        <p id="location-note-no-data" class="hidden alert alert-error">Sorry, No cloud score found to your location.</p>
+        <p id="location-note-failed" class="hidden alert alert-error">Failed to get cloud score.</p>
       </div>
     </div>
+
     <div class="row">
         <div class="span6">
           <h3>Sunshine Performance</h3>
@@ -49,20 +52,9 @@
           This location has <span id="score-label" class="inline"></span> sunshine conditions, with an average of <span id="score-days" class="inline"></span> days of sunshine per year.
           </p>
         </div>
-        <div class="span6">
-          <h3>Sunshine Distribution</h3>
-          <div class="graph-container">
-            <div id="distribution-graph" class="graph-placeholder"></div>
-          </div>
-        </div>
     </div>
 
     <div class="row">
-        <div class="span6">
-          <div class="graph-container">
-            <div id="result-graph" class="graph-placeholder"></div>
-          </div>
-        </div>
         <div class="span6 simulation-desc">
           <h3>Your plan's break-even point comes in {{recoveryTermYear}} years.</h3>
           <p>
@@ -78,6 +70,24 @@
           </ul>
         </div>
     </div>
+
+    <div class="row">
+        <div class="span6">
+          <div class="graph-container">
+            <div id="result-graph" class="graph-placeholder"></div>
+          </div>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="span6">
+          <h3>Sunshine Distribution</h3>
+          <div class="graph-container">
+            <div id="distribution-graph" class="graph-placeholder"></div>
+          </div>
+        </div>
+    </div>
+
     <div class="row">
       <div class="span12">
         <br>

@@ -35,6 +35,10 @@
   }
 }
 
+.loadingicon {
+  margin-right: 5px;
+}
+
 .legendLabel {
   font-size: 14px;
 }

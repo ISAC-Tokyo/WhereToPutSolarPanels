@@ -3,12 +3,6 @@
   var sp = global.wpsp.sp;
   var utils = global.wpsp.utils;
 
-  function getParameterByName(name) {
-    var match = RegExp('[?&]' + name + '=([^&]*)&?')
-                    .exec(window.location.search);
-    return match && decodeURIComponent(match[1].replace(/\+/g, ' '));
-  }
-
   function fetchRank(lat, lon, callback) {
     $.ajax({
       url: wpsp.API_BASE + '/rank',
@@ -20,6 +14,8 @@
     }).done(function(ret) {
       if (ret.series.data.length === 0) {
         $('#location-note-no-data').removeClass('hidden');
+      } else {
+        $('#loading-info').fadeOut();
       }
       callback(ret);
     }).fail(function(e) {
@@ -162,9 +158,9 @@
   }
 
   $(function() {
-    var panelType = getParameterByName('panelType'),
-        lat = getParameterByName('lat'),
-        lon = getParameterByName('lon');
+    var panelType = utils.getParameterByName('panelType'),
+        lat = utils.getParameterByName('lat'),
+        lon = utils.getParameterByName('lon');
 
     fetchRank(lat, lon, function(result) {
       plotTemporalDistribution(result.series.data, result.series.from, result.series.to);
