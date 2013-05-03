@@ -19,7 +19,9 @@ wpsp.map.prototype.buildMap = function(options) {
 wpsp.map.prototype.init = function() {
   var mapOptions = {
     center: new google.maps.LatLng(35.632291, 139.881371), // Tokyo Disney Land
-    zoom: 14,
+    zoom: 10,
+    maxZoom: 12,
+    minZoom: 5,
     mapTypeId: google.maps.MapTypeId.ROADMAP,
     zoomControlOptions: {
       style: google.maps.ZoomControlStyle.SMALL
@@ -96,11 +98,26 @@ wpsp.map.prototype.buildHeatMapLayer = function(data) {
       data: dataSet
     });
     var gradient = [
-      'rgba(0, 0, 0, 1)',
-      'rgba(0, 200, 0, 1)'
+      'rgba(0, 0, 255, 1)',
+      'rgba(0, 255, 0, 1)',
+      'rgba(255, 255, 0, 1)',
+      'rgba(255, 0, 0, 1)'
     ]
+
+    var radiusForScale = {
+      12: 5,
+      11: 9,
+      10: 11,
+      9: 21,
+      8: 38,
+      7: 80,
+      6: 120,
+      5: 240
+    };
+
     heatmap.setOptions({
-      radius: $("#map").width() / 20,
+      dissipating: true,
+      radius: $("#map").width() / radiusForScale[this.root.zoom],
       gradient: heatmap.get('gradient') ? null : gradient
     });
     me.heatMapCache[zoom][center] = heatmap;
