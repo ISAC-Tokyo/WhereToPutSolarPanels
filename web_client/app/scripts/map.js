@@ -124,7 +124,7 @@ wpsp.map.prototype.buildHeatMapLayer = function(data) {
   } else {
     heatmap = me.heatMapCache[zoom][center];
   }
-  //heatmap.setMap(this.root);
+  heatmap.setMap(this.root);
   me.heatMap = heatmap;
 };
 
