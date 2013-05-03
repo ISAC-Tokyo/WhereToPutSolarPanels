@@ -1,4 +1,4 @@
-LoadModule headers_module /usr/lib/apache3/modules/mod_headers.so
+LoadModule headers_module /usr/lib/apache2/modules/mod_headers.so
 Header always unset "X-Powered-By"
 Header always unset "X-Runtime"
 Header always unset "Server"
