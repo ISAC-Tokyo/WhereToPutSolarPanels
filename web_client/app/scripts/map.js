@@ -240,6 +240,10 @@ $(document).ready(function() {
   var overlayControlPane = map.makeItemizedPane("overlay", [{
     "title": "Sunshine Map",
     "action": function() {
+      if (map.heatMap == undefined) {
+        $.jGrowl("Sorry! The sunchine map is not ready. Please try again in a few seconds.");
+        return
+      }
       map.heatMap.setMap(map.heatMap.getMap() ? null : map.root);
     },
     "image": "images/layer-icon.png",

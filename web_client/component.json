@@ -7,7 +7,8 @@
     "bootstrap.css": "~2.1.1",
     "flot": "~0.8.0",
     "intro.js": "~0.3.0",
-    "mustache": "~0.7.2"
+    "mustache": "~0.7.2",
+    "jgrowl": "~1.2.10"
   },
   "devDependencies": {}
 }
