@@ -7,10 +7,9 @@ class SunshineRankController < ApplicationController
     lat = params[:lat].to_f
     lon = params[:lon].to_f
 
-    s=Time.now
-    #raw = Cloud.where(:lat.gt => lat-RANGE, :lat.lt => lat+RANGE, :lon.gt => lon-RANGE, :lon.lt => lon+RANGE).to_a
+    s = Time.now
     raw = Cloud.near(loc:[lat, lon]).to_a
-    e=Time.now
+    e = Time.now
     logger.info("mongo(/rank/): #{e-s}second #{raw.size}data")
 
     buf = {}
@@ -40,6 +39,14 @@ class SunshineRankController < ApplicationController
     else
       render json: ret.to_json
     end
+
+  rescue => e
+    logger.info("INFO: #{e}")
+    if params.has_key? :callback
+      render :json => [].to_json, callback: params[:callback]
+    else
+      render :json => [].to_json
+    end
   end
 
   # GET /api/v1/rank/range
@@ -58,16 +65,10 @@ class SunshineRankController < ApplicationController
     lon_min = lon_min.to_f
     lon_max = lon_max.to_f
 
-    s=Time.now
-    #ret = Cloud.find_range_by_geo(lat_min, lat_max, lon_min, lon_max)
-    #raw = Cloud.where(
-    #  :lat.gt => lat_min,
-    #  :lat.lt => lat_max,
-    #  :lon.gt => lon_min,
-    #  :lon.lt => lon_max).to_a
+    s = Time.now
     raw = Cloud.within_box(loc: [[lat_min, lon_min], [lat_max, lon_max]]).to_a
     raise 'no data error' if raw.length == 0
-    e=Time.now
+    e = Time.now
     logger.info("mongo(/rank/range/): #{e-s}second #{raw.size}data")
 
     res = []
@@ -127,7 +128,10 @@ class SunshineRankController < ApplicationController
     lon_min = lon_min.to_f
     lon_max = lon_max.to_f
 
+    s = Time.now
     raw = Scale1.within_box("value.loc" => [[lat_min, lon_min], [lat_max, lon_max]]).to_a
+    e = Time.now
+    logger.info("mongo(/rank/range/[scale]): #{e-s}second #{raw.size}data")
     raise 'no data error' if raw.length == 0
 
     ret = []
