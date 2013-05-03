@@ -18,7 +18,7 @@ wpsp.map.prototype.buildMap = function(options) {
 
 wpsp.map.prototype.init = function() {
   var mapOptions = {
-    center: new google.maps.LatLng(37.0625, -95.677068), // Boston
+    center: new google.maps.LatLng(35.632291, 139.881371), // Tokyo Disney Land
     zoom: 14,
     mapTypeId: google.maps.MapTypeId.ROADMAP,
     zoomControlOptions: {
