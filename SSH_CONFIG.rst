@@ -11,9 +11,6 @@
         Host wtps3
           Hostname 10.1.2.94
 
-        Host wtps4
-          Hostname 10.1.2.51
-
         Host wtpsdb0
           Hostname 10.1.1.35
 
