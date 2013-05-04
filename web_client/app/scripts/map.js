@@ -241,14 +241,16 @@ $(document).ready(function() {
    */
   if(navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(function(position) {
-      var center = new google.maps.LatLng(
-        position.coords.latitude,
-        position.coords.longitude
-      );
       if (21 < position.coords.latitude && position.coords.latitude < 49
       && 121 < position.coords.longitude && position.coords.longitude < 149) {
-        // Only available area set cullent position
+        // Set current location only If current location is in available area.
+        var center = new google.maps.LatLng(
+          position.coords.latitude,
+          position.coords.longitude
+        );
         map.root.setCenter(center);
+      } else {
+          $.jGrowl("Sorry! We have no data for your location.");
       }
     }, function() {});
   } else {
