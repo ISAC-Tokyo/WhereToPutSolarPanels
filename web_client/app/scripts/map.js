@@ -245,7 +245,11 @@ $(document).ready(function() {
         position.coords.latitude,
         position.coords.longitude
       );
-      map.root.setCenter(center);
+      if (21 < position.coords.latitude && position.coords.latitude < 49
+      && 121 < position.coords.longitude && position.coords.longitude < 149) {
+        // Only available area set cullent position
+        map.root.setCenter(center);
+      }
     }, function() {});
   } else {
     // TODO Need to generate the layers?
