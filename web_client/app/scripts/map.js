@@ -273,10 +273,10 @@ $(document).ready(function() {
             return
           }
           if (map.heatMap.getMap() == undefined || map.heatMap.getMap() == null) {
-            $(".map-section-text").html(helpMODIS);
+            $(".map-section-text").parent().parent("div").show();
             map.heatMap.setMap(map.root);
           } else {
-            $(".map-section-text").html("(OFF)");
+            $(".map-section-text").parent().parent("div").hide();
             map.heatMap.setMap(null);
           }
         },
