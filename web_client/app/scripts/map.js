@@ -103,7 +103,6 @@ wpsp.map.prototype.buildHeatMapLayer = function(data) {
       'rgba(255, 255, 0, 1)',
       'rgba(255, 0, 0, 1)'
     ]
-
     var radiusForScale = {
       12: 5,
       11: 9,
@@ -114,10 +113,12 @@ wpsp.map.prototype.buildHeatMapLayer = function(data) {
       6: 120,
       5: 240
     };
-
+    var targetRadius = radiusForScale[this.root.zoom];
+    if (targetRadius == undefined && this.root.zoom < 5) { targetRadius = 240 }
+    if (targetRadius == undefined && this.root.zoom > 12) { targetRadius = 5 }
     heatmap.setOptions({
       dissipating: true,
-      radius: $("#map").width() / radiusForScale[this.root.zoom],
+      radius: $("#map").width() / targetRadius,
       gradient: heatmap.get('gradient') ? null : gradient
     });
     me.heatMapCache[zoom][center] = heatmap;
@@ -253,21 +254,75 @@ $(document).ready(function() {
   /**
    * Panes.
    */
+  var helpSunny = '<font style="color:#FDDD29;font-size:2em">●</font> Best sunlight.';
+  var helpMODIS = '<font style="color:rgba(0, 0, 255, 1);font-size:2em">●</font> Very Sunny<br/>'
+    + '<font style="color:rgba(0, 255, 0, 1);font-size:2em">●</font> Sunny<br/>'
+    + '<font style="color:rgba(255, 255, 0, 1);font-size:2em">●</font> Cloudy<br/>'
+    + '<font style="color:rgba(255, 0, 0, 1);font-size:2em;baseline-shift:sub">●</font> Very Cloudy';
 
-  var overlayControlPane = map.makeItemizedPane("overlay", [{
-    "title": "Sunshine Map",
-    "action": function() {
-      if (map.heatMap == undefined) {
-        $.jGrowl("Sorry! The sunchine map is not ready. Please try again in a few seconds.");
-        return
+  var overlayControlPane = map.makeItemizedPane("overlay", [
+      {
+        "title": "ON/OFF",
+        "action": function() {
+          if (map.heatMap == undefined) {
+            $.jGrowl("Sorry! The sunchine map is not ready. Please try again in a few seconds.");
+            return
+          }
+          if (map.heatMap.getMap() == undefined || map.heatMap.getMap() == null) {
+            $(".map-section-text").html(helpMODIS);
+            map.heatMap.setMap(map.root);
+          } else {
+            $(".map-section-text").html("(OFF)");
+            map.heatMap.setMap(null);
+          }
+        },
+        "image": "images/layer-icon.png",
+        "imageSize": { "width": 48 },
+        "itemExtraClass": ["map-pane-item-horizontal"],
+        "itemExtraAttr": { "data-intro": 'Show and hide the sun map', "data-step": '1', "data-position": "top" }
+      },
+      {
+        "title": "Sunny Places",
+        "action": function() {
+          $(".map-section-text").html(helpSunny);
+          var gradient = [
+            '#FDDD29',
+            'rgba(0, 0, 0, 1)'
+          ]
+          map.heatMap.setOptions({ gradient: gradient });
+        },
+        "image": "images/sun-icon.png",
+        "imageSize": { "width": 54 },
+        "itemExtraClass": ["map-pane-item-horizontal"],
+        "itemExtraAttr": { "data-intro": helpSunny, "data-step": '2', "data-position": "top" }
+      },
+      {
+        "title": "Modis Full Data",
+        "action": function() {
+          $(".map-section-text").html(helpMODIS);
+          var gradient = [
+            'rgba(0, 0, 255, 1)',
+            'rgba(0, 255, 0, 1)',
+            'rgba(255, 255, 0, 1)',
+            'rgba(255, 0, 0, 1)'
+          ]
+          map.heatMap.setOptions({ gradient: gradient });
+        },
+        "image": "images/satellite-icon.png",
+        "imageSize": { "width": 48 },
+        "itemExtraClass": ["map-pane-item-horizontal"],
+        "itemExtraAttr": { "data-intro": helpMODIS, "data-step": '3', "data-position": "top" }
+      },
+      {
+        "title": "Help",
+        "action": function() {
+          introJs().start();
+        },
+        "image": "images/help.png",
+        "imageSize": { "width": 32 },
+        "itemExtraClass": ["map-pane-item-horizontal"]
       }
-      map.heatMap.setMap(map.heatMap.getMap() ? null : map.root);
-    },
-    "image": "images/layer-icon.png",
-    "imageSize": { "width": 48 },
-    "itemExtraClass": ["map-pane-item-horizontal"],
-    "itemExtraAttr": { "data-intro": 'Show and hide the sun map', "data-step": '1', "data-position": "top" }
-  }], "map-pane-bottom");
+  ], "map-pane-bottom");
 
   /*
   var statusPane = map.makeItemizedPane("status", [
@@ -297,44 +352,9 @@ $(document).ready(function() {
   }], "map-pane-left");
   */
 
-  var mapModesPane = map.makeItemizedPane("map-modes", [
+  var mapLegendPane = map.makeTextPane("map-legend", [
       {
-        "title": "Sunny Places",
-        "action": function() {
-          var gradient = [
-            'rgba(0, 0, 0, 1)',
-            'rgba(0, 200, 0, 1)'
-          ]
-          map.heatMap.setOptions({ gradient: gradient });
-        },
-        "image": "images/sun-icon.png",
-        "imageSize": { "width": 54 },
-        "itemExtraClass": ["map-pane-item-vertical"],
-        "itemExtraAttr": { "data-intro": 'Green areas show the best sunlight.', "data-step": '2', "data-position": "left" }
-      },
-      {
-        "title": "Modis Full Data",
-        "action": function() {
-          var gradient = [
-            'rgba(200, 0, 0, 1)',
-            'rgba(128, 60, 0, 1)',
-            'rgba(0, 200, 0, 1)'
-          ]
-          map.heatMap.setOptions({ gradient: gradient });
-        },
-        "image": "images/satellite-icon.png",
-        "imageSize": { "width": 48 },
-        "itemExtraClass": ["map-pane-item-vertical"],
-        "itemExtraAttr": { "data-intro": 'Blue: cloudy, Green: rather cloudy; Yellow: rather sunny; Red: sunny.', "data-step": '3', "data-position": "left" }
-      },
-      {
-        "title": "Help",
-        "action": function() {
-          introJs().start();
-        },
-        "image": "images/help.png",
-        "imageSize": { "width": 32 },
-        "itemExtraClass": ["map-pane-item-horizontal"]
+        "content": helpMODIS
       }
   ], "map-pane-right");
 
@@ -361,9 +381,9 @@ $(document).ready(function() {
       },
         */
       {
-        "name": "map-modes",
+        "name": "map-legend",
         "position": google.maps.ControlPosition.RIGHT_CENTER,
-        "pane": mapModesPane
+        "pane": mapLegendPane
       }
     ]
   };
