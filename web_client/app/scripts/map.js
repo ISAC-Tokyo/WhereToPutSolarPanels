@@ -103,9 +103,9 @@ wpsp.map.prototype.buildHeatMapLayer = function(data) {
       'rgba(255, 255, 0, 1)',
       'rgba(255, 0, 0, 1)'
     ]
-    var radiusForScale = {
-      12: 5,
-      11: 9,
+    var radiusForScale = { // Rule of thumb: Divide by 2 as the zoom gets stronger.
+      12: 3,
+      11: 6,
       10: 11,
       9: 21,
       8: 38,
