@@ -151,7 +151,7 @@ class SunshineRankController < ApplicationController
     # normalization
     diff = max - min
     ret.length.times do | i|
-      ret[i]["weight"] = 1 - ((ret[i]["weight"] - min) / diff)
+      ret[i]["weight"] = (ret[i]["weight"] - min) / diff
     end
 
     if params.has_key? :callback

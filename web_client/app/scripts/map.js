@@ -261,10 +261,10 @@ $(document).ready(function() {
    * Panes.
    */
   var helpSunny = '<font style="color:#FDDD29;font-size:2em">●</font> Best sunlight.';
-  var helpMODIS = '<font style="color:rgba(0, 0, 255, 1);font-size:2em">●</font> Very Sunny<br/>'
-    + '<font style="color:rgba(0, 255, 0, 1);font-size:2em">●</font> Sunny<br/>'
-    + '<font style="color:rgba(255, 255, 0, 1);font-size:2em">●</font> Cloudy<br/>'
-    + '<font style="color:rgba(255, 0, 0, 1);font-size:2em;baseline-shift:sub">●</font> Very Cloudy';
+  var helpMODIS = '<font style="color:rgba(0, 0, 255, 1);font-size:2em">●</font> Very Cloudy<br/>'
+    + '<font style="color:rgba(0, 255, 0, 1);font-size:2em">●</font> Cloudy<br/>'
+    + '<font style="color:rgba(255, 255, 0, 1);font-size:2em">●</font> Sunny<br/>'
+    + '<font style="color:rgba(255, 0, 0, 1);font-size:2em;baseline-shift:sub">●</font> Very Sunny';
 
   var overlayControlPane = map.makeItemizedPane("overlay", [
       {
@@ -292,8 +292,8 @@ $(document).ready(function() {
         "action": function() {
           $(".map-section-text").html(helpSunny);
           var gradient = [
-            '#FDDD29',
-            'rgba(0, 0, 0, 1)'
+            'rgba(0, 0, 0, 1)',
+            '#FDDD29'
           ]
           map.heatMap.setOptions({ gradient: gradient });
         },
