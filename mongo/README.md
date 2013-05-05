@@ -21,6 +21,14 @@ value.loc.lat,value.loc.lon,value.score,value.low,value.totalScore,value.totalLo
 20.1,120.4,0.2399,0.0,220.0,0.0,917.0
 ```
 
+### Exportしたデータの確認
+
+```
+R -f check_aggregated_data.R
+```
+
+scoreのヒストグラムと、地図としてマッピングした図がファイルとして保存される。
+
 
 ## Databases
 
