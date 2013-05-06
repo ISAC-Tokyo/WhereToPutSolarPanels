@@ -240,7 +240,9 @@ ex. and batch insert.
 Mongo DB
 --------
 
-Current Data Structure https://github.com/International-Space-Apps-Challenge-Tokyo/WhereToPutSolarPanels/blob/master/mongo/README.md
+- Current Data Structure 
+
+  - `./mongo/README.md <./mongo/README.md>`_
 
 Create Geo Index
 ----------------
