@@ -283,7 +283,7 @@ $(document).ready(function() {
           }
         },
         "image": "images/layer-icon.png",
-        "imageSize": { "width": 48 },
+        "imageSize": { "width": 32 },
         "itemExtraClass": ["map-pane-item-horizontal"],
         "itemExtraAttr": { "data-intro": 'Show and hide the sun map', "data-step": '1', "data-position": "top" }
       },
@@ -297,8 +297,8 @@ $(document).ready(function() {
           ]
           map.heatMap.setOptions({ gradient: gradient });
         },
-        "image": "images/sun-icon.png",
-        "imageSize": { "width": 54 },
+        "image": "images/sunny.png",
+        "imageSize": { "width": 32 },
         "itemExtraClass": ["map-pane-item-horizontal"],
         "itemExtraAttr": { "data-intro": helpSunny, "data-step": '2', "data-position": "top" }
       },
@@ -314,8 +314,8 @@ $(document).ready(function() {
           ]
           map.heatMap.setOptions({ gradient: gradient });
         },
-        "image": "images/satellite-icon.png",
-        "imageSize": { "width": 48 },
+        "image": "images/satellite.png",
+        "imageSize": { "width": 32 },
         "itemExtraClass": ["map-pane-item-horizontal"],
         "itemExtraAttr": { "data-intro": helpMODIS, "data-step": '3', "data-position": "top" }
       },
@@ -327,36 +327,17 @@ $(document).ready(function() {
         "image": "images/help.png",
         "imageSize": { "width": 32 },
         "itemExtraClass": ["map-pane-item-horizontal"]
+      },
+      {
+        "title": "Home",
+        "action": function() {
+          window.location.href = window.location.protocol + "//" + window.location.host;
+        },
+        "image": "images/home.png",
+        "imageSize": { "width": 32 },
+        "itemExtraClass": ["map-pane-item-horizontal"]
       }
   ], "map-pane-bottom");
-
-  /*
-  var statusPane = map.makeItemizedPane("status", [
-    {
-      "title": "KWh",
-      "image": "images/green.png",
-      "imageSize": { "width": 16 },
-      "itemExtraClass": ["map-pane-item-horizontal"]
-    },
-    {
-      "title": "Awesomeness",
-      "image": "images/orange.png",
-      "imageSize": { "width": 16 },
-      "itemExtraClass": ["map-pane-item-horizontal"]
-    },
-    {
-      "title": "YA Hard-coded Value",
-      "image": "images/red.png",
-      "imageSize": { "width": 16 },
-      "itemExtraClass": ["map-pane-item-horizontal"]
-    },
-  ], "map-pane-top");
-
-  var detailPane = map.makeTextPane("detail", [{
-    "title": "Detail Title",
-    "content": "Detail Contents."
-  }], "map-pane-left");
-  */
 
   var mapLegendPane = map.makeTextPane("map-legend", [
       {
@@ -374,18 +355,6 @@ $(document).ready(function() {
         "position": google.maps.ControlPosition.BOTTOM_CENTER,
         "pane": overlayControlPane
       },
-          /**
-      {
-        "name": "status",
-        "position": google.maps.ControlPosition.TOP_CENTER,
-        "pane": statusPane
-      },
-      {
-        "name": "detail",
-        "position": google.maps.ControlPosition.LEFT_CENTER,
-        "pane": detailPane
-      },
-        */
       {
         "name": "map-legend",
         "position": google.maps.ControlPosition.RIGHT_CENTER,
