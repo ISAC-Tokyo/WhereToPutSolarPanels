@@ -1,5 +1,8 @@
+@import url(http://fonts.googleapis.com/css?family=Abel|Oswald);
+
 body {
     background: #fafafa;
+    font-family: 'Abel', helvetica neue, sans-serif;
 }
 
 @media (max-width: 480px) {
@@ -15,6 +18,14 @@ body {
   div.row {
     position: relative;
   }
+}
+
+.h {
+  font-family: 'Oswald', helvetica neue, sans-serif;
+  letter-spacing: -1px;
+  font-weight: normal;
+  font-size: 48px;
+  line-height: 1.2;
 }
 
 footer {

@@ -17,6 +17,8 @@
     <link rel="stylesheet" href="components/bootstrap.css/css/bootstrap-responsive.css">
     <!-- endbuild -->
 
+    <link rel="stylesheet" href="styles/select_location.css">
+
     <!-- build:js scripts/vendor/common_lib.js -->
     <script src="components/modernizr/modernizr.js"></script>
     <script src="components/jquery/jquery.js"></script>
@@ -34,8 +36,9 @@
 </head>
 <body>
     <div class="container">
+      <h1>Solar power generation cost Checker</h1>
       <div class="location-selector">
-        <h1 class="page-header">Place</h1>
+        <h2 class="page-header">Select Place</h2>
         <p class="small">
         Please select a place where to put your solar panel.
         </p>
@@ -48,11 +51,11 @@
             <div class="bar" style="width: 100%;"></div>
           </div>
         </div>
-        <button class="btn btn-large btn-primary" id="btn-location-ok">Select a solar panel</button>
+        <button class="btn btn-large btn-primary" id="btn-location-ok">next > Select a solar panel</button>
       </div>
 
       <div class="panel-selector hidden">
-        <h1 class="page-header">Solar Panel Model</h1>
+        <h2 class="page-header">Solar Panel Model</h2>
         <p class="small">
         Please select a solar panel depending on your budget, target output, and the expected lifespan.
         </p>
@@ -69,7 +72,7 @@
           <tbody>
           </tbody>
         </table>
-        <button class="btn btn-large btn-primary" id="btn-panel-ok">Results</button>
+        <button class="btn btn-large btn-primary" id="btn-panel-ok">Get Results</button>
         &nbsp;&nbsp;
         <button class="btn btn-large" id="btn-back">Back</button>
       </div>
