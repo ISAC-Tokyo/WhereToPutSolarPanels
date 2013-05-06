@@ -2,7 +2,8 @@
 WhereToPutSolarPanels
 =====================
 
-- Home: http://spaceappschallenge.org/project/where-to-put-solar-panels-/
+- Home: http://solar-energy.no32.tk
+- Space Apps Challenge Project Home: http://spaceappschallenge.org/project/where-to-put-solar-panels-/
 - Facebook (sometimes private!): http://www.facebook.com/groups/435555353200281/
 
 -------
@@ -24,7 +25,7 @@ Deployment
 
 *Assuming Ubuntu 12_04*
 
-*See also web_client/README.md for the web server configuration (behind the wtps-web virtual host configured here)*
+*See also web_client/README.md for more detail on the client code*
 
 Package requirements
 
@@ -36,15 +37,27 @@ Package requirements
 
 *If you want to install latest nodejs, see here: https://github.com/joyent/node/wiki/Installing-Node.js-via-package-manager#ubuntu-mint*
 
-Get the code
+Get the code the *first time*
 
 ::
 
     cd /srv && \
     git clone git://github.com/International-Space-Apps-Challenge-Tokyo/WhereToPutSolarPanels.git
     # As needed
-    RAILS_ENV=production BUNDLE_PATH=vendor/bundle bundle install && \
-    RAILS_ENV=production BUNDLE_PATH=vendor/bundle bundle exec passenger-install-apache2-module -a
+    cd /srv/WhereToPutSolarPanels/web_server
+    BUNDLE_PATH=vendor/bundle bundle install && \
+    BUNDLE_PATH=vendor/bundle bundle exec passenger-install-apache2-module -a
+    cd /srv/WhereToPutSolarPanels/web_client
+    bower install
+
+Get code updates (very primitive, but the way to date!)
+
+::
+
+    cd /srv/WhereToPutSolarPanels
+    git checkout master && git pull
+    cd /srv/WhereToPutSolarPanels/web_server && BUNDLE_PATH=vendor/bundle bundle install
+    cd /srv/WhereToPutSolarPanels/web_client && bower install
 
 Install virtual hosts
 
@@ -95,46 +108,35 @@ CommonSpec
 - CPU 1.7GHz * 2
 - SSH Port 22, Key Authentication only
 
-SSH秘密鍵はfacebookグループにアップロードしました。
+SSH keys are shared in the private Facebook group.
+
+Getting to the main server:
 
 ::
 
   ssh root@210.129.195.213 -i ~/.ssh/id_rsa_wtps
 
-でログインできます。
 
-公開サーバー
-------------
+Public Server (HTTP front end and Web API)
+------------------------------------------
 
-- global ip address
+- Global IP address: 210.129.195.213
 
-  - 210.129.195.213
+- Hostname: i-1603-29752-VM
 
-- hostname
+Backend server "dai2"
+---------------------
 
-  - i-1603-29752-VM
+- Private IP address: 10.1.1.82
 
-サーバー2
----------
+- Hostname: i-1603-29759-VM
 
-- private ip address
+Backend server "dai3"
+---------------------
 
-  - 10.1.1.82
+- Private IP address: 10.1.2.94
 
-- hostname
-
-  - i-1603-29759-VM
-
-サーバー3
----------
-
-- private ip address
-
-  - 10.1.2.94
-
-- hostname
-
-  - i-1603-29760-VM
+- Hostname: i-1603-29760-VM
 
 ----------
 SSH Config
@@ -292,8 +294,8 @@ Server API
 
 - Request Parameters
 
-  - lat (中心座標)
-  - lan (中心座標)
+  - lat: latitude
+  - lan: longitude
 
 - Response
 
@@ -303,11 +305,11 @@ Server API
 
   {
     rank: 5,
-    total_score: 3600, // 10年分の合計
+    total_score: 3600, // Total over 10 years
     series: {
       from: "2000-01",
       to: "2010-12",
-      data: [100, 105, 100, 30] // 10年分の月毎の晴れてる度
+      data: [100, 105, 100, 30] // Number of sunny days each month over 10 years.
     }
   }
 
@@ -334,10 +336,8 @@ Server API
     - lat_r: latitude range
     - lon_r: longitude range
 
-- Response
+- Response: Array of 400 data points (lat, lon, rank), where the rank is the number of sunny days on average at that position.
 
-ランクの配列、指定したレンジの左上から右へ。
-配列の長さは400。
 
 ::
 
