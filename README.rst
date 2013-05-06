@@ -17,7 +17,7 @@ Members
 - Eric Platon
 - Hajime Sasaki
 - Shun Shiramatsu (github:siramatu)
-- Mitsuhiro Takano (takano32)
+- TAKANO Mitsuhiro a.k.a. takano32 (Lead Engineer / Big Data Administrator)
 
 ----------
 Deployment
