@@ -1,0 +1,43 @@
+diff --cc web_client/app/styles/result.css
+index 616b815,4be1c6b..0000000
+--- a/web_client/app/styles/result.css
++++ b/web_client/app/styles/result.css
+@@@ -23,28 -23,15 +23,38 @@@ font-family: 'Abel', helvetica neue, sa
+  padding: 15px;
+  width: 260px;
+  font-size: 20px;
+++<<<<<<< Updated upstream
+++=======
++ background-color: rgb(49, 149, 214);
+++>>>>>>> Stashed changes
+  background-image: none;
+  color: #fff;
+  text-shadow: none;
+  }
+  
+++<<<<<<< Updated upstream
+ +.btn-primary {
+ +  background-color: rgb(49, 149, 214);
+ +}
+ +
+ +.btn-success {
+ +  background-color: #51a351;
+ +}
+ +
+ +
+ +.btn-primary:hover {
+ +	background-color: rgb(38, 121, 175);
+ +	color: #ddd;
+ +}
+ +
+ +.btn-success:hover {
+ +  background-color: #419331;
+ +	color: #ddd;
+++=======
++ .btn:hover {
++   background-color: rgb(38, 121, 175);
++   color: #ddd;
+++>>>>>>> Stashed changes
+  }
+  
+  body {
