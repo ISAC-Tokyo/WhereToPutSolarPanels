@@ -23,15 +23,28 @@ font-family: 'Abel', helvetica neue, sans-serif;
 padding: 15px;
 width: 260px;
 font-size: 20px;
-background-color: rgb(49, 149, 214);
 background-image: none;
 color: #fff;
 text-shadow: none;
 }
 
-.btn:hover {
-  background-color: rgb(38, 121, 175);
-  color: #ddd;
+.btn-primary {
+  background-color: rgb(49, 149, 214);
+}
+
+.btn-success {
+  background-color: #51a351;
+}
+
+
+.btn-primary:hover {
+	background-color: rgb(38, 121, 175);
+	color: #ddd;
+}
+
+.btn-success:hover {
+  background-color: #419331;
+	color: #ddd;
 }
 
 body {
