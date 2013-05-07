@@ -336,6 +336,15 @@ $(document).ready(function() {
         "image": "images/home.png",
         "imageSize": { "width": 32 },
         "itemExtraClass": ["map-pane-item-horizontal"]
+      },
+      {
+        "title": "Vote on Twitter?",
+        "action": function() {
+          window.open("https://twitter.com/intent/tweet?text=I%20vote%20%23cloudlessspots%20for%20%40spaceapps%20People%27s%20Choice%20Award!", "_blank");
+        },
+        "image": "images/vote.png",
+        "imageSize": { "width": 32 },
+        "itemExtraClass": ["map-pane-item-horizontal"]
       }
   ], "map-pane-bottom");
 
