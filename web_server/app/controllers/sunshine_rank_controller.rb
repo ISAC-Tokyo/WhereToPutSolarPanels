@@ -129,7 +129,7 @@ class SunshineRankController < ApplicationController
     lon_max = lon_max.to_f
 
     s = Time.now
-    raw = Scale1.within_box("value.loc" => [[lat_min, lon_min], [lat_max, lon_max]]).to_a
+    raw = Scale2.within_box("value.loc" => [[lat_min, lon_min], [lat_max, lon_max]]).to_a
     e = Time.now
     logger.info("mongo(/rank/range/[scale]): #{e-s}second #{raw.size}data")
     raise 'no data error' if raw.length == 0
