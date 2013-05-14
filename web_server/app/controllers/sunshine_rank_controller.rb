@@ -1,6 +1,6 @@
 class SunshineRankController < ApplicationController
-  SIDE_RANGE = 20
-  RANGE = 1
+  SIDE_RANGE = 20 # SIDE_RANGE*SIDE_RANGE data will return on get_rank_range
+  SCALE_THRESHOLD = 30000 # This number will allow to get data from mongo
 
   def get_rank
     lat = params[:lat].to_f
@@ -58,6 +58,8 @@ class SunshineRankController < ApplicationController
       lat_max = params[:lat_e]
       lon_min = params[:lon_s]
       lon_max = params[:lon_e]
+    else
+      raise 'not match parameters'
     end
     lat_min = lat_min.to_f
     lat_max = lat_max.to_f
@@ -121,14 +123,18 @@ class SunshineRankController < ApplicationController
       lat_max = params[:lat_e]
       lon_min = params[:lon_s]
       lon_max = params[:lon_e]
+    else
+      raise 'not match parameters'
     end
     lat_min = lat_min.to_f
     lat_max = lat_max.to_f
     lon_min = lon_min.to_f
     lon_max = lon_max.to_f
 
+    db = get_scale_db_class(lat_min, lat_max, lon_min, lon_max)
+
     s = Time.now
-    raw = Scale1.within_box("value.loc" => [[lat_min, lon_min], [lat_max, lon_max]]).to_a
+    raw = db.within_box("value.loc" => [[lat_min, lon_min], [lat_max, lon_max]]).to_a
     e = Time.now
     logger.info("mongo(/rank/range/[scale]): #{e-s}second #{raw.size}data")
     raise 'no data error' if raw.length == 0
@@ -182,6 +188,20 @@ class SunshineRankController < ApplicationController
       ret = 4
     else
       ret = 0
+    end
+  end
+
+  # Retrun suit scale db class
+  def get_scale_db_class(lat_min, lat_max, lon_min, lon_max)
+    lat_diff = lat_max - lat_min
+    lon_diff = lon_max - lon_min
+    area_size = lat_diff * lon_diff
+
+    # Select suit scale db
+    if (area_size * 10000) < SCALE_THRESHOLD
+      return Scale2
+    else
+      return Scale1 # Scale1 will return area_size * 100 data
     end
   end
 end
