@@ -47,8 +47,7 @@ ERB.new(DATA.read).run
 
 __END__
 //同じ位置のスコアを全期間で集計する
-var byMonth = <% if options[:month] then %> true <%else%> false <%end%>;
-
+var byMonth = <% if options[:month] then %>true<%else%>false<%end%>;
 var COORDINATE_DECIMAL = <%= resolution%>;
 var aggregateCollection = "<%= collection%>";
 var outCollection = byMonth ? 'scale' + COORDINATE_DECIMAL + '_by_month' : 'alldate_scale' + COORDINATE_DECIMAL;
