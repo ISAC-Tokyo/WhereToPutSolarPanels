@@ -1,23 +1,54 @@
-#!/bin/bash
-#Code for generate JavaScript code, to aggregate mongo
+#!/usr/bin/env ruby
+# -*- coding: utf-8 -*-
+# vim: set noet sts=4 sw=4 ts=4 fdm=marker :
+# author: takano32 <tak@no32 dot tk>
+#
 
-if [ $# -ne 2 ]; then
-cat <<__EOT__
-Give me two parameters
-- Decimal place of Resolution (If set 2, output resolution is 0.01)
-- Aggregate collection name
 
-Usage:
-  aggregate_all_date.js.sh 2 cloud_mask | mongo wtps20xx
+require 'optparse'
 
-__EOT__
-  exit 1
-fi
+options = {}
 
-cat <<__JS__
+opt = OptionParser.new
+opt.banner = <<EOU
+Usage: #{$0} [OPTIONS]
+Options:
+EOU
+
+opt.on('-r RESOLUTION', '--resolution RESOLUTION') do |v|
+	options[:resolution] = v
+end
+
+opt.on('-c COLLECTION', '--collection COLLECTION') do |v|
+	options[:collection] = v
+end
+
+opt.on('--month') {|v| options[:month] = v}
+
+begin
+	_rest = opt.parse ARGV
+rescue OptionParser::InvalidOption => e
+	warn e.message
+	puts opt
+	abort
+end
+
+resolution = options[:resolution]
+collection = options[:collection]
+
+unless resolution or collection then
+	puts opt
+	abort
+end
+
+require 'erb'
+ERB.new(DATA.read).run
+
+
+__END__
 //同じ位置のスコアを全期間で集計する
-var COORDINATE_DECIMAL = ${1};
-var aggregateCollection = "${2}";
+var COORDINATE_DECIMAL = <%= resolution%>;
+var aggregateCollection = "<%= collection%>";
 
 print('Start aggregate by location and date')
 print(Date());
@@ -31,6 +62,28 @@ function round(val, decimal) {
   return val;
 }
  
+<% if options[:month] then %>
+// ISODate to "201301"
+function toMonth(d) {
+  var year = d.getFullYear();
+  var month = d.getMonth() + 1;
+  if (month < 10) {
+    month = '0' + month;
+  }
+  return String(year) + String(month);
+}
+
+// lat, lonが近い物が同じキーとなる
+function map() {
+  var key = toMonth(this.date) + '_' + round(this.loc.lat, COORDINATE_DECIMAL) + '_' + round(this.loc.lon, COORDINATE_DECIMAL);
+  emit(key, {
+    score: this.score,
+    low: this.low,
+    count: 1
+  });
+}
+<% else %>
+
 // lat, lonが近い物が同じキーとなる
 function map() {
   var key = round(this.loc.lat, COORDINATE_DECIMAL) + '_' + round(this.loc.lon, COORDINATE_DECIMAL);
@@ -40,6 +93,10 @@ function map() {
     count: 1
   });
 }
+
+<% end %>
+
+
 
 // scoreとlowを積みあげる
 function reduce(key, values) {
@@ -63,6 +120,9 @@ function reduce(key, values) {
 function finalize(key, value) {
   var keys = key.split('_');
   return {
+<% if options[:month] then %>
+    month: keys[0],
+<% end %>
     loc: {
       lat: Number(keys[0]),
       lon: Number(keys[1])
@@ -75,6 +135,19 @@ function finalize(key, value) {
   }
 }
 
+<% if options[:month] then %>
+var outCollection = 'scale' + COORDINATE_DECIMAL + '_by_month';
+var res = db.[aggregateCollection].mapReduce(map, reduce, {
+  out: outCollection,
+  finalize: finalize,
+  scope: {
+    round: round,
+    toMonth: toMonth,
+    COORDINATE_DECIMAL: COORDINATE_DECIMAL
+  },
+  verbose: true
+});
+<% else %>
 var outCollection = 'alldate_scale' + COORDINATE_DECIMAL;
 var res = db[aggregateCollection].mapReduce(map, reduce, {
   out: outCollection,
@@ -85,11 +158,10 @@ var res = db[aggregateCollection].mapReduce(map, reduce, {
   },
   verbose: true
 });
+<% end %>
 
 print('count: ', db[outCollection].find().count());
 print('Finished. Created collection ', outCollection);
 print(Date());
 print('===========================');
-
-__JS__
 
