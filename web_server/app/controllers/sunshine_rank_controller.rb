@@ -1,5 +1,4 @@
 class SunshineRankController < ApplicationController
-  DIV_NUM = 400
   SIDE_RANGE = 20
   RANGE = 1
 
