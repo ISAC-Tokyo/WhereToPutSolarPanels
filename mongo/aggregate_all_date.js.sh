@@ -4,11 +4,11 @@
 if [ $# -ne 2 ]; then
 cat <<__EOT__
 Give me two parameters
-- Resolution
+- Decimal place of Resolution (If set 2, output resolution is 0.01)
 - Aggregate collection name
 
 Usage:
-  aggregate_all_date.js.sh 0.01 cloud_mask | mongo wtps20xx
+  aggregate_all_date.js.sh 2 cloud_mask | mongo wtps20xx
 
 __EOT__
   exit 1
