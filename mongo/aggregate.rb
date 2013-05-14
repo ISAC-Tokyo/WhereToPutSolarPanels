@@ -23,6 +23,8 @@ opt.on('-c COLLECTION', '--collection COLLECTION') do |v|
 	options[:collection] = v
 end
 
+opt.on('--month') {|v| options[:month] = v}
+
 begin
 	_rest = opt.parse ARGV
 rescue OptionParser::InvalidOption => e
@@ -60,6 +62,28 @@ function round(val, decimal) {
   return val;
 }
  
+<% if options[:month] then %>
+// ISODate to "201301"
+function toMonth(d) {
+  var year = d.getFullYear();
+  var month = d.getMonth() + 1;
+  if (month < 10) {
+    month = '0' + month;
+  }
+  return String(year) + String(month);
+}
+
+// lat, lonが近い物が同じキーとなる
+function map() {
+  var key = toMonth(this.date) + '_' + round(this.loc.lat, COORDINATE_DECIMAL) + '_' + round(this.loc.lon, COORDINATE_DECIMAL);
+  emit(key, {
+    score: this.score,
+    low: this.low,
+    count: 1
+  });
+}
+<% else %>
+
 // lat, lonが近い物が同じキーとなる
 function map() {
   var key = round(this.loc.lat, COORDINATE_DECIMAL) + '_' + round(this.loc.lon, COORDINATE_DECIMAL);
@@ -69,6 +93,10 @@ function map() {
     count: 1
   });
 }
+
+<% end %>
+
+
 
 // scoreとlowを積みあげる
 function reduce(key, values) {
@@ -92,6 +120,9 @@ function reduce(key, values) {
 function finalize(key, value) {
   var keys = key.split('_');
   return {
+<% if options[:month] then %>
+    month: keys[0],
+<% end %>
     loc: {
       lat: Number(keys[0]),
       lon: Number(keys[1])
@@ -104,6 +135,19 @@ function finalize(key, value) {
   }
 }
 
+<% if options[:month] then %>
+var outCollection = 'scale' + COORDINATE_DECIMAL + '_by_month';
+var res = db.[aggregateCollection].mapReduce(map, reduce, {
+  out: outCollection,
+  finalize: finalize,
+  scope: {
+    round: round,
+    toMonth: toMonth,
+    COORDINATE_DECIMAL: COORDINATE_DECIMAL
+  },
+  verbose: true
+});
+<% else %>
 var outCollection = 'alldate_scale' + COORDINATE_DECIMAL;
 var res = db[aggregateCollection].mapReduce(map, reduce, {
   out: outCollection,
@@ -114,6 +158,7 @@ var res = db[aggregateCollection].mapReduce(map, reduce, {
   },
   verbose: true
 });
+<% end %>
 
 print('count: ', db[outCollection].find().count());
 print('Finished. Created collection ', outCollection);
