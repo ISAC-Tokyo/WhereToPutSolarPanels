@@ -1,5 +1,23 @@
+#!/bin/bash
+#Code for generate JavaScript code, to aggregate mongo
+
+if [ $# -ne 2 ]; then
+cat <<__EOT__
+Give me two parameters
+- Resolution
+- Aggregate collection name
+
+Usage:
+  aggregate_all_date.js.sh 0.01 cloud_mask | mongo wtps20xx
+
+__EOT__
+  exit 1
+fi
+
+cat <<__JS__
 //同じ位置のスコアを全期間で集計する
-var COORDINATE_DECIMAL = 1;
+var COORDINATE_DECIMAL = ${1};
+var aggregateCollection = "${2}";
 
 print('Start aggregate by location and date')
 print(Date());
@@ -58,7 +76,7 @@ function finalize(key, value) {
 }
 
 var outCollection = 'alldate_scale' + COORDINATE_DECIMAL;
-var res = db.cloud_mask.mapReduce(map, reduce, {
+var res = db[aggregateCollection].mapReduce(map, reduce, {
   out: outCollection,
   finalize: finalize,
   scope: {
@@ -72,4 +90,6 @@ print('count: ', db[outCollection].find().count());
 print('Finished. Created collection ', outCollection);
 print(Date());
 print('===========================');
+
+__JS__
 
