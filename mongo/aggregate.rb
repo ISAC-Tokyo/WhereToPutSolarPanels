@@ -15,7 +15,7 @@ Usage: #{$0} [OPTIONS]
 Options:
 EOU
 
-opt.on('-r RESOLUTION', '--resolution RESOLUTION') do |v|
+opt.on('-r RESOLUTION', '--resolution RESOLUTION (Decimal place, if set 2 result become 0.01) ') do |v|
 	options[:resolution] = v
 end
 
