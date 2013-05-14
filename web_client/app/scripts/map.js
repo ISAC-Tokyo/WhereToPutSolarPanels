@@ -104,9 +104,9 @@ wpsp.map.prototype.buildHeatMapLayer = function(data) {
       'rgba(255, 0, 0, 1)'
     ]
     var radiusForScale = { // Rule of thumb: Divide by 2 as the zoom gets stronger.
-      12: 3,
-      11: 6,
-      10: 11,
+      12: 30,
+      11: 60,
+      10: 110,
       9: 21,
       8: 38,
       7: 80,
@@ -115,7 +115,8 @@ wpsp.map.prototype.buildHeatMapLayer = function(data) {
     };
     var targetRadius = radiusForScale[this.root.zoom];
     if (targetRadius == undefined && this.root.zoom < 5) { targetRadius = 240 }
-    if (targetRadius == undefined && this.root.zoom > 12) { targetRadius = 5 }
+    if (targetRadius == undefined && this.root.zoom > 10) { targetRadius = 50 }
+console.log(this.root.zoom);
     heatmap.setOptions({
       dissipating: true,
       radius: $("#map").width() / targetRadius,
