@@ -14,15 +14,17 @@ Usage: #{$0} [OPTIONS]
 Options:
 EOU
 
-opt.on('-r RESOLUTION', '--resolution RESOLUTION (Decimal place, if set 2 result become 0.01) ') do |v|
+opt.on('-r RESOLUTION', '--resolution RESOLUTION',
+	   'Decimal place, if set 2 result become 0.01') do |v|
 	options[:resolution] = v
 end
 
-opt.on('-c COLLECTION', '--collection COLLECTION') do |v|
+opt.on('-c COLLECTION', '--collection COLLECTION',
+	   'Specify target Collection.') do |v|
 	options[:collection] = v
 end
 
-opt.on('--month') {|v| options[:month] = v}
+opt.on('--month', 'month-mode') {|v| options[:month] = v}
 
 begin
 	_rest = opt.parse ARGV
