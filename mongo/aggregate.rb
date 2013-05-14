@@ -46,8 +46,11 @@ ERB.new(DATA.read).run
 
 __END__
 //同じ位置のスコアを全期間で集計する
+var byMonth = <% if options[:month] then %> true <%else%> false <%end%>;
+
 var COORDINATE_DECIMAL = <%= resolution%>;
 var aggregateCollection = "<%= collection%>";
+var outCollection = byMonth ? 'scale' + COORDINATE_DECIMAL + '_by_month' : 'alldate_scale' + COORDINATE_DECIMAL;
 
 print('Start aggregate by location and date')
 print(Date());
@@ -61,7 +64,6 @@ function round(val, decimal) {
   return val;
 }
  
-<% if options[:month] then %>
 // ISODate to "201301"
 function toMonth(d) {
   var year = d.getFullYear();
@@ -74,28 +76,17 @@ function toMonth(d) {
 
 // lat, lonが近い物が同じキーとなる
 function map() {
+<% if options[:month] then %>
   var key = toMonth(this.date) + '_' + round(this.loc.lat, COORDINATE_DECIMAL) + '_' + round(this.loc.lon, COORDINATE_DECIMAL);
-  emit(key, {
-    score: this.score,
-    low: this.low,
-    count: 1
-  });
-}
 <% else %>
-
-// lat, lonが近い物が同じキーとなる
-function map() {
   var key = round(this.loc.lat, COORDINATE_DECIMAL) + '_' + round(this.loc.lon, COORDINATE_DECIMAL);
+<% end %>
   emit(key, {
     score: this.score,
     low: this.low,
     count: 1
   });
 }
-
-<% end %>
-
-
 
 // scoreとlowを積みあげる
 function reduce(key, values) {
@@ -134,9 +125,7 @@ function finalize(key, value) {
   }
 }
 
-<% if options[:month] then %>
-var outCollection = 'scale' + COORDINATE_DECIMAL + '_by_month';
-var res = db.[aggregateCollection].mapReduce(map, reduce, {
+var res = db[aggregateCollection].mapReduce(map, reduce, {
   out: outCollection,
   finalize: finalize,
   scope: {
@@ -146,18 +135,6 @@ var res = db.[aggregateCollection].mapReduce(map, reduce, {
   },
   verbose: true
 });
-<% else %>
-var outCollection = 'alldate_scale' + COORDINATE_DECIMAL;
-var res = db[aggregateCollection].mapReduce(map, reduce, {
-  out: outCollection,
-  finalize: finalize,
-  scope: {
-    round: round,
-    COORDINATE_DECIMAL: COORDINATE_DECIMAL
-  },
-  verbose: true
-});
-<% end %>
 
 print('count: ', db[outCollection].find().count());
 print('Finished. Created collection ', outCollection);
