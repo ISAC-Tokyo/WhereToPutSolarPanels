@@ -116,7 +116,6 @@ wpsp.map.prototype.buildHeatMapLayer = function(data) {
     var targetRadius = radiusForScale[this.root.zoom];
     if (targetRadius == undefined && this.root.zoom < 5) { targetRadius = 240 }
     if (targetRadius == undefined && this.root.zoom > 10) { targetRadius = 50 }
-console.log(this.root.zoom);
     heatmap.setOptions({
       dissipating: true,
       radius: $("#map").width() / targetRadius,
