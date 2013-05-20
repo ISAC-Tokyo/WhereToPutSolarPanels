@@ -1,6 +1,6 @@
 class Cloud
   include Mongoid::Document
-  store_in collection: "cloud_mask"
+  store_in collection: "cloud_mask", database: "wtps12_0", session: "wtpsdb0"
 
   field :loc, type: Hash 
   #field :lat, :type => Float

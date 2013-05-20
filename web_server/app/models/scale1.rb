@@ -1,6 +1,6 @@
 class Scale1
   include Mongoid::Document
-  store_in collection: "alldate_scale1", database: "wtps20xx", session: "wtpsdb0"
+  store_in collection: "alldate_scale1"
 
   field :value, type: Hash 
 

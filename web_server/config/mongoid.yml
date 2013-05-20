@@ -5,11 +5,11 @@ development:
     default:
       # Defines the name of the default database that Mongoid can connect to.
       # (required).
-      database: wtps12_12
+      database: wtps20xx
       # Provides the hosts the default session can connect to. Must be an array
       # of host:port pairs. (required)
       hosts:
-        - 10.1.2.94:27017
+        - 10.1.1.35:27017
       options:
         # Change whether the session persists in safe mode by default.
         # (default: false)
@@ -27,15 +27,7 @@ development:
         # The time in seconds that Moped should wait before retrying an
         # operation on failure. (default: 1)
         # retry_interval: 1
-    dai2:
-      database: wtps12_12
-      hosts:
-        - 10.1.1.82:27017
-    dai3:
-      database: wtps12_8
-      hosts:
-        - 10.1.2.94:27017
-      options:
+
     wtpsdb0:
       database: wtps20xx
       hosts:
