@@ -29,7 +29,7 @@ development:
         # retry_interval: 1
 
     wtpsdb0:
-      database: wtps20xx
+      database: wtps12_0
       hosts:
         - 10.1.1.35:27017
       options:
