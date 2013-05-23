@@ -9,7 +9,7 @@ development:
       # Provides the hosts the default session can connect to. Must be an array
       # of host:port pairs. (required)
       hosts:
-        - 10.1.1.163:27017
+        - 10.1.1.35:27017
       options:
         # Change whether the session persists in safe mode by default.
         # (default: false)
@@ -31,7 +31,7 @@ development:
     wtpsdb0:
       database: wtps12_0
       hosts:
-        - 10.1.1.163:27017
+        - 10.1.1.35:27017
       options:
   # Configure Mongoid specific options. (optional)
   options:
