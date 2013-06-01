@@ -15,7 +15,6 @@ class QueueServer
 		rescue DRb::DRbConnError => e
 			p e
 			return nil
-			# system("sudo -u admin ssh #{host} echo hoge")
 		end
 		return drb
 	end
