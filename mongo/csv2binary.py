@@ -3,10 +3,10 @@
 import csv
 from struct import pack
 
-f = open('./alldate_scale1.csv')
+f = open('./alldate_scale2.csv')
 
 # 解像度の逆数
-RESOLUTION = 10
+RESOLUTION = 100
 
 LAT_MIN = 20 * RESOLUTION
 LAT_MAX = 50 * RESOLUTION
@@ -33,8 +33,8 @@ def fill_rank_data(arr):
         lon = float(row[1])
         score = float(row[2])
 
-        row = int(lat * RESOLUTION - LAT_MIN) - 1
-        col = int(lon * RESOLUTION - LON_MIN)
+        row = int(round(lat * RESOLUTION) - LAT_MIN)
+        col = int(round(lon * RESOLUTION) - LON_MIN)
         idx = row * (LAT_MAX - LAT_MIN + 1) + col
 
         arr[idx] = int(score * 10000)
@@ -43,7 +43,7 @@ def fill_rank_data(arr):
 
 
 def write_binary(ranks):
-    out = open('binary_map_[20,120]to[50,150].dat', 'wb')
+    out = open('binary_map_[20,120]to[50,150]_scale2.dat', 'wb')
     for rank in ranks:
         out.write(pack('<H', rank))
 
